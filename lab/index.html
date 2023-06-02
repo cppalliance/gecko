@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Algolia Boost Examples</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2.6.3/dist/cdn/docsearch.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/docsearch.js@2.6.3/dist/cdn/docsearch.min.js"></script>
+    <style>
+        .algolia-autocomplete .ds-dropdown-menu {
+            min-width: 650px;
+            max-width: 650px;
+        }
+    </style>
+</head>
+
+<body style="overflow-y:scroll;">
+    <div style="width:800px; margin:35px auto;">
+        <div style="width: 40%; display:inline-block;">
+            <div>Boost. <select id="library"></select></div>
+            <br>
+            <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+        <div style="width: 40%; display:inline-block;">
+            <div>All libraries</div>
+            <br>
+            <input id="search-input-all" type="text" placeholder="Search the docs">
+        </div>
+    </div>
+</body>
+<script>
+    var libraries = ['bimap', 'circular_buffer', 'contract', 'convert', 'date_time', 'detail', 'dll', 'graph', 'graph_parallel', 'msm', 'multi_array', 'pool', 'property_map', 'safe_numerics', 'vmd','describe', 'leaf', 'endian', 'variant2', 'container_hash', 'system', 'predef', 'qvm', 'unordered', 'smart_ptr', 'lambda2', 'assert', 'io', 'throw_exception', 'mp11', 'accumulators', 'algorithm', 'align', 'any', 'array', 'asio', 'atomic', 'beast', 'bind', 'callable_traits', 'chrono', 'compute', 'config', 'container', 'context', 'conversion', 'core', 'coroutine2', 'coroutine', 'crc', 'fiber', 'foreach', 'function', 'function_types', 'fusion', 'geometry', 'heap', 'histogram', 'icl', 'integer', 'interprocess', 'intrusive', 'iterator', 'json', 'lambda', 'lexical_cast', 'local_function', 'lockfree', 'log', 'math', 'metaparse', 'move', 'mpi', 'multiprecision', 'mysql', 'optional', 'pfr', 'phoenix', 'poly_collection', 'process', 'program_options', 'property_tree', 'proto', 'python', 'random', 'range', 'ratio', 'regex', 'scope_exit', 'signals2', 'sort', 'spirit', 'stacktrace', 'static_assert', 'static_string', 'stl_interfaces', 'test', 'thread', 'tribool', 'tti', 'tuple', 'type_erasure', 'type_index', 'typeof', 'type_traits', 'units', 'url', 'utility', 'variant', 'winapi', 'xpressive', 'yap'];
+    libraries.sort();
+
+    var search = undefined;
+
+    for (var i = 0; i < libraries.length; i++) {
+        var opt = libraries[i];
+        var el = document.createElement("option");
+        el.textContent = opt;
+        el.value = opt;
+        document.getElementById("library").appendChild(el);
+    }
+
+    document.getElementById('library').addEventListener('change', function () {
+        search.algoliaOptions = {
+            'hitsPerPage': 10,
+            'facetFilters': ["library:" + this.value]
+        };
+    });
+
+    setTimeout(function () {
+        console.log(document.getElementById("library").value)
+        search = docsearch({
+            appId: 'D7O1MLLTAF',
+            apiKey: '44d0c0aac3c738bebb622150d1ec4ebf',
+            indexName: 'all',
+            inputSelector: '#search-input',
+            autocompleteOptions: { hint: false, keyboardShortcuts: ['s'] },
+            algoliaOptions: {
+                'hitsPerPage': 10,
+                'facetFilters': ["library:" + document.getElementById("library").value]
+            },
+        });
+    }, 100);
+
+    docsearch({
+        appId: 'D7O1MLLTAF',
+        apiKey: '44d0c0aac3c738bebb622150d1ec4ebf',
+        indexName: 'all',
+        inputSelector: '#search-input-all',
+        autocompleteOptions: { hint: false, keyboardShortcuts: ['s'] },
+        algoliaOptions: {
+            'hitsPerPage': 10,
+        },
+    });
+</script>
+
+</html>
