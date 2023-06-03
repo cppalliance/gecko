@@ -2,7 +2,7 @@ from pathlib import Path
 import re
 import json
 
-from .crawlers.asciicoc import AsciiDoc
+from .crawlers.quickbook import QuickBook
 
 
 def create_algolia_records(library_key: str, sections: dict, boost_root: Path, boost_version: str):
@@ -36,12 +36,22 @@ def create_algolia_records(library_key: str, sections: dict, boost_root: Path, b
 
 
 if __name__ == "__main__":
-    libraries = ['describe', 'leaf', 'endian', 'variant2', 'container_hash', 'system', 'predef', 'qvm', 'unordered',
-                 'smart_ptr', 'lambda2', 'assert', 'io', 'throw_exception', 'mp11']
+    libraries = [
+        'hof', 'bimap', 'circular_buffer', 'contract', 'convert', 'date_time', 'detail', 'dll', 'graph', 'msm',
+        'multi_array', 'pool', 'safe_numerics', 'vmd', 'crc', 'asio', 'thread', 'xpressive', 'regex', 'spirit', 'core',
+        'mpi', 'property_tree', 'heap', 'typeof', 'metaparse', 'intrusive', 'compute', 'geometry', 'random',
+        'coroutine2', 'tti', 'phoenix', 'fusion', 'lockfree', 'test', 'multiprecision', 'poly_collection', 'json',
+        'chrono', 'signals2', 'icl', 'optional', 'function_types', 'log', 'ratio', 'lexical_cast', 'proto', 'fiber',
+        'local_function', 'python', 'type_traits', 'foreach', 'sort', 'yap', 'callable_traits', 'container',
+        'scope_exit', 'coroutine', 'variant', 'beast', 'mysql', 'lambda', 'move', 'url', 'stl_interfaces', 'integer',
+        'range', 'context', 'interprocess', 'atomic', 'histogram', 'align', 'config', 'tuple', 'units',
+        'program_options', 'type_index', 'math', 'accumulators', 'bind', 'function', 'array', 'static_string', 'winapi',
+        'algorithm', 'any', 'utility', 'process', 'conversion', 'stacktrace', 'pfr', 'type_erasure', 'static_assert',
+        'tribool']
     boost_root = Path('../boost_1_82_0')
     BOOST_VERSION = '1_82_0'
 
     for library_key in libraries:
-        crawler = AsciiDoc(boost_root)
+        crawler = QuickBook(boost_root)
         sections = crawler.crawl(library_key)
         create_algolia_records(library_key, sections, boost_root, BOOST_VERSION)

@@ -1,2 +1,3 @@
+.vscode
 __pycache__
 algolia_records/*.json
