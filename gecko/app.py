@@ -1,8 +1,8 @@
-from crawlers.asciicoc import AsciiDoc
-
 from pathlib import Path
 import re
 import json
+
+from .crawlers.asciicoc import AsciiDoc
 
 
 def create_algolia_records(library_key: str, sections: dict, boost_root: Path, boost_version: str):
@@ -15,7 +15,7 @@ def create_algolia_records(library_key: str, sections: dict, boost_root: Path, b
             'library_key': library_key,
             'boost_version': boost_version,
             'url': url,
-            'content': re.sub('\s+', ' ', section['content']).strip(),
+            'content': re.sub(r'\s+', ' ', section['content']).strip(),
             'weight': {
                 'pageRank': 0,
                 'level': 100 - len(section['lvls']) * 10,
@@ -31,17 +31,17 @@ def create_algolia_records(library_key: str, sections: dict, boost_root: Path, b
                 'lvl6': section['lvls'][6] if len(section['lvls']) > 6 else None
             }})
 
-    with open('./algolia_records/' + library_key + '.json', 'w') as outfile:
+    with open('./algolia_records/' + library_key + '.json', 'w', encoding='utf-8') as outfile:
         json.dump(records, outfile, indent=4)
 
 
 if __name__ == "__main__":
-
-    libraries = ['describe', 'leaf', 'endian', 'variant2', 'container_hash', 'system', 'predef', 'qvm', 'unordered', 'smart_ptr', 'lambda2', 'assert', 'io', 'throw_exception', 'mp11']
+    libraries = ['describe', 'leaf', 'endian', 'variant2', 'container_hash', 'system', 'predef', 'qvm', 'unordered',
+                 'smart_ptr', 'lambda2', 'assert', 'io', 'throw_exception', 'mp11']
     boost_root = Path('../boost_1_82_0')
-    boost_version = '1_82_0'
+    BOOST_VERSION = '1_82_0'
 
     for library_key in libraries:
         crawler = AsciiDoc(boost_root)
         sections = crawler.crawl(library_key)
-        create_algolia_records(library_key, sections, boost_root, boost_version)
+        create_algolia_records(library_key, sections, boost_root, BOOST_VERSION)
