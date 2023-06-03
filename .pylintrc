@@ -1,0 +1,11 @@
+[FORMAT]
+max-line-length=120
+
+[MASTER]
+disable=
+    C0116, # missing-function-docstring
+    C0115, # missing-class-docstring
+    C0114, # missing-module-docstring
+    W0621, # redefined-outer-name
+    W0102, # dangerous-default-value
+    R0903, # too-few-public-methods
