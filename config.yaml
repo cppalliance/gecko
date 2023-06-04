@@ -1,6 +1,11 @@
 boost_version: "1_82_0"
 boost_root: "../boost_1_82_0"
 crawlers:
+  - name: Harlequin
+    libraries:
+      - numeric/ublas
+      - numeric/interval
+
   - name: Tarentola
     libraries:
       - parameter
@@ -84,6 +89,8 @@ crawlers:
       - multi_array
       - multiprecision
       - mysql
+      - numeric/interval
+      - numeric/ublas
       - optional
       - pfr
       - phoenix
