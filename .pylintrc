@@ -9,3 +9,4 @@ disable=
     W0621, # redefined-outer-name
     W0102, # dangerous-default-value
     R0903, # too-few-public-methods
+    W0401, # wildcard-import
