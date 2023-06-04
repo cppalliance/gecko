@@ -43,5 +43,5 @@ It extracts contents with the correct hierarchy for each library and generates r
 ## Uncovered libraries
 
 ```python
-['assign', 'compatibility', 'concept_check', 'dynamic_bitset', 'exception', 'filesystem', 'flyweight', 'format', 'gil', 'graph_parallel', 'hana', 'iostreams', 'iterator', 'locale', 'mpl', 'multi_index', 'nowide', 'numeric', 'outcome', 'polygon', 'preprocessor', 'property_map', 'ptr_container', 'rational', 'serialization', 'statechart', 'timer', 'tokenizer', 'uuid', 'wave']
+['assign', 'compatibility', 'concept_check', 'dynamic_bitset', 'exception', 'filesystem', 'flyweight', 'format', 'gil', 'graph_parallel', 'hana', 'iostreams', 'iterator', 'locale', 'mpl', 'multi_index', 'nowide', 'outcome', 'polygon', 'preprocessor', 'property_map', 'ptr_container', 'rational', 'serialization', 'statechart', 'timer', 'tokenizer', 'uuid', 'wave']
 ```

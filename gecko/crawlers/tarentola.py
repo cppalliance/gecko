@@ -22,7 +22,7 @@ class Tarentola(Crawler):
 
         return sections
 
-    def _extract_section_n(self, index_path: str, sections: dict, sect: Tag, lvls: list = []):
+    def _extract_section_n(self, html_file_path: str, sections: dict, sect: Tag, lvls: list = []):
         header = sect.select_one('h1, h2, h3, h4, h5, h6')
 
         # regex removes section and subsection numbers
@@ -36,8 +36,8 @@ class Tarentola(Crawler):
         content = ''
         for sibling in siblings:
             if has_class(sibling, 'section'):
-                self._extract_section_n(index_path, sections, sibling, lvls)
+                self._extract_section_n(html_file_path, sections, sibling, lvls)
                 continue
             content += sibling.get_text() + ' '
 
-        sections[index_path + '#' + header.find_parent(class_='section').get('id')] = {'content': content, 'lvls': lvls}
+        sections[html_file_path + '#' + header.find_parent(class_='section').get('id')] = {'content': content, 'lvls': lvls}
