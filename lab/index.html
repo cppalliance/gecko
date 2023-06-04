@@ -28,7 +28,7 @@
     </div>
 </body>
 <script>
-    var libraries = ['bimap', 'circular_buffer', 'contract', 'convert', 'date_time', 'detail', 'dll', 'graph', 'graph_parallel', 'msm', 'multi_array', 'pool', 'property_map', 'safe_numerics', 'vmd','describe', 'leaf', 'endian', 'variant2', 'container_hash', 'system', 'predef', 'qvm', 'unordered', 'smart_ptr', 'lambda2', 'assert', 'io', 'throw_exception', 'mp11', 'accumulators', 'algorithm', 'align', 'any', 'array', 'asio', 'atomic', 'beast', 'bind', 'callable_traits', 'chrono', 'compute', 'config', 'container', 'context', 'conversion', 'core', 'coroutine2', 'coroutine', 'crc', 'fiber', 'foreach', 'function', 'function_types', 'fusion', 'geometry', 'heap', 'histogram', 'icl', 'integer', 'interprocess', 'intrusive', 'iterator', 'json', 'lambda', 'lexical_cast', 'local_function', 'lockfree', 'log', 'math', 'metaparse', 'move', 'mpi', 'multiprecision', 'mysql', 'optional', 'pfr', 'phoenix', 'poly_collection', 'process', 'program_options', 'property_tree', 'proto', 'python', 'random', 'range', 'ratio', 'regex', 'scope_exit', 'signals2', 'sort', 'spirit', 'stacktrace', 'static_assert', 'static_string', 'stl_interfaces', 'test', 'thread', 'tribool', 'tti', 'tuple', 'type_erasure', 'type_index', 'typeof', 'type_traits', 'units', 'url', 'utility', 'variant', 'winapi', 'xpressive', 'yap'];
+    var libraries = ['accumulators', 'algorithm', 'align', 'any', 'array', 'asio', 'atomic', 'beast', 'bimap', 'bind', 'callable_traits', 'chrono', 'circular_buffer', 'compute', 'config', 'container', 'context', 'contract', 'conversion', 'convert', 'core', 'coroutine', 'coroutine2', 'crc', 'date_time', 'detail', 'dll', 'fiber', 'foreach', 'function_types', 'function', 'fusion', 'geometry', 'graph', 'heap', 'histogram', 'hof', 'icl', 'integer', 'interprocess', 'intrusive', 'json', 'lambda', 'lexical_cast', 'local_function', 'lockfree', 'log', 'math', 'metaparse', 'move', 'mpi', 'msm', 'multi_array', 'multiprecision', 'mysql', 'optional', 'pfr', 'phoenix', 'poly_collection', 'pool', 'process', 'program_options', 'property_tree', 'proto', 'python', 'random', 'range', 'ratio', 'regex', 'safe_numerics', 'scope_exit', 'signals2', 'sort', 'spirit', 'stacktrace', 'static_assert', 'static_string', 'stl_interfaces', 'test', 'thread', 'tribool', 'tti', 'tuple', 'type_erasure', 'type_index', 'type_traits', 'typeof', 'units', 'url', 'utility', 'variant', 'vmd', 'winapi', 'xpressive', 'yap', 'assert', 'container_hash', 'describe', 'endian', 'io', 'lambda2', 'leaf', 'mp11', 'predef', 'qvm', 'smart_ptr', 'system', 'throw_exception', 'unordered', 'variant2'];
     libraries.sort();
 
     var search = undefined;
@@ -44,7 +44,7 @@
     document.getElementById('library').addEventListener('change', function () {
         search.algoliaOptions = {
             'hitsPerPage': 10,
-            'facetFilters': ["library:" + this.value]
+            'facetFilters': ["library_key:" + this.value]
         };
     });
 
@@ -58,7 +58,7 @@
             autocompleteOptions: { hint: false, keyboardShortcuts: ['s'] },
             algoliaOptions: {
                 'hitsPerPage': 10,
-                'facetFilters': ["library:" + document.getElementById("library").value]
+                'facetFilters': ["library_key:" + document.getElementById("library").value]
             },
         });
     }, 100);
