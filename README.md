@@ -32,9 +32,9 @@ It extracts contents with the correct hierarchy for each library and generates r
 
 ## TODOs
 - Writing developer documentation.
-- Improving project structure and making a generic interface for adding crawlers.
-- Writing crawler for remaining libraries.
-- Considering a smarter approach to indexing libraries with unique structures that doesn't necessitate a dedicated crawler.
+- Improving the project structure and making a generic interface for adding crawlers.
+- Writing crawler for the remaining libraries.
+- Considering a smarter approach for indexing libraries with unique structures that doesn't necessitate a dedicated crawler.
 - Adding Test.
 - Setting up the repository.
 - Setting up CI.
@@ -43,5 +43,5 @@ It extracts contents with the correct hierarchy for each library and generates r
 ## Uncovered libraries
 
 ```python
-['assign', 'compatibility', 'concept_check', 'dynamic_bitset', 'exception', 'filesystem', 'flyweight', 'format', 'functional', 'gil', 'graph_parallel', 'hana', 'iostreams', 'iterator', 'locale', 'mpl', 'multi_index', 'nowide', 'numeric', 'outcome', 'polygon', 'preprocessor', 'property_map', 'ptr_container', 'rational', 'serialization', 'statechart', 'timer', 'tokenizer', 'uuid', 'wave']
+['assign', 'compatibility', 'concept_check', 'dynamic_bitset', 'exception', 'filesystem', 'flyweight', 'format', 'gil', 'graph_parallel', 'hana', 'iostreams', 'iterator', 'locale', 'mpl', 'multi_index', 'nowide', 'numeric', 'outcome', 'polygon', 'preprocessor', 'property_map', 'ptr_container', 'rational', 'serialization', 'statechart', 'timer', 'tokenizer', 'uuid', 'wave']
 ```

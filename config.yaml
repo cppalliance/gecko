@@ -55,8 +55,11 @@ crawlers:
       - dll
       - fiber
       - foreach
-      - function_types
       - function
+      - function_types
+      - functional/factory
+      - functional/forward
+      - functional/overloaded_function
       - fusion
       - geometry
       - graph
