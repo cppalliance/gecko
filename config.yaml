@@ -3,6 +3,7 @@ boost_root: "../boost_1_82_0"
 crawlers:
   - name: FlatPage
     libraries:
+      - assign
       - concept_check
       - dynamic_bitset
       - flyweight
