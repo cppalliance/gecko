@@ -1,6 +1,18 @@
 boost_version: "1_82_0"
 boost_root: "../boost_1_82_0"
 crawlers:
+  - name: FlatPage
+    libraries:
+      - concept_check
+      - dynamic_bitset
+      - flyweight
+      - multi_index
+      - property_map
+      - rational
+      - statechart
+      - timer
+      - uuid
+
   - name: Harlequin
     libraries:
       - numeric/ublas
