@@ -101,8 +101,8 @@ crawlers:
       - multi_array
       - multiprecision
       - mysql
-      - numeric/interval
-      - numeric/ublas
+      - numeric/conversion
+      - numeric/odeint
       - optional
       - pfr
       - phoenix
