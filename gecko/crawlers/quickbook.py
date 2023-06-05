@@ -93,7 +93,7 @@ class QuickBook(Crawler):
                 if index.find_parent(class_='section'):
                     index.find_parent(class_='section').decompose()
 
-            # collect all releative links to return for scrape
+            # collect all releative links to scrape
             releative_links = []
             for link in soup.select('a:not([href^="http"])'):
                 releative_links.append(urljoin(file_path, link.get('href')))
