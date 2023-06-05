@@ -1,2 +1,5 @@
 algoliasearch==3.0.0
 beautifulsoup4==4.12.2
+lxml==4.8.0
+PyYAML==6.0
+schema==0.7.5
