@@ -107,7 +107,8 @@ class QuickBook(Crawler):
                 releative_links.append(urljoin(file_path, link.get('href')))
 
             # we use href of up arrow in the navbar to find parent and create hireachy
-            up = soup.select_one('body > .spirit-nav > a[accesskey="u"]')
+            # navfooter is used in msm library
+            up = soup.select_one('body > .spirit-nav > a[accesskey="u"], body > .navfooter a[accesskey="u"]')
             if up and up.get('href') != '#':
                 up = urljoin(file_path, up.get('href'))
 
