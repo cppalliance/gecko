@@ -10,6 +10,10 @@ from .config import config
 def extract_library_name(library_key: str, boost_root: str):
     libraries_json = Path(boost_root) / 'libs' / library_key / 'meta/libraries.json'
 
+    # workaround for tribool
+    if library_key == 'tribool':
+        libraries_json = Path(boost_root) / 'libs' / 'logic' / 'meta/libraries.json'
+
     # use parent directory for boost.functional
     if not os.path.isfile(libraries_json):
         libraries_json = Path(boost_root) / 'libs' / library_key.split('/')[0] / 'meta/libraries.json'
