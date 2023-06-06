@@ -1,19 +1,41 @@
 from pathlib import Path
 import re
 import json
+import os
 
 from .crawlers import *
 from .config import config
 
 
+def extract_library_name(library_key: str, boost_root: str):
+    libraries_json = Path(boost_root) / 'libs' / library_key / 'meta/libraries.json'
+
+    # use parent directory for boost.functional
+    if not os.path.isfile(libraries_json):
+        libraries_json = Path(boost_root) / 'libs' / library_key.split('/')[0] / 'meta/libraries.json'
+
+    with open(libraries_json, 'r', encoding='utf-8') as file:
+        meta = json.load(file)
+        if isinstance(meta, list):
+            library_name = [m for m in meta if m['key'] == library_key][0]['name']
+        else:
+            library_name = meta['name']
+
+    return library_name
+
+
 def create_algolia_records(library_key: str, sections: dict, boost_root: str, boost_version: str):
     records = []
+
+    library_name = extract_library_name(library_key, boost_root)
+
     for url, section in sections.items():
         url = url.replace(str(Path(boost_root).resolve()), 'https://www.boost.org/doc/libs/' + boost_version)
 
         records.append({
             'type': 'content',
             'library_key': library_key,
+            'library_name': library_name,
             'boost_version': boost_version,
             'url': url,
             'content': re.sub(r'\s+', ' ', section['content']).strip(),
