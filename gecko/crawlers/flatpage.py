@@ -2,7 +2,7 @@ import os
 import re
 from urllib.parse import urljoin, urlparse
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 from lxml.html.clean import Cleaner
 
 from .crawler import Crawler
@@ -38,6 +38,16 @@ def sanitize_html(dirty_html):
 
 def sanitize_title(title):
     return re.sub(r'\s+', ' ', title).strip()
+
+
+def extract_url(file_path: str, header: Tag):
+    if header.select_one('a').has_attr('name'):
+        return file_path + '#' + header.select_one('a').get('name')
+
+    if header.select_one('a').has_attr('id'):
+        return file_path + '#' + header.select_one('a').get('id')
+
+    return file_path + header.select_one('a').get('href')
 
 
 class FlatPage(Crawler):
@@ -101,21 +111,21 @@ class FlatPage(Crawler):
                         break
                     content += sibling.get_text().strip() + ' '
 
-                if header.select_one('a').has_attr('name'):
-                    url = file_path + '#' + header.select_one('a').get('name')
-                elif header.select_one('a').has_attr('id'):
-                    url = file_path + '#' + header.select_one('a').get('id')
-                else:
-                    url = file_path + header.select_one('a').get('href')
-
                 if header.name == 'h2' or not last_h2:
-                    lvls = [sanitize_title(header.text)]
+                    lvls = [{'title': sanitize_title(header.text), 'url': extract_url(file_path, header)}]
                 elif header.name == 'h3' or not last_h3:
-                    lvls = [sanitize_title(last_h2.text), sanitize_title(header.text)]
+                    lvls = [
+                        {'title': sanitize_title(last_h2.text), 'url': extract_url(file_path, last_h2)},
+                        {'title': sanitize_title(header.text), 'url': extract_url(file_path, header)}
+                    ]
                 else:
-                    lvls = [sanitize_title(last_h2.text), sanitize_title(last_h3.text), sanitize_title(header.text)]
+                    lvls = [
+                        {'title': sanitize_title(last_h2.text), 'url': extract_url(file_path, last_h2)},
+                        {'title': sanitize_title(last_h3.text), 'url': extract_url(file_path, last_h3)},
+                        {'title': sanitize_title(header.text), 'url': extract_url(file_path, header)}
+                    ]
 
-                sections[url] = {'lvls': lvls, 'content': content}
+                sections[extract_url(file_path, header)] = {'lvls': lvls, 'content': content}
 
             # collect all releative links to scrape
             releative_links = []

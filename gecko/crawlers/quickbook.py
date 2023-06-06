@@ -11,10 +11,6 @@ from .helpers import has_class
 def sanitize_title(title):
     title = re.sub(r'\s+', ' ', title).strip()
 
-    if 'Header <' in title:
-        title = title.replace('<', '')
-        title = title.replace('>', '')
-
     # Workaround for Reference page in Boost.Beast
     if 'This Page Intentionally Left Blank' in title:
         return 'Reference'
@@ -22,6 +18,19 @@ def sanitize_title(title):
     title = title.replace('¶', '')
 
     return title
+
+
+def remove_duplicate_lvls(lvls: list):
+    encountered_titles = set()
+    unique_dicts = []
+
+    for lvl in lvls:
+        title = lvl['title']
+        if title not in encountered_titles:
+            unique_dicts.append(lvl)
+            encountered_titles.add(title)
+
+    return unique_dicts
 
 
 class QuickBook(Crawler):
@@ -69,8 +78,7 @@ class QuickBook(Crawler):
             self._populate_hierachy(sections, section)
 
         for _, section in sections.items():
-            # remove duplicates
-            section['lvls'] = list(dict.fromkeys(section['lvls']))
+            section['lvls'] = remove_duplicate_lvls(section['lvls'])
 
             # remove library name (it is at the end)
             section['lvls'].pop()
@@ -106,11 +114,13 @@ class QuickBook(Crawler):
             # ref pages have a different structure, like:
             # https://www.boost.org/doc/libs/1_82_0/doc/html/boost/algorithm/erase_range_copy.html
             if soup.select_one('body > .refentry'):
-                title = sanitize_title(soup.select_one('.refentry > .refnamediv > h2').text)
+                lvl1 = [{
+                    'title': sanitize_title(soup.select_one('.refentry > .refnamediv > h2').text),
+                    'url': file_path
+                }]
 
                 for refsect1 in soup.select('.refentry > .refsect1'):
                     anchor = refsect1.select_one('a').get('name')
-                    sub_title = sanitize_title(refsect1.select_one('h2').text)
 
                     content = ''
                     for sibling in refsect1.select_one('h2').find_next_siblings():
@@ -119,12 +129,15 @@ class QuickBook(Crawler):
                         content += sibling.get_text().strip() + ' '
 
                     url = file_path + '#' + anchor
-                    lvls = [sub_title, title]
-                    sections[url] = {'lvls': lvls, 'content': content, 'up': up}
+                    lvl2 = [{
+                        'title': sanitize_title(refsect1.select_one('h2').text),
+                        'url': url
+                    }]+lvl1
+
+                    sections[url] = {'lvls': lvl2, 'content': content, 'up': up}
 
                     for refsect2 in refsect1.select('.refsect2'):
                         anchor = refsect2.select_one('a').get('name')
-                        sub_title = sanitize_title(refsect2.select_one('h3').text)
 
                         content = ''
                         for sibling in refsect2.select_one('h3').find_next_siblings():
@@ -133,8 +146,11 @@ class QuickBook(Crawler):
                             content += sibling.get_text().strip() + ' '
 
                         url = file_path + '#' + anchor
-                        lvls = [sub_title, title]
-                        sections[url] = {'lvls': lvls, 'content': content, 'up': up}
+                        lvl3 = [{
+                            'title': sanitize_title(refsect2.select_one('h3').text),
+                            'url': url
+                        }]+lvl2
+                        sections[url] = {'lvls': lvl3, 'content': content, 'up': up}
             else:
                 for anchor in soup.select('h1 > a.headerlink, h2 > a.headerlink, h3 > a.headerlink, h4 > a.headerlink, '
                                           'h5 > a.headerlink, h6 > a.headerlink, h1 > a.link, h2 > a.link, h3 > a.link,'
@@ -171,11 +187,34 @@ class QuickBook(Crawler):
                         url = file_path
 
                     if soup.select_one('body > div > .titlepage .title'):
-                        lvls = [sanitize_title(anchor.parent.text), sanitize_title(soup.select_one('body > div > .titlepage .title').text)]
+                        lvls = [
+                            {
+                                'title': sanitize_title(anchor.parent.text),
+                                'url': url
+                            },
+                            {
+                                'title': sanitize_title(soup.select_one('body > div > .titlepage .title').text),
+                                'url': file_path
+                            }
+                        ]
                     elif soup.select_one('.body > .section:first-child > h1'):
-                        lvls = [sanitize_title(anchor.parent.text), sanitize_title(soup.select_one('.body > .section:first-child > h1').text)]
+                        lvls = [
+                            {
+                                'title': sanitize_title(anchor.parent.text),
+                                'url': url
+                            },
+                            {
+                                'title': sanitize_title(soup.select_one('.body > .section:first-child > h1').text),
+                                'url': file_path
+                            }
+                        ]
                     else:
-                        lvls = [sanitize_title(anchor.parent.text)]
+                        lvls = [
+                            {
+                                'title': sanitize_title(anchor.parent.text),
+                                'url': url
+                            }
+                        ]
 
                     sections[url] = {'lvls': lvls, 'content': content, 'up': up}
 
