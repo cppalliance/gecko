@@ -43,8 +43,16 @@ function CustomSearchBox(props) {
 }
 
 function Hit(hit) {
-  const { boost_version, library_key, library_name, hierarchy } = hit;
-  const hierarchyLinks = Object.values(hierarchy).filter(x => !!x).map(({ title, url }) => <Link underline="hover" href={url}>{title}</Link>);
+  const { boost_version, library_key, library_name, hierarchy, _highlightResult } = hit;
+  let hierarchyLinks = []
+
+  if (_highlightResult) {
+    Object.keys(_highlightResult.hierarchy).forEach(function (key) {
+      const { title } = _highlightResult.hierarchy[key];
+      const { url } = hierarchy[key];
+      hierarchyLinks.push(<Link underline="hover" dangerouslySetInnerHTML={{ __html: title.value }} href={url}></Link>)
+    });
+  }
 
   return (
     <Box>
@@ -95,7 +103,7 @@ function App() {
   };
 
   return (
-    <InstantSearch searchClient={searchClient} indexName="all">
+    <InstantSearch searchClient={searchClient}>
       <Container maxWidth="md">
         <Grid container spacing={2}>
           <Grid item xs={10}>
