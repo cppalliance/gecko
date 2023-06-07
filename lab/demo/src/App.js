@@ -20,7 +20,7 @@ import grey from '@mui/material/colors/grey';
 import Typography from '@mui/material/Typography';
 
 import algoliasearch from 'algoliasearch/lite';
-import { InstantSearch, Index, Configure, useSearchBox, useInfiniteHits, Snippet } from 'react-instantsearch-hooks-web';
+import { InstantSearch, Index, Configure, useSearchBox, useInfiniteHits, Snippet, PoweredBy } from 'react-instantsearch-hooks-web';
 
 const searchClient = algoliasearch(
   'D7O1MLLTAF',
@@ -98,8 +98,8 @@ function App() {
     <InstantSearch searchClient={searchClient} indexName="all">
       <Container maxWidth="md">
         <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Typography variant="h5" gutterBottom>
+          <Grid item xs={10}>
+            <Typography variant="h5">
               <Link
                 underline="none"
                 href="https://github.com/cppalliance/boost-gecko"
@@ -107,6 +107,9 @@ function App() {
                 Boost.Gecko
               </Link>
             </Typography>
+          </Grid>
+          <Grid item xs={2} sx={{ mt: 1 }}>
+            <PoweredBy />
           </Grid>
           <Grid item xs={4}>
             <FormControl fullWidth>
