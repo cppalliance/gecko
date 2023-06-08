@@ -1,21 +1,22 @@
 import json
-import os
-import glob
+from pathlib import Path
 from algoliasearch.search_client import SearchClient
 
 if __name__ == "__main__":
     client = SearchClient.create('D7O1MLLTAF', 'YourWriteAPIKey')
-    index = client.init_index("libraries")
+    index = client.init_index("all")
 
-    for filename in glob.glob('./records/*.json'):
-        print('uploading records for {}.'.format(filename))
+    for path in Path('../algolia_records').glob('*.json'):
+        print('uploading records for {}...'.format(path.stem))
 
-        with open(os.path.join(os.getcwd(), filename), 'r') as f:
+        with open(path, 'r', encoding='utf-8') as f:
             records = json.load(f)
 
             for record in records:
                 # TODO do something about truncation of long contents
                 record['content'] = record['content'][:90000]
+
+            records = [record for record in records if not(record['content'] == '' and not record['hierarchy']['lvl0'])]
 
             # TODO instead of using autoGenerateObjectIDIfNotExist we might create a hash out of hierarchy items
             index.save_objects(records, {'autoGenerateObjectIDIfNotExist': True})
