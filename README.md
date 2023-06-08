@@ -9,19 +9,28 @@ It extracts contents with the correct hierarchy for each library and generates r
 ```JSON
 {
     "type": "content",
-    "library": "hof",
+    "library_key": "asio",
+    "library_name": "Asio",
     "boost_version": "1_82_0",
-    "url": "https://www.boost.org/doc/libs/1_82_0/libs/hof/doc/html/doc/src/definitions.html#function-adaptor",
-    "content": "A Function Adaptor takes a function(or functions) and returns a new function with enhanced capability. Each adaptor has a functional form with a corresponding class with _adaptor appended to it: template<class... Fs> FunctionAdaptor_adaptor<Fs...> FunctionAdaptor(Fs...); Both the functional form and the class form can be used to construct the adaptor.",
+    "content": "To aid in debugging asynchronous programs, Boost.Asio provides support for handler ...",
     "weight": {
         "pageRank": 0,
         "level": 70,
         "position": 0
     },
     "hierarchy": {
-        "lvl0": "Overview",
-        "lvl1": "Definitions",
-        "lvl2": "Function Adaptor",
+        "lvl0": {
+            "title": "Overview",
+            "url": "https://www.boost.org/doc/libs/1_82_0/doc/html/boost_asio/overview.html"
+        },
+        "lvl1": {
+            "title": "Core Concepts and Functionality",
+            "url": "https://www.boost.org/doc/libs/1_82_0/doc/html/boost_asio/overview/core.html"
+        },
+        "lvl2": {
+            "title": "Handler Tracking",
+            "url": "https://www.boost.org/doc/libs/1_82_0/doc/html/boost_asio/overview/core/handler_tracking.html"
+        },
         "lvl3": null,
         "lvl4": null,
         "lvl5": null,
