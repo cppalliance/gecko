@@ -1,4 +1,4 @@
-const libraries = [
+export const libraries = [
     {
         "key": "accumulators",
         "name": "Accumulators"
@@ -516,5 +516,3 @@ const libraries = [
         "name": "uBLAS"
     }
 ];
-
-export default libraries

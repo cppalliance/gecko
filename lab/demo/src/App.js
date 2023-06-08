@@ -1,4 +1,4 @@
-import libraries from './libraries.js'
+import { libraries } from './libraries.js'
 
 import React from 'react';
 
@@ -22,10 +22,7 @@ import Typography from '@mui/material/Typography';
 import algoliasearch from 'algoliasearch/lite';
 import { InstantSearch, Index, Configure, useSearchBox, useInfiniteHits, Snippet, PoweredBy } from 'react-instantsearch-hooks-web';
 
-const searchClient = algoliasearch(
-  'D7O1MLLTAF',
-  '44d0c0aac3c738bebb622150d1ec4ebf'
-);
+const searchClient = algoliasearch('D7O1MLLTAF', '44d0c0aac3c738bebb622150d1ec4ebf');
 
 function CustomSearchBox(props) {
   const { currentRefinement, refine, } = useSearchBox(props);
@@ -42,20 +39,27 @@ function CustomSearchBox(props) {
   );
 }
 
-function Hit(hit) {
-  const { boost_version, library_key, library_name, hierarchy, _highlightResult } = hit;
+function CustomHit(hit) {
+  const { objectID, boost_version, library_key, library_name, hierarchy, _highlightResult } = hit;
   let hierarchyLinks = []
 
   if (_highlightResult) {
     Object.keys(_highlightResult.hierarchy).forEach(function (key) {
       const { title } = _highlightResult.hierarchy[key];
       const { url } = hierarchy[key];
-      hierarchyLinks.push(<Link underline="hover" dangerouslySetInnerHTML={{ __html: title.value }} href={url}></Link>)
+      hierarchyLinks.push(
+        <Link
+          underline="hover"
+          dangerouslySetInnerHTML={{ __html: title.value }}
+          key={url}
+          href={url}
+        ></Link>
+      )
     });
   }
 
   return (
-    <Box>
+    <Box key={objectID}>
       <Breadcrumbs separator="&rsaquo;">
         <Link
           underline="hover"
@@ -74,12 +78,12 @@ function Hit(hit) {
   );
 }
 
-function CustomHits(props) {
+function CustomInfiniteHits(props) {
   const { hits, isLastPage, showMore } = useInfiniteHits(props);
 
   return (
     <Stack spacing={2}>
-      {hits.map(Hit)}
+      {hits.map(CustomHit)}
       <Box textAlign='center'>
         <Button onClick={showMore} disabled={isLastPage}>
           Show More
@@ -128,7 +132,7 @@ function App() {
                 onChange={handleLibraryChange}
                 label="Library"
               >
-                {libraries.map(i => <MenuItem value={i.key}>{i.name}</MenuItem>)}
+                {libraries.map(i => <MenuItem key={i.key} value={i.key}>{i.name}</MenuItem>)}
               </Select>
             </FormControl>
           </Grid>
@@ -152,7 +156,7 @@ function App() {
                   hitsPerPage={30}
                   filters={"library_key:" + library}
                 />
-                <CustomHits />
+                <CustomInfiniteHits />
               </Index>
             </Box>
             <Box hidden={selectedTab !== "2"} sx={{ pt: 2, typography: 'body1' }}>
@@ -161,7 +165,7 @@ function App() {
                   hitsPerPage={30}
                   filters={"NOT library_key:" + library}
                 />
-                <CustomHits />
+                <CustomInfiniteHits />
               </Index>
             </Box>
           </Grid>
