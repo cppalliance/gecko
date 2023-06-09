@@ -6,6 +6,7 @@ crawlers:
       - assign
       - concept_check
       - dynamic_bitset
+      - filesystem
       - flyweight
       - multi_index
       - property_map

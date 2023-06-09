@@ -30,7 +30,7 @@ def sanitize_html(dirty_html):
                       remove_unknown_tags=True,
                       safe_attrs_only=True,
                       safe_attrs=frozenset(['src', 'color', 'href', 'title', 'class', 'name', 'id']),
-                      remove_tags=('span', 'font', 'div')
+                      remove_tags=('blockquote', 'span', 'font', 'div')
                       )
 
     return cleaner.clean_html(dirty_html)
@@ -62,7 +62,7 @@ class FlatPage(Crawler):
             link = links_to_scrape.pop()
             scraped_links.add(link)
 
-            releative_links = self._scrape_html_file(file_path=link, sections=sections)
+            releative_links = self._scrape_html_file(file_path=link, library_key=library_key, sections=sections)
 
             for link in releative_links:
                 # remvoe anchor
@@ -79,7 +79,7 @@ class FlatPage(Crawler):
 
         return sections
 
-    def _scrape_html_file(self, file_path: str, sections: dict) -> set:
+    def _scrape_html_file(self, file_path: str, library_key: str, sections: dict) -> set:
         if not os.path.isfile(file_path):
             print("File doesn't exis", file_path)
             return []
@@ -92,6 +92,10 @@ class FlatPage(Crawler):
                 anchor.parent
                 for anchor in soup.select(
                     'body > h2 > a, body > h3 > a, body > h4 > a, .section-body > h2 > a, .section-body > h3 > a, .section-body > h4 > a')]
+
+            lvl0 = []
+            if library_key == 'filesystem' and soup.select_one('body > h1'):
+                lvl0 = [{'title': sanitize_title(soup.select_one('body > h1').text), 'url': file_path}]
 
             last_h2 = None
             last_h3 = None
@@ -112,14 +116,14 @@ class FlatPage(Crawler):
                     content += sibling.get_text().strip() + ' '
 
                 if header.name == 'h2' or not last_h2:
-                    lvls = [{'title': sanitize_title(header.text), 'url': extract_url(file_path, header)}]
+                    lvls = lvl0 + [{'title': sanitize_title(header.text), 'url': extract_url(file_path, header)}]
                 elif header.name == 'h3' or not last_h3:
-                    lvls = [
+                    lvls = lvl0 + [
                         {'title': sanitize_title(last_h2.text), 'url': extract_url(file_path, last_h2)},
                         {'title': sanitize_title(header.text), 'url': extract_url(file_path, header)}
                     ]
                 else:
-                    lvls = [
+                    lvls = lvl0 + [
                         {'title': sanitize_title(last_h2.text), 'url': extract_url(file_path, last_h2)},
                         {'title': sanitize_title(last_h3.text), 'url': extract_url(file_path, last_h3)},
                         {'title': sanitize_title(header.text), 'url': extract_url(file_path, header)}
