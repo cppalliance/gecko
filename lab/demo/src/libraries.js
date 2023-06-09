@@ -140,6 +140,10 @@ export const libraries = [
         "name": "Fiber"
     },
     {
+        "key": "filesystem",
+        "name": "Filesystem"
+    },
+    {
         "key": "flyweight",
         "name": "Flyweight"
     },
