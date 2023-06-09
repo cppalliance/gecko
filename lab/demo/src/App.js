@@ -10,8 +10,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Select from '@mui/material/Select';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Link from '@mui/material/Link';
-import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
@@ -20,7 +20,16 @@ import grey from '@mui/material/colors/grey';
 import Typography from '@mui/material/Typography';
 
 import algoliasearch from 'algoliasearch/lite';
-import { InstantSearch, Index, Configure, useSearchBox, useInfiniteHits, Snippet, PoweredBy } from 'react-instantsearch-hooks-web';
+import {
+  InstantSearch,
+  Index,
+  Configure,
+  useSearchBox,
+  useInfiniteHits,
+  useInstantSearch,
+  Snippet,
+  PoweredBy
+} from 'react-instantsearch-hooks-web';
 
 const searchClient = algoliasearch('D7O1MLLTAF', '44d0c0aac3c738bebb622150d1ec4ebf');
 
@@ -80,16 +89,21 @@ function CustomHit(hit) {
 
 function CustomInfiniteHits(props) {
   const { hits, isLastPage, showMore } = useInfiniteHits(props);
+  const { status } = useInstantSearch();
 
   return (
     <Stack spacing={2}>
       {hits.map(CustomHit)}
       <Box textAlign='center'>
-        <Button onClick={showMore} disabled={isLastPage}>
+        <LoadingButton
+          loading={status === 'loading' || status === 'stalled'}
+          disabled={isLastPage}
+          onClick={showMore}
+        >
           Show More
-        </Button>
+        </LoadingButton>
       </Box>
-    </Stack>
+    </Stack >
   );
 }
 
