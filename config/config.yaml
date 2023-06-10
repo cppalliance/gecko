@@ -145,3 +145,7 @@ crawlers:
       - winapi
       - xpressive
       - yap
+
+  - name: Hana
+    libraries:
+      - hana
