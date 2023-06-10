@@ -152,6 +152,10 @@ export const libraries = [
         "name": "Foreach"
     },
     {
+        "key": "format",
+        "name": "Format"
+    },
+    {
         "key": "function",
         "name": "Function"
     },

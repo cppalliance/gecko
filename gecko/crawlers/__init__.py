@@ -4,3 +4,4 @@ from .tarentola import Tarentola
 from .harlequin import Harlequin
 from .flatpage import FlatPage
 from .hana import Hana
+from .boostformat import BoostFormat
