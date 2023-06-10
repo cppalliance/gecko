@@ -184,6 +184,10 @@ export const libraries = [
         "name": "Graph"
     },
     {
+        "key": "hana",
+        "name": "Hana"
+    },
+    {
         "key": "hof",
         "name": "HOF"
     },
