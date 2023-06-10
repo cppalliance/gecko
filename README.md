@@ -40,8 +40,8 @@ It extracts contents with the correct hierarchy for each library and generates r
 ```
 
 ## TODOs
+
 - Writing developer documentation.
-- Improving the project structure and making a generic interface for adding crawlers.
 - Writing crawler for the remaining libraries.
 - Considering a smarter approach for indexing libraries with unique structures that doesn't necessitate a dedicated crawler.
 - Adding Test.
@@ -54,3 +54,8 @@ It extracts contents with the correct hierarchy for each library and generates r
 ```python
 ['compatibility', 'exception', 'gil', 'graph_parallel', 'iostreams', 'iterator', 'locale', 'mpl', 'nowide', 'outcome', 'polygon', 'preprocessor', 'ptr_container', 'serialization', 'tokenizer', 'wave']
 ```
+
+## Acknowledgments
+
+- [Tomasz Kalisiak](https://github.com/Bobini1) for adding a crawler for Boost.Hana library.
+
