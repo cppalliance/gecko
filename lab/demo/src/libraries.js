@@ -152,6 +152,10 @@ export const libraries = [
         "name": "Foreach"
     },
     {
+        "key": "format",
+        "name": "Format"
+    },
+    {
         "key": "function",
         "name": "Function"
     },
@@ -182,6 +186,10 @@ export const libraries = [
     {
         "key": "graph",
         "name": "Graph"
+    },
+    {
+        "key": "hana",
+        "name": "Hana"
     },
     {
         "key": "hof",
