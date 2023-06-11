@@ -192,6 +192,10 @@ export const libraries = [
         "name": "Graph"
     },
     {
+        "key": "graph_parallel",
+        "name": "GraphParallel"
+    },
+    {
         "key": "hana",
         "name": "Hana"
     },
@@ -230,6 +234,10 @@ export const libraries = [
     {
         "key": "intrusive",
         "name": "Intrusive"
+    },
+    {
+        "key": "iterator",
+        "name": "Iterator"
     },
     {
         "key": "json",

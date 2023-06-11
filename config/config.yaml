@@ -1,6 +1,11 @@
 boost_version: "1_82_0"
 boost_root: "../boost_1_82_0"
 crawlers:
+  - name: Helmethead
+    libraries:
+      - iterator
+      - graph_parallel
+
   - name: BoostFunctional
     libraries:
       - functional
