@@ -160,6 +160,10 @@ export const libraries = [
         "name": "Function"
     },
     {
+        "key": "functional",
+        "name": "Functional"
+    },
+    {
         "key": "function_types",
         "name": "Function Types"
     },
