@@ -37,8 +37,9 @@ crawlers:
 
   - name: Helmethead
     libraries:
-      - iterator
       - graph_parallel
+      - iterator
+      - ptr_container
 
   - name: Harlequin
     libraries:
