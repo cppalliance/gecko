@@ -163,6 +163,6 @@ crawlers:
       - xpressive
       - yap
 
-  - name: Hana
+  - name: BoostHana
     libraries:
       - hana

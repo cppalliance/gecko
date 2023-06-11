@@ -15,7 +15,6 @@ class BoostFunctional(Crawler):
     '''
 
     def crawl(self, library_key: str) -> dict:
-        # this crawler is only usable for Functional library
         assert library_key == 'functional'
 
         sections = {}

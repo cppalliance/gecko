@@ -3,8 +3,8 @@ from .asciicoc import AsciiDoc
 from .tarentola import Tarentola
 from .harlequin import Harlequin
 from .flatpage import FlatPage
-from .hana import Hana
-from .boostformat import BoostFormat
-from .boostserialization import BoostSerialization
-from .boostfunctional import BoostFunctional
+from .boost_hana import BoostHana
+from .boost_format import BoostFormat
+from .boost_serialization import BoostSerialization
+from .boost_functional import BoostFunctional
 from .helmethead import Helmethead
