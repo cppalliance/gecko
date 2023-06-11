@@ -52,7 +52,7 @@ It extracts contents with the correct hierarchy for each library and generates r
 ## Uncovered libraries
 
 ```python
-['compatibility', 'exception', 'gil', 'graph_parallel', 'iostreams', 'iterator', 'locale', 'mpl', 'nowide', 'outcome', 'polygon', 'preprocessor', 'ptr_container', 'tokenizer', 'wave']
+['exception', 'gil', 'iostreams', 'locale', 'mpl', 'nowide', 'outcome', 'polygon', 'preprocessor', 'ptr_container', 'tokenizer', 'wave']
 ```
 
 ## Acknowledgments
