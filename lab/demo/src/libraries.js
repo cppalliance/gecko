@@ -480,6 +480,10 @@ export const libraries = [
         "name": "Tribool"
     },
     {
+        "key": "tokenizer",
+        "name": "Tokenizer"
+    },
+    {
         "key": "tuple",
         "name": "Tuple"
     },

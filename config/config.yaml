@@ -1,10 +1,9 @@
 boost_version: "1_82_0"
 boost_root: "../boost_1_82_0"
 crawlers:
-  - name: Helmethead
+  - name: BoostTokenizer
     libraries:
-      - iterator
-      - graph_parallel
+      - tokenizer
 
   - name: BoostPolygon
     libraries:
@@ -35,6 +34,11 @@ crawlers:
       - statechart
       - timer
       - uuid
+
+  - name: Helmethead
+    libraries:
+      - iterator
+      - graph_parallel
 
   - name: Harlequin
     libraries:
