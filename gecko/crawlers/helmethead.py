@@ -58,8 +58,11 @@ class Helmethead(Crawler):
                     continue
 
                 heading = document.select_one('h1.title')
+                sub_heading = document.select_one('h2:first-of-type.subtitle')
+                if sub_heading:
+                    heading = sub_heading
 
-                if heading:
+                if heading and 'Pointer Container Library' not in heading.text:
                     lvls = [{'title': sanitize_title(heading.text), 'url': str(html_file_path)}]
                     content = ''
                     for elm in heading.next_siblings:

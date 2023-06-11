@@ -348,6 +348,10 @@ export const libraries = [
         "name": "Polygon"
     },
     {
+        "key": "ptr_container",
+        "name": "Pointer Container"
+    },
+    {
         "key": "pool",
         "name": "Pool"
     },
@@ -374,10 +378,6 @@ export const libraries = [
     {
         "key": "proto",
         "name": "Proto"
-    },
-    {
-        "key": "ptr_container",
-        "name": "Pointer Container"
     },
     {
         "key": "python",
