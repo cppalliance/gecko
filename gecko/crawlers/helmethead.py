@@ -13,8 +13,13 @@ def sanitize_title(title):
 def scrape_section(section: Tag, sections: dict, lvls: list, html_file_path: str):
     heading = section.select_one('h1, h2, h3, h4')
 
+    if section.has_attr('id'):
+        id = section.get('id')
+    else:
+        id = heading.find('a').get('id')
+
     title = sanitize_title(heading.text)
-    url = html_file_path + '#' + section.get('id')
+    url = html_file_path + '#' + id
     lvls = lvls + [{'title': title, 'url': url}]
 
     content = ''
@@ -31,11 +36,11 @@ def scrape_section(section: Tag, sections: dict, lvls: list, html_file_path: str
 
 class Helmethead(Crawler):
     '''
-    A dedicated crawler for Iterator and GraphParallel library.
+    A dedicated crawler for Iterator, GraphParallel and Pointer Container library.
     '''
 
     def crawl(self, library_key: str) -> dict:
-        assert library_key == 'iterator' or library_key == 'graph_parallel'
+        assert library_key == 'iterator' or library_key == 'graph_parallel' or library_key == 'ptr_container'
 
         doc_path = self._boost_root / 'libs' / library_key / 'doc'
         if library_key == 'graph_parallel':
@@ -48,6 +53,10 @@ class Helmethead(Crawler):
 
                 lvls = []
                 document = soup.select_one('body > div.document')
+
+                if not document:
+                    continue
+
                 heading = document.select_one('h1.title')
 
                 if heading:
