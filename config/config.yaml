@@ -6,6 +6,10 @@ crawlers:
       - iterator
       - graph_parallel
 
+  - name: BoostPolygon
+    libraries:
+      - polygon
+
   - name: BoostFunctional
     libraries:
       - functional

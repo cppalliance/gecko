@@ -344,6 +344,10 @@ export const libraries = [
         "name": "PolyCollection"
     },
     {
+        "key": "polygon",
+        "name": "Polygon"
+    },
+    {
         "key": "pool",
         "name": "Pool"
     },

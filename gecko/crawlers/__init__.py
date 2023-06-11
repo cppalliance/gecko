@@ -8,3 +8,4 @@ from .boost_format import BoostFormat
 from .boost_serialization import BoostSerialization
 from .boost_functional import BoostFunctional
 from .helmethead import Helmethead
+from .boost_polygon import BoostPolygon
