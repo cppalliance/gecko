@@ -11,6 +11,8 @@ class Harlequin(Crawler):
     '''
 
     def crawl(self, library_key: str) -> dict:
+        assert library_key == 'numeric/ublas' or library_key == 'numeric/interval'
+
         sections = {}
         html_dir = self._boost_root / 'libs' / library_key / 'doc'
 

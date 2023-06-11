@@ -60,7 +60,6 @@ class BoostSerialization(Crawler):
     '''
 
     def crawl(self, library_key: str) -> dict:
-        # this crawler is only usable for serialization library
         assert library_key == 'serialization'
 
         sections = {}

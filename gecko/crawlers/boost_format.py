@@ -9,7 +9,6 @@ class BoostFormat(Crawler):
     '''
 
     def crawl(self, library_key: str) -> dict:
-        # this crawler is only usable for foramt library
         assert library_key == 'format'
 
         sections = {}

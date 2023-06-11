@@ -223,10 +223,11 @@ def scrape_html_file(file_path: str, sections: dict, file_hierarchy: dict) -> se
         return releative_links
 
 
-class Hana(Crawler):
-    def crawl(self, _) -> dict:
+class BoostHana(Crawler):
+    def crawl(self, library_key) -> dict:
+        assert library_key == 'hana'
         sections = {}
-        index_path = self._boost_root / 'libs' / 'hana' / 'index.html'
+        index_path = self._boost_root / 'libs' / library_key / 'index.html'
 
         # resolve redirect address
         with open(index_path, 'r', encoding='utf-8', errors='ignore') as file:
@@ -254,7 +255,7 @@ class Hana(Crawler):
                 if not link.endswith(".html"):
                     continue
 
-                if 'hana' not in link.lower():
+                if library_key not in link.lower():
                     continue
 
                 if link not in scraped_links:

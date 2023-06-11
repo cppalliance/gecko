@@ -11,6 +11,7 @@ class Tarentola(Crawler):
     '''
 
     def crawl(self, library_key: str) -> dict:
+        assert library_key == 'parameter' or library_key == 'parameter_python'
         sections = {}
         html_dir = self._boost_root / 'libs' / library_key / 'doc/html'
 
