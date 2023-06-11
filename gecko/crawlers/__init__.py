@@ -5,3 +5,4 @@ from .harlequin import Harlequin
 from .flatpage import FlatPage
 from .hana import Hana
 from .boostformat import BoostFormat
+from .boostserialization import BoostSerialization
