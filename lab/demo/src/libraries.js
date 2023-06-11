@@ -396,6 +396,10 @@ export const libraries = [
         "name": "Scope Exit"
     },
     {
+        "key": "serialization",
+        "name": "Serialization"
+    },
+    {
         "key": "signals2",
         "name": "Signals2"
     },
