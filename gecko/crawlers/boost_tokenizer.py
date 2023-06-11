@@ -17,7 +17,9 @@ class BoostTokenizer(Crawler):
             with open(html_file_path, 'r', encoding='utf-8', errors='ignore') as file:
                 soup = BeautifulSoup(file.read(), 'html.parser')
 
-                heading = soup.select_one('body > h1:first-of-type')
+                heading = soup.select_one('body > h1[align=center]')
+                if not heading:
+                    heading = soup.select_one('body > h1:first-of-type')
 
                 content = ''
                 for elm in heading.next_siblings:
