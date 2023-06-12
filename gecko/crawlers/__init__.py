@@ -3,6 +3,7 @@ from .boost_exception import BoostException
 from .boost_format import BoostFormat
 from .boost_functional import BoostFunctional
 from .boost_hana import BoostHana
+from .boost_mpl import BoostMPL
 from .boost_outcome import BoostOutcome
 from .boost_polygon import BoostPolygon
 from .boost_serialization import BoostSerialization

@@ -300,6 +300,10 @@ export const libraries = [
         "name": "Mp11"
     },
     {
+        "key": "mpl",
+        "name": "MPL"
+    },
+    {
         "key": "multi_array",
         "name": "Multi-Array"
     },
