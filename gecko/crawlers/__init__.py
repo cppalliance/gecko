@@ -6,6 +6,7 @@ from .boost_hana import BoostHana
 from .boost_mpl import BoostMPL
 from .boost_outcome import BoostOutcome
 from .boost_polygon import BoostPolygon
+from .boost_gil import BoostGIL
 from .boost_serialization import BoostSerialization
 from .boost_tokenizer import BoostTokenizer
 from .boost_wave import BoostWave

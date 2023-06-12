@@ -192,6 +192,10 @@ export const libraries = [
         "name": "Geometry"
     },
     {
+        "key": "gil",
+        "name": "GIL"
+    },
+    {
         "key": "graph",
         "name": "Graph"
     },
