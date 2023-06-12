@@ -376,6 +376,10 @@ export const libraries = [
         "name": "Predef"
     },
     {
+        "key": "preprocessor",
+        "name": "Preprocessor"
+    },
+    {
         "key": "process",
         "name": "Process"
     },
