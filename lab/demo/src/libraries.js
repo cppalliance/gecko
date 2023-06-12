@@ -328,6 +328,10 @@ export const libraries = [
         "name": "Optional"
     },
     {
+        "key": "outcome",
+        "name": "Outcome"
+    },
+    {
         "key": "pfr",
         "name": "PFR"
     },
