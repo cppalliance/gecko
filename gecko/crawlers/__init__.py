@@ -4,15 +4,15 @@ from .boost_format import BoostFormat
 from .boost_functional import BoostFunctional
 from .boost_gil import BoostGIL
 from .boost_hana import BoostHana
+from .boost_iostreams import BoostIostreams
 from .boost_mpl import BoostMPL
 from .boost_outcome import BoostOutcome
 from .boost_polygon import BoostPolygon
 from .boost_preprocessor import BoostPreprocessor
 from .boost_serialization import BoostSerialization
 from .boost_tokenizer import BoostTokenizer
-from .boost_iostreams import BoostIostreams
-from .boost_wave import BoostWave
 from .flatpage import FlatPage
+from .gargoyle import Gargoyle
 from .harlequin import Harlequin
 from .helmethead import Helmethead
 from .quickbook import QuickBook

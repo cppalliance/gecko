@@ -9,9 +9,9 @@ def sanitize_title(title):
     return re.sub(r'\s+', ' ', title).strip()
 
 
-class BoostWave(Crawler):
+class Gargoyle(Crawler):
     def crawl(self, library_key: str) -> dict:
-        assert library_key == 'wave'
+        assert library_key == 'wave' or library_key == 'spirit/classic'
 
         doc_path = self._boost_root / 'libs' / library_key / 'doc'
 
