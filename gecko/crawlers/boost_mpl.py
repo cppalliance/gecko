@@ -72,8 +72,8 @@ class BoostMPL(Crawler):
             if not heading:
                 return releative_links
 
-            for toc in soup.select('.toc, .docutils, .docinfo'):
-                toc.decompose()
+            for elm in soup.select('.toc, .docutils, .docinfo'):
+                elm.decompose()
 
             content = ''
             for sibling in heading.find_next_siblings():

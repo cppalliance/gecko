@@ -552,6 +552,10 @@ export const libraries = [
         "name": "Variant2"
     },
     {
+        "key": "wave",
+        "name": "Wave"
+    },
+    {
         "key": "winapi",
         "name": "WinAPI"
     },
