@@ -52,7 +52,7 @@ It extracts contents with the correct hierarchy for each library and generates r
 ## Uncovered libraries
 
 ```python
-['locale', 'nowide']
+['spirit/repository', 'locale', 'nowide']
 ```
 
 ## Acknowledgments

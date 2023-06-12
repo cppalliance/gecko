@@ -460,6 +460,14 @@ export const libraries = [
         "name": "Spirit"
     },
     {
+        "key": "spirit/classic",
+        "name": "Spirit Classic"
+    },
+    {
+        "key": "spirit/repository",
+        "name": "Spirit Repository"
+    },
+    {
         "key": "stacktrace",
         "name": "Stacktrace"
     },

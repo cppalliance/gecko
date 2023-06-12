@@ -13,9 +13,9 @@ crawlers:
     libraries:
       - gil
 
-  - name: BoostWave
+  - name: BoostHana
     libraries:
-      - wave
+      - hana
 
   - name: BoostMPL
     libraries:
@@ -49,19 +49,10 @@ crawlers:
     libraries:
       - format
 
-  - name: FlatPage
+  - name: Gargoyle
     libraries:
-      - assign
-      - concept_check
-      - dynamic_bitset
-      - filesystem
-      - flyweight
-      - multi_index
-      - property_map
-      - rational
-      - statechart
-      - timer
-      - uuid
+      - wave
+      - spirit/classic
 
   - name: Helmethead
     libraries:
@@ -78,6 +69,20 @@ crawlers:
     libraries:
       - parameter
       - parameter_python
+
+  - name: FlatPage
+    libraries:
+      - assign
+      - concept_check
+      - dynamic_bitset
+      - filesystem
+      - flyweight
+      - multi_index
+      - property_map
+      - rational
+      - statechart
+      - timer
+      - uuid
 
   - name: AsciiDoc
     libraries:
@@ -178,6 +183,7 @@ crawlers:
       - signals2
       - sort
       - spirit
+      - spirit/repository
       - stacktrace
       - static_assert
       - static_string
@@ -199,7 +205,3 @@ crawlers:
       - winapi
       - xpressive
       - yap
-
-  - name: BoostHana
-    libraries:
-      - hana
