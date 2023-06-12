@@ -12,11 +12,12 @@ def sanitize_title(title):
     return re.sub(r'\s+', ' ', title).strip()
 
 
-class BoostMPL(Crawler):
+class BoostGIL(Crawler):
     def crawl(self, library_key: str) -> dict:
-        assert library_key == 'mpl'
+        assert library_key == 'gil'
+
         sections = {}
-        index_path = self._boost_root / 'libs' / library_key / 'doc' / 'index.html'
+        index_path = self._boost_root / 'libs' / library_key / 'doc/html' / 'index.html'
 
         links_to_scrape = set([str(index_path)])
         scraped_links = set()
@@ -62,17 +63,20 @@ class BoostMPL(Crawler):
             for link in soup.select('a:not([href^="http"])'):
                 releative_links.append(urljoin(file_path, link.get('href')))
 
+            if 'html/index.html' in file_path:
+                return releative_links
+
             # we use href of up arrow in the navbar to find parent and create hireachy
-            up = soup.select_one('.navigation-bar .navigation-link:-soup-contains("Up")')
+            up = soup.select_one('body > .content > .navbar > .up')
             if up:
                 up = urljoin(file_path, up.get('href'))
 
-            heading = soup.select_one('body > .section > h1:first-child')
+            heading = soup.select_one('body > .content > .section > h1:first-child')
 
             if not heading:
                 return releative_links
 
-            for elm in soup.select('.toc, .docutils, .docinfo'):
+            for elm in soup.select('.topic, .toctree-wrapper'):
                 elm.decompose()
 
             content = ''
@@ -86,8 +90,8 @@ class BoostMPL(Crawler):
             lvl0 = [{'title': title, 'url': url}]
             sections[url] = {'lvls': lvl0, 'content': content, 'up': up}
 
-            for section in soup.select('body > .section > .section'):
-                subheading = section.select_one('h2:first-of-type, h3:first-of-type')
+            for section in soup.select('body > .content > .section > .section'):
+                subheading = section.select_one('h2:first-of-type')
                 content = ''
                 for sibling in subheading.find_next_siblings():
                     content += sibling.get_text().strip() + ' '
