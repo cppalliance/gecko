@@ -1,4 +1,5 @@
 from .asciicoc import AsciiDoc
+from .boost_exception import BoostException
 from .boost_format import BoostFormat
 from .boost_functional import BoostFunctional
 from .boost_hana import BoostHana
