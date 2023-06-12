@@ -6,10 +6,6 @@ from .helpers import has_class
 
 
 class Tarentola(Crawler):
-    '''
-    A dedicated crawler for parameter and parameter_python libraries.
-    '''
-
     def crawl(self, library_key: str) -> dict:
         assert library_key == 'parameter' or library_key == 'parameter_python'
         sections = {}

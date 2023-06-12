@@ -1,15 +1,9 @@
-import re
 from bs4 import BeautifulSoup, Tag
 
 from .crawler import Crawler
-from .helpers import has_class
 
 
 class Harlequin(Crawler):
-    '''
-    A dedicated crawler for numeric/ublas and numeric/interval libraries.
-    '''
-
     def crawl(self, library_key: str) -> dict:
         assert library_key == 'numeric/ublas' or library_key == 'numeric/interval'
 

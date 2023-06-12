@@ -4,10 +4,6 @@ from .crawler import Crawler
 
 
 class BoostFormat(Crawler):
-    '''
-    A dedicated crawler for format library.
-    '''
-
     def crawl(self, library_key: str) -> dict:
         assert library_key == 'format'
 

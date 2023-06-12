@@ -2,11 +2,8 @@ from bs4 import BeautifulSoup
 
 from .crawler import Crawler
 
-class BoostTokenizer(Crawler):
-    '''
-    A dedicated crawler for Tokenizer library.
-    '''
 
+class BoostTokenizer(Crawler):
     def crawl(self, library_key: str) -> dict:
         assert library_key == 'tokenizer'
 

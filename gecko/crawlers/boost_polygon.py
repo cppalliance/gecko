@@ -2,11 +2,8 @@ from bs4 import BeautifulSoup
 
 from .crawler import Crawler
 
-class BoostPolygon(Crawler):
-    '''
-    A dedicated crawler for Polygon library.
-    '''
 
+class BoostPolygon(Crawler):
     def crawl(self, library_key: str) -> dict:
         assert library_key == 'polygon'
 
