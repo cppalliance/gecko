@@ -10,9 +10,6 @@ def sanitize_title(title):
 
 
 class BoostFunctional(Crawler):
-    '''
-    A dedicated crawler for Functional library.
-    '''
 
     def crawl(self, library_key: str) -> dict:
         assert library_key == 'functional'

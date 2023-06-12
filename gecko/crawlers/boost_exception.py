@@ -9,10 +9,6 @@ def sanitize_title(title):
 
 
 class BoostException(Crawler):
-    '''
-    A dedicated crawler for Exception library.
-    '''
-
     def crawl(self, library_key: str) -> dict:
         assert library_key == 'exception'
 

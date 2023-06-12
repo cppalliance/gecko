@@ -13,6 +13,7 @@ def sanitize_title(title):
 
 class BoostOutcome(Crawler):
     def crawl(self, library_key: str) -> dict:
+        assert library_key == 'outcome'
         sections = {}
         index_path = self._boost_root / 'libs' / library_key / 'doc/html' / 'index.html'
 

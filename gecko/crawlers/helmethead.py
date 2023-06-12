@@ -35,10 +35,6 @@ def scrape_section(section: Tag, sections: dict, lvls: list, html_file_path: str
 
 
 class Helmethead(Crawler):
-    '''
-    A dedicated crawler for Iterator, GraphParallel and Pointer Container library.
-    '''
-
     def crawl(self, library_key: str) -> dict:
         assert library_key == 'iterator' or library_key == 'graph_parallel' or library_key == 'ptr_container'
 

@@ -55,10 +55,6 @@ def find_parent_lvls(header: Tag, headers: list, html_file_path: Path):
 
 
 class BoostSerialization(Crawler):
-    '''
-    A dedicated crawler for serialization library.
-    '''
-
     def crawl(self, library_key: str) -> dict:
         assert library_key == 'serialization'
 
