@@ -136,6 +136,10 @@ export const libraries = [
         "name": "Endian"
     },
     {
+        "key": "exception",
+        "name": "Exception"
+    },
+    {
         "key": "fiber",
         "name": "Fiber"
     },
