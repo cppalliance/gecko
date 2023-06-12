@@ -228,6 +228,10 @@ export const libraries = [
         "name": "IO"
     },
     {
+        "key": "iostreams",
+        "name": "Iostreams"
+    },
+    {
         "key": "integer",
         "name": "Integer"
     },

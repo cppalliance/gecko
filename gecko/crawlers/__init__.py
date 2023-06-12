@@ -10,6 +10,7 @@ from .boost_polygon import BoostPolygon
 from .boost_preprocessor import BoostPreprocessor
 from .boost_serialization import BoostSerialization
 from .boost_tokenizer import BoostTokenizer
+from .boost_iostreams import BoostIostreams
 from .boost_wave import BoostWave
 from .flatpage import FlatPage
 from .harlequin import Harlequin
