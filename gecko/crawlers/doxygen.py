@@ -10,7 +10,7 @@ def sanitize_title(title):
     return re.sub(r'\s+', ' ', title).strip()
 
 
-def extract_textblock(textblock: Tag, lvl0: list, html_file_path: str, sections: dict):
+def extract_textblock(textblock: Tag, lvls: list, html_file_path: str, sections: dict):
     main_content = ''
     last_h1_tag = None
     section_content = ''
@@ -18,7 +18,7 @@ def extract_textblock(textblock: Tag, lvl0: list, html_file_path: str, sections:
     def add_sub_section(h1: Tag):
         title = sanitize_title(h1.get_text())
         url = html_file_path + '#' + h1.select_one('a.anchor').get('id')
-        sections[url] = {'lvls': lvl0 + [{'title': title, 'url': url}], 'content': section_content}
+        sections[url] = {'lvls': lvls + [{'title': title, 'url': url}], 'content': section_content}
 
     for elm in textblock.children:
         if elm.name == 'h1' and elm.select_one('a.anchor'):
@@ -38,7 +38,7 @@ def extract_textblock(textblock: Tag, lvl0: list, html_file_path: str, sections:
     return main_content
 
 
-def extract_memberdecls(memberdecls: Tag, lvl0: list, html_file_path: str, sections: dict):
+def extract_memberdecls(memberdecls: Tag, lvls: list, html_file_path: str, sections: dict):
     heading = memberdecls.select_one('tr:first-child > td > h2.groupheader')
     title = sanitize_title(heading.get_text())
     url = html_file_path + '#' + heading.select_one('a[name]').get('name')
@@ -50,18 +50,15 @@ def extract_memberdecls(memberdecls: Tag, lvl0: list, html_file_path: str, secti
         content += tr.get_text() + ' '
 
     content = content.replace('More...', '')
+    sections[url] = {'lvls': lvls + [{'title': title, 'url': url}], 'content': content}
 
-    sections[url] = {'lvls': lvl0 + [{'title': title, 'url': url}], 'content': content}
 
-
-def extract_memtitle(memtitle: Tag, lvl0: list, html_file_path: str, sections: dict):
+def extract_memtitle(memtitle: Tag, lvls: list, html_file_path: str, sections: dict):
     memtitle.select_one('span').decompose()
     title = sanitize_title(memtitle.get_text())
     url = html_file_path + '#' + memtitle.find_previous_sibling('a').get('id')
-
     content = memtitle.find_next_sibling('div').get_text()
-
-    sections[url] = {'lvls': lvl0 + [{'title': title, 'url': url}], 'content': content}
+    sections[url] = {'lvls': lvls + [{'title': title, 'url': url}], 'content': content}
 
 
 class Doxygen(Crawler):
@@ -70,7 +67,9 @@ class Doxygen(Crawler):
 
         sections = {}
         for html_file_path in doc_path.glob('*.html'):
-            if '_source.html' in str(html_file_path) or 'html/dir_' in str(html_file_path) or '8hpp.html' in str(html_file_path):
+            ignored_paths = ['8cpp-example.html', '8hpp.html', 'html/dir_', '_source.html']
+
+            if any(i in str(html_file_path) for i in ignored_paths):
                 continue
 
             with open(html_file_path, 'r', encoding='utf-8', errors='ignore') as file:
@@ -101,7 +100,6 @@ class Doxygen(Crawler):
                 lvls += [{'title': title, 'url': url}]
 
                 content = ''
-
                 for elm in wrapper.select_one('.contents').find_all(recursive=False):
                     if has_class(elm, 'textblock'):
                         content += extract_textblock(elm, lvls, str(html_file_path), sections)
