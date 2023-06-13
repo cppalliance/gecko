@@ -164,12 +164,12 @@ export const libraries = [
         "name": "Function"
     },
     {
-        "key": "functional",
-        "name": "Functional"
-    },
-    {
         "key": "function_types",
         "name": "Function Types"
+    },
+    {
+        "key": "functional",
+        "name": "Functional"
     },
     {
         "key": "functional/factory",
@@ -188,12 +188,12 @@ export const libraries = [
         "name": "Fusion"
     },
     {
-        "key": "geometry",
-        "name": "Geometry"
-    },
-    {
         "key": "gil",
         "name": "GIL"
+    },
+    {
+        "key": "geometry",
+        "name": "Geometry"
     },
     {
         "key": "graph",
@@ -204,12 +204,12 @@ export const libraries = [
         "name": "GraphParallel"
     },
     {
-        "key": "hana",
-        "name": "Hana"
-    },
-    {
         "key": "hof",
         "name": "HOF"
+    },
+    {
+        "key": "hana",
+        "name": "Hana"
     },
     {
         "key": "heap",
@@ -228,10 +228,6 @@ export const libraries = [
         "name": "IO"
     },
     {
-        "key": "iostreams",
-        "name": "Iostreams"
-    },
-    {
         "key": "integer",
         "name": "Integer"
     },
@@ -246,6 +242,10 @@ export const libraries = [
     {
         "key": "intrusive",
         "name": "Intrusive"
+    },
+    {
+        "key": "iostreams",
+        "name": "Iostreams"
     },
     {
         "key": "iterator",
@@ -288,6 +288,10 @@ export const libraries = [
         "name": "MPI"
     },
     {
+        "key": "mpl",
+        "name": "MPL"
+    },
+    {
         "key": "math",
         "name": "Math"
     },
@@ -306,10 +310,6 @@ export const libraries = [
     {
         "key": "mp11",
         "name": "Mp11"
-    },
-    {
-        "key": "mpl",
-        "name": "MPL"
     },
     {
         "key": "multi_array",
@@ -360,16 +360,16 @@ export const libraries = [
         "name": "Phoenix"
     },
     {
+        "key": "ptr_container",
+        "name": "Pointer Container"
+    },
+    {
         "key": "poly_collection",
         "name": "PolyCollection"
     },
     {
         "key": "polygon",
         "name": "Polygon"
-    },
-    {
-        "key": "ptr_container",
-        "name": "Pointer Container"
     },
     {
         "key": "pool",
@@ -512,12 +512,12 @@ export const libraries = [
         "name": "Timer"
     },
     {
-        "key": "tribool",
-        "name": "Tribool"
-    },
-    {
         "key": "tokenizer",
         "name": "Tokenizer"
+    },
+    {
+        "key": "tribool",
+        "name": "Tribool"
     },
     {
         "key": "tuple",
