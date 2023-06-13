@@ -42,6 +42,10 @@ class QuickBook(Crawler):
         if library_key == 'tribool':
             index_path = self._boost_root / 'libs' / 'logic' / 'index.html'
 
+        # workaround for string_algo path
+        if library_key == 'string_algo':
+            index_path = self._boost_root / 'libs' / 'algorithm/string' / 'index.html'
+
         # resolve redirect address
         with open(index_path, 'r', encoding='utf-8', errors='ignore') as file:
             soup = BeautifulSoup(file.read(), 'html.parser')

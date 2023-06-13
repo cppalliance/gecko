@@ -488,6 +488,10 @@ export const libraries = [
         "name": "Stl_interfaces"
     },
     {
+        "key": "string_algo",
+        "name": "String Algo"
+    },
+    {
         "key": "system",
         "name": "System"
     },

@@ -14,6 +14,10 @@ def extract_library_name(library_key: str, boost_root: Path):
     if library_key == 'tribool':
         libraries_json = boost_root / 'libs' / 'logic' / 'meta/libraries.json'
 
+    # workaround for string_algo path
+    if library_key == 'string_algo':
+        library_key = 'algorithm/string'
+
     # use parent directory for boost.functional
     if not os.path.isfile(libraries_json):
         libraries_json = boost_root / 'libs' / library_key.split('/')[0] / 'meta/libraries.json'

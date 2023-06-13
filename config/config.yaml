@@ -188,6 +188,7 @@ crawlers:
       - static_assert
       - static_string
       - stl_interfaces
+      - string_algo
       - test
       - thread
       - tribool
