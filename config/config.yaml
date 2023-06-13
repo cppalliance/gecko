@@ -51,8 +51,8 @@ crawlers:
 
   - name: Gargoyle
     libraries:
-      - wave
       - spirit/classic
+      - wave
 
   - name: Helmethead
     libraries:
@@ -62,8 +62,8 @@ crawlers:
 
   - name: Harlequin
     libraries:
-      - numeric/ublas
       - numeric/interval
+      - numeric/ublas
 
   - name: Tarentola
     libraries:
