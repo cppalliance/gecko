@@ -42,7 +42,6 @@ It extracts contents with the correct hierarchy for each library and generates r
 ## TODOs
 
 - Writing developer documentation.
-- Writing crawler for the remaining libraries.
 - Considering a smarter approach for indexing libraries with unique structures that doesn't necessitate a dedicated crawler.
 - Adding Test.
 - Setting up the repository.
