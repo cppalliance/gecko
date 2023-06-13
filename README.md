@@ -48,13 +48,6 @@ It extracts contents with the correct hierarchy for each library and generates r
 - Setting up the repository.
 - Setting up CI.
 
-
-## Uncovered libraries
-
-```python
-['locale', 'nowide']
-```
-
 ## Acknowledgments
 
 - [Tomasz Kalisiak](https://github.com/Bobini1) for adding a crawler for Boost.Hana library.

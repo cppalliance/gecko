@@ -13,10 +13,6 @@ crawlers:
     libraries:
       - gil
 
-  - name: BoostHana
-    libraries:
-      - hana
-
   - name: BoostMPL
     libraries:
       - mpl
@@ -83,6 +79,12 @@ crawlers:
       - statechart
       - timer
       - uuid
+
+  - name: Doxygen
+    libraries:
+      - hana
+      - locale
+      - nowide
 
   - name: AsciiDoc
     libraries:
