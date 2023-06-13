@@ -276,6 +276,10 @@ export const libraries = [
         "name": "Local Function"
     },
     {
+        "key": "locale",
+        "name": "Locale"
+    },
+    {
         "key": "lockfree",
         "name": "Lockfree"
     },
@@ -326,6 +330,10 @@ export const libraries = [
     {
         "key": "mysql",
         "name": "MySQL"
+    },
+    {
+        "key": "nowide",
+        "name": "Nowide"
     },
     {
         "key": "numeric/conversion",
