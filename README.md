@@ -1,3 +1,5 @@
+![Gecko](img/logo.png)
+
 # Gecko
 
 A crawler with the goal of creating a search index by crawling HTML documents for every library in the Boost release archive.
