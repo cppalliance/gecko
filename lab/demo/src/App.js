@@ -18,6 +18,14 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import grey from '@mui/material/colors/grey';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import SearchIcon from '@mui/icons-material/Search';
 
 import algoliasearch from 'algoliasearch/lite';
 import {
@@ -31,8 +39,6 @@ import {
   PoweredBy
 } from 'react-instantsearch-hooks-web';
 
-const searchClient = algoliasearch('D7O1MLLTAF', '44d0c0aac3c738bebb622150d1ec4ebf');
-
 function CustomSearchBox(props) {
   const { currentRefinement, refine, } = useSearchBox(props);
 
@@ -40,7 +46,6 @@ function CustomSearchBox(props) {
     <TextField
       fullWidth
       size="small"
-      type="search"
       label="Search..."
       value={currentRefinement}
       onChange={event => refine(event.currentTarget.value)}
@@ -108,10 +113,12 @@ function CustomInfiniteHits(props) {
 }
 
 function App() {
-  const [library, setLibrary] = React.useState(libraries[0].key);
+  const [searchClient] = React.useState(algoliasearch('D7O1MLLTAF', '44d0c0aac3c738bebb622150d1ec4ebf'));
+
+  const [library, setLibrary] = React.useState(libraries[0]);
 
   const handleLibraryChange = (event) => {
-    setLibrary(event.target.value);
+    setLibrary(libraries.filter(i => i.key === event.target.value)[0]);
   };
 
   const [selectedTab, setSelectedTab] = React.useState('1');
@@ -120,12 +127,26 @@ function App() {
     setSelectedTab(newValue);
   };
 
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  const theme = useTheme();
+
+  const dialogFullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
   return (
     <InstantSearch searchClient={searchClient}>
       <Container maxWidth="md">
         <Grid container spacing={2}>
-          <Grid item xs={10}>
-            <Typography variant="h5">
+          <Grid item xs={12}>
+            <Typography variant="h6">
               <Link
                 underline="none"
                 href="https://github.com/cppalliance/boost-gecko"
@@ -134,15 +155,12 @@ function App() {
               </Link>
             </Typography>
           </Grid>
-          <Grid item xs={2} sx={{ mt: 1 }}>
-            <PoweredBy />
-          </Grid>
-          <Grid item xs={4}>
+          <Grid item xl={10} xs={8}>
             <FormControl fullWidth>
               <InputLabel>Library</InputLabel>
               <Select
                 size="small"
-                value={library}
+                value={library.key}
                 onChange={handleLibraryChange}
                 label="Library"
               >
@@ -150,41 +168,76 @@ function App() {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={8}>
-            <CustomSearchBox />
-          </Grid>
-          <Grid item xs={12}>
-            <Tabs
-              value={selectedTab}
-              onChange={handleTabChange}
-              textColor="inherit"
-              variant="fullWidth"
-              sx={{ borderBottom: 1, borderColor: 'divider' }}
+          <Grid item xl={2} xs={4}>
+            <Button
+              fullWidth
+              sx={{ textTransform: 'capitalize', height: 40 }}
+              startIcon={<SearchIcon />}
+              variant="outlined"
+              onClick={handleDialogOpen}
             >
-              <Tab value="1" label={"Boost." + library} />
-              <Tab value="2" label="Other Libraries" />
-            </Tabs>
-            <Box hidden={selectedTab !== "1"} sx={{ pt: 2, typography: 'body1' }}>
-              <Index indexName="all">
-                <Configure
-                  hitsPerPage={30}
-                  filters={"library_key:" + library}
-                />
-                <CustomInfiniteHits />
-              </Index>
-            </Box>
-            <Box hidden={selectedTab !== "2"} sx={{ pt: 2, typography: 'body1' }}>
-              <Index indexName="all">
-                <Configure
-                  hitsPerPage={30}
-                  filters={"NOT library_key:" + library}
-                />
-                <CustomInfiniteHits />
-              </Index>
-            </Box>
+              Search...
+            </Button>
           </Grid>
         </Grid>
       </Container>
+      <Dialog
+        fullScreen={dialogFullScreen}
+        keepMounted
+        fullWidth
+        maxWidth="md"
+        open={dialogOpen}
+        onClose={handleDialogClose}
+      >
+        <DialogTitle sx={{ p: 2 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <CustomSearchBox />
+            </Grid>
+            <Grid item xs={12}>
+              <Tabs
+                value={selectedTab}
+                onChange={handleTabChange}
+                variant="fullWidth"
+                sx={{ borderBottom: 1, borderColor: 'divider' }}
+              >
+                <Tab value="1" sx={{ textTransform: 'capitalize' }} label={library.name} />
+                <Tab value="2" sx={{ textTransform: 'capitalize' }} label="Other Libraries" />
+              </Tabs>
+            </Grid>
+          </Grid>
+        </DialogTitle>
+        <DialogContent>
+          <Box hidden={selectedTab !== "1"} sx={{ typography: 'body1' }}>
+            <Index indexName="all">
+              <Configure
+                hitsPerPage={30}
+                filters={"library_key:" + library.key}
+              />
+              <CustomInfiniteHits />
+            </Index>
+          </Box>
+          <Box hidden={selectedTab !== "2"} sx={{ typography: 'body1' }}>
+            <Index indexName="all">
+              <Configure
+                hitsPerPage={30}
+                filters={"NOT library_key:" + library.key}
+              />
+              <CustomInfiniteHits />
+            </Index>
+          </Box>
+        </DialogContent>
+        <DialogActions sx={{ p: 2 }}>
+          <Grid container>
+            <Grid item xl={2} xs={4} sx={{ mt: 1 }}>
+              <PoweredBy />
+            </Grid>
+            <Grid item xl={10} xs={8} sx={{ textAlign: 'right' }}>
+              <Button size="small" onClick={handleDialogClose}>Close</Button>
+            </Grid>
+          </Grid>
+        </DialogActions>
+      </Dialog>
     </InstantSearch >
   );
 }
