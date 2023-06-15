@@ -188,6 +188,12 @@ function App() {
         maxWidth="md"
         open={dialogOpen}
         onClose={handleDialogClose}
+        PaperProps={{
+          style: dialogFullScreen ? {} : {
+            minHeight: '95vh',
+            maxHeight: '95vh',
+          }
+        }}
       >
         <DialogTitle sx={{ p: 2 }}>
           <Grid container spacing={2}>
