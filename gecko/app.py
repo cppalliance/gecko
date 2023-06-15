@@ -32,7 +32,7 @@ def extract_library_name(library_key: str, boost_root: Path):
     return library_name
 
 
-def create_algolia_records(library_key: str, sections: dict, boost_root: str, boost_version: str):
+def create_algolia_records(library_key: str, sections: dict, boost_root: str):
     boost_root = Path(boost_root).resolve()
     records = []
 
@@ -40,13 +40,12 @@ def create_algolia_records(library_key: str, sections: dict, boost_root: str, bo
 
     for _, section in sections.items():
         for lvl in section['lvls']:
-            lvl['url'] = lvl['url'].replace(str(boost_root), 'https://www.boost.org/doc/libs/' + boost_version)
+            lvl['path'] = lvl['path'].replace(str(boost_root) + '/', '')
 
         records.append({
             'type': 'content',
             'library_key': library_key,
             'library_name': library_name,
-            'boost_version': boost_version,
             'content': re.sub(r'\s+', ' ', section['content']).strip(),
             'weight': {
                 'pageRank': 0,
@@ -77,5 +76,4 @@ if __name__ == "__main__":
 
             create_algolia_records(library_key=library_key,
                                    sections=sections,
-                                   boost_root=config['boost_root'],
-                                   boost_version=config['boost_version'])
+                                   boost_root=config['boost_root'])

@@ -55,7 +55,7 @@ class BoostIostreams(Crawler):
                 heading = soup.select_one('body > h1.title')
                 anchors = [a.get('href') for a in soup.select('body > .page-index a')]
 
-                lvl0 = [{'title': sanitize_title(heading.get_text()), 'url': str(html_file_path)}]
+                lvl0 = [{'title': sanitize_title(heading.get_text()), 'path': str(html_file_path)}]
 
                 for a in soup.select('body > a[name]'):
                     if '#' + a.get('name') in anchors:
@@ -67,7 +67,7 @@ class BoostIostreams(Crawler):
                             content += elm.get_text().strip() + ' '
 
                         title = sanitize_title(sub_heading.text)
-                        url = str(html_file_path) + '#' + a.get('name')
-                        sections[url] = {'lvls': lvl0 + [{'title': title, 'url': url}], 'content': content}
+                        path = str(html_file_path) + '#' + a.get('name')
+                        sections[path] = {'lvls': lvl0 + [{'title': title, 'path': path}], 'content': content}
 
         return sections

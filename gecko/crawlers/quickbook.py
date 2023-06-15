@@ -121,7 +121,7 @@ class QuickBook(Crawler):
             if soup.select_one('body > .refentry'):
                 lvl1 = [{
                     'title': sanitize_title(soup.select_one('.refentry > .refnamediv > h2').text),
-                    'url': file_path
+                    'path': file_path
                 }]
 
                 for refsect1 in soup.select('.refentry > .refsect1'):
@@ -133,13 +133,13 @@ class QuickBook(Crawler):
                             break
                         content += sibling.get_text().strip() + ' '
 
-                    url = file_path + '#' + anchor
+                    path = file_path + '#' + anchor
                     lvl2 = [{
                         'title': sanitize_title(refsect1.select_one('h2').text),
-                        'url': url
+                        'path': path
                     }]+lvl1
 
-                    sections[url] = {'lvls': lvl2, 'content': content, 'up': up}
+                    sections[path] = {'lvls': lvl2, 'content': content, 'up': up}
 
                     for refsect2 in refsect1.select('.refsect2'):
                         anchor = refsect2.select_one('a').get('name')
@@ -150,12 +150,12 @@ class QuickBook(Crawler):
                                 break
                             content += sibling.get_text().strip() + ' '
 
-                        url = file_path + '#' + anchor
+                        path = file_path + '#' + anchor
                         lvl3 = [{
                             'title': sanitize_title(refsect2.select_one('h3').text),
-                            'url': url
+                            'path': path
                         }]+lvl2
-                        sections[url] = {'lvls': lvl3, 'content': content, 'up': up}
+                        sections[path] = {'lvls': lvl3, 'content': content, 'up': up}
             else:
                 for anchor in soup.select('h1 > a.headerlink, h2 > a.headerlink, h3 > a.headerlink, h4 > a.headerlink, '
                                           'h5 > a.headerlink, h6 > a.headerlink, h1 > a.link, h2 > a.link, h3 > a.link,'
@@ -185,43 +185,43 @@ class QuickBook(Crawler):
                         content += sibling.get_text().strip() + ' '
 
                     if anchor.has_attr('href') and header != soup.select_one('.body > .section:first-child > h1'):
-                        url = urljoin(file_path, anchor.get('href'))
+                        path = urljoin(file_path, anchor.get('href'))
                     elif header != soup.select_one('body > div > .titlepage') and header != soup.select_one('.body > .section:first-child > h1'):
-                        url = file_path + '#' + anchor.get('name')
+                        path = file_path + '#' + anchor.get('name')
                     else:
-                        url = file_path
+                        path = file_path
 
                     if soup.select_one('body > div > .titlepage .title'):
                         lvls = [
                             {
                                 'title': sanitize_title(anchor.parent.text),
-                                'url': url
+                                'path': path
                             },
                             {
                                 'title': sanitize_title(soup.select_one('body > div > .titlepage .title').text),
-                                'url': file_path
+                                'path': file_path
                             }
                         ]
                     elif soup.select_one('.body > .section:first-child > h1'):
                         lvls = [
                             {
                                 'title': sanitize_title(anchor.parent.text),
-                                'url': url
+                                'path': path
                             },
                             {
                                 'title': sanitize_title(soup.select_one('.body > .section:first-child > h1').text),
-                                'url': file_path
+                                'path': file_path
                             }
                         ]
                     else:
                         lvls = [
                             {
                                 'title': sanitize_title(anchor.parent.text),
-                                'url': url
+                                'path': path
                             }
                         ]
 
-                    sections[url] = {'lvls': lvls, 'content': content, 'up': up}
+                    sections[path] = {'lvls': lvls, 'content': content, 'up': up}
 
             return releative_links
 

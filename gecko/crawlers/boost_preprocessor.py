@@ -27,8 +27,8 @@ class BoostPreprocessor(Crawler):
                 if not heading:
                     heading = soup.select_one('head > title')
                     title = sanitize_title(heading.get_text())
-                    url = str(html_file_path)
-                    sections[url] = {'lvls': [{'title': title, 'url': url}], 'content': soup.select_one('body').text}
+                    path = str(html_file_path)
+                    sections[path] = {'lvls': [{'title': title, 'path': path}], 'content': soup.select_one('body').text}
                     continue
 
                 if '[back]' in heading.text:
@@ -39,8 +39,8 @@ class BoostPreprocessor(Crawler):
                     content += elm.get_text().strip() + ' '
 
                 title = sanitize_title(heading.get_text())
-                url = str(html_file_path)
+                path = str(html_file_path)
 
-                sections[url] = {'lvls': [{'title': title, 'url': url}], 'content': content}
+                sections[path] = {'lvls': [{'title': title, 'path': path}], 'content': content}
 
         return sections

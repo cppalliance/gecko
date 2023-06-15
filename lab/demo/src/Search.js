@@ -47,19 +47,19 @@ function CustomSearchBox({ inputRef }) {
 }
 
 function CustomHit(hit) {
-  const { objectID, boost_version, library_key, library_name, hierarchy, _highlightResult } = hit;
+  const { objectID, library_key, library_name, hierarchy, _highlightResult } = hit;
   let hierarchyLinks = []
 
   if (_highlightResult) {
     Object.keys(_highlightResult.hierarchy).forEach(function (key) {
       const { title } = _highlightResult.hierarchy[key];
-      const { url } = hierarchy[key];
+      const { path } = hierarchy[key];
       hierarchyLinks.push(
         <Link
           underline="hover"
           dangerouslySetInnerHTML={{ __html: title.value }}
-          key={url}
-          href={url}
+          key={path}
+          href={'https://www.boost.org/doc/libs/1_82_0/' + path}
         ></Link>
       )
     });
@@ -79,7 +79,7 @@ function CustomHit(hit) {
       <Breadcrumbs separator="&rsaquo;" fontSize="small">
         <Link
           underline="hover"
-          href={'https://www.boost.org/doc/libs/' + boost_version + '/libs/' + library_key}
+          href={'https://www.boost.org/doc/libs/1_82_0/libs/' + library_key}
         >
           {library_name}
         </Link>
@@ -168,7 +168,7 @@ function Search({ library, algoliaIndex, alogliaAppId, alogliaApiKey }) {
         }}
       >
         <DialogTitle sx={{ p: 2, pb: 0 }}>
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
             <Grid item xs={12}>
               <CustomSearchBox inputRef={inputRef} />
             </Grid>
