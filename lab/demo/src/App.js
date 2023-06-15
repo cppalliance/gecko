@@ -39,8 +39,8 @@ import {
   PoweredBy
 } from 'react-instantsearch-hooks-web';
 
-function CustomSearchBox(props) {
-  const { currentRefinement, refine, } = useSearchBox(props);
+function CustomSearchBox({ inputRef }) {
+  const { currentRefinement, refine } = useSearchBox();
 
   return (
     <TextField
@@ -49,6 +49,7 @@ function CustomSearchBox(props) {
       label="Search..."
       value={currentRefinement}
       onChange={event => refine(event.currentTarget.value)}
+      inputRef={inputRef}
     />
   );
 }
@@ -131,6 +132,7 @@ function App() {
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
+    setTimeout(() => { inputRef.current.focus() }, 0);
   };
 
   const handleDialogClose = () => {
@@ -138,8 +140,9 @@ function App() {
   };
 
   const theme = useTheme();
+  const dialogShouldBeFullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-  const dialogFullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const inputRef = React.useRef(null);
 
   return (
     <InstantSearch searchClient={searchClient}>
@@ -182,23 +185,23 @@ function App() {
         </Grid>
       </Container>
       <Dialog
-        fullScreen={dialogFullScreen}
+        fullScreen={dialogShouldBeFullScreen}
         keepMounted
         fullWidth
         maxWidth="md"
         open={dialogOpen}
         onClose={handleDialogClose}
         PaperProps={{
-          style: dialogFullScreen ? {} : {
+          style: dialogShouldBeFullScreen ? {} : {
             minHeight: '95vh',
             maxHeight: '95vh',
           }
         }}
       >
-        <DialogTitle sx={{ p: 2 }}>
+        <DialogTitle sx={{ p: 2, pb: 0 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <CustomSearchBox />
+              <CustomSearchBox inputRef={inputRef} />
             </Grid>
             <Grid item xs={12}>
               <Tabs
@@ -213,8 +216,8 @@ function App() {
             </Grid>
           </Grid>
         </DialogTitle>
-        <DialogContent>
-          <Box hidden={selectedTab !== "1"} sx={{ typography: 'body1' }}>
+        <DialogContent sx={{ p: 2 }}>
+          <Box hidden={selectedTab !== "1"} sx={{ pt: 1, typography: 'body1' }}>
             <Index indexName="all">
               <Configure
                 hitsPerPage={30}
@@ -223,7 +226,7 @@ function App() {
               <CustomInfiniteHits />
             </Index>
           </Box>
-          <Box hidden={selectedTab !== "2"} sx={{ typography: 'body1' }}>
+          <Box hidden={selectedTab !== "2"} sx={{ pt: 1, typography: 'body1' }}>
             <Index indexName="all">
               <Configure
                 hitsPerPage={30}
