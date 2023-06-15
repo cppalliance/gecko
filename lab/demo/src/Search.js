@@ -66,8 +66,17 @@ function CustomHit(hit) {
   }
 
   return (
-    <Box key={objectID}>
-      <Breadcrumbs separator="&rsaquo;">
+    <Box
+      key={objectID}
+      sx={{
+        '& mark': {
+          color: 'inherit',
+          bgcolor: 'inherit',
+          fontWeight: 'bolder',
+        }
+      }}
+    >
+      <Breadcrumbs separator="&rsaquo;" fontSize="small">
         <Link
           underline="hover"
           href={'https://www.boost.org/doc/libs/' + boost_version + '/libs/' + library_key}
@@ -77,7 +86,7 @@ function CustomHit(hit) {
         {hierarchyLinks}
       </Breadcrumbs>
       <Snippet
-        style={{ color: grey[700] }}
+        style={{ color: grey[700], fontSize: "small" }}
         hit={hit}
         attribute="content"
       />
@@ -94,6 +103,7 @@ function CustomInfiniteHits(props) {
       {hits.map(CustomHit)}
       <Box textAlign='center'>
         <LoadingButton
+          size="small"
           loading={status === 'loading' || status === 'stalled'}
           disabled={isLastPage}
           onClick={showMore}
