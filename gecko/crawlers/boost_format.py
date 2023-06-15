@@ -16,7 +16,7 @@ class BoostFormat(Crawler):
             last_h2 = None
 
             for a in soup.select('body > a[name]'):
-                url = str(html_file_path) + '#' + a.get('name')
+                path = str(html_file_path) + '#' + a.get('name')
                 content = ''
                 lvls = []
                 for elm in a.next_elements:
@@ -24,16 +24,16 @@ class BoostFormat(Crawler):
                         # meets the next heading
                         if len(lvls) > 0:
                             break
-                        lvls = [{'title': elm.get_text(), 'url': url}]
+                        lvls = [{'title': elm.get_text(), 'path': path}]
                         last_h2 = lvls
                     elif elm.name == 'h3':
                         # meets the next heading
                         if len(lvls) > 0:
                             break
-                        lvls = last_h2 + [{'title': elm.get_text(), 'url': url}]
+                        lvls = last_h2 + [{'title': elm.get_text(), 'path': path}]
                     else:
                         content += elm.get_text().strip() + ' '
 
-                sections[url] = {'lvls': lvls, 'content': content}
+                sections[path] = {'lvls': lvls, 'content': content}
 
         return sections

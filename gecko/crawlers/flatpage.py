@@ -40,7 +40,7 @@ def sanitize_title(title):
     return re.sub(r'\s+', ' ', title).strip()
 
 
-def extract_url(file_path: str, header: Tag):
+def extract_path(file_path: str, header: Tag):
     if header.select_one('a').has_attr('name'):
         return file_path + '#' + header.select_one('a').get('name')
 
@@ -95,7 +95,7 @@ class FlatPage(Crawler):
 
             lvl0 = []
             if library_key == 'filesystem' and soup.select_one('body > h1'):
-                lvl0 = [{'title': sanitize_title(soup.select_one('body > h1').text), 'url': file_path}]
+                lvl0 = [{'title': sanitize_title(soup.select_one('body > h1').text), 'path': file_path}]
 
             last_h2 = None
             last_h3 = None
@@ -116,20 +116,20 @@ class FlatPage(Crawler):
                     content += sibling.get_text().strip() + ' '
 
                 if header.name == 'h2' or not last_h2:
-                    lvls = lvl0 + [{'title': sanitize_title(header.text), 'url': extract_url(file_path, header)}]
+                    lvls = lvl0 + [{'title': sanitize_title(header.text), 'path': extract_path(file_path, header)}]
                 elif header.name == 'h3' or not last_h3:
                     lvls = lvl0 + [
-                        {'title': sanitize_title(last_h2.text), 'url': extract_url(file_path, last_h2)},
-                        {'title': sanitize_title(header.text), 'url': extract_url(file_path, header)}
+                        {'title': sanitize_title(last_h2.text), 'path': extract_path(file_path, last_h2)},
+                        {'title': sanitize_title(header.text), 'path': extract_path(file_path, header)}
                     ]
                 else:
                     lvls = lvl0 + [
-                        {'title': sanitize_title(last_h2.text), 'url': extract_url(file_path, last_h2)},
-                        {'title': sanitize_title(last_h3.text), 'url': extract_url(file_path, last_h3)},
-                        {'title': sanitize_title(header.text), 'url': extract_url(file_path, header)}
+                        {'title': sanitize_title(last_h2.text), 'path': extract_path(file_path, last_h2)},
+                        {'title': sanitize_title(last_h3.text), 'path': extract_path(file_path, last_h3)},
+                        {'title': sanitize_title(header.text), 'path': extract_path(file_path, header)}
                     ]
 
-                sections[extract_url(file_path, header)] = {'lvls': lvls, 'content': content}
+                sections[extract_path(file_path, header)] = {'lvls': lvls, 'content': content}
 
             # collect all releative links to scrape
             releative_links = []

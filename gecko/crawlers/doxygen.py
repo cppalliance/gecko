@@ -17,8 +17,8 @@ def extract_textblock(textblock: Tag, lvls: list, html_file_path: str, sections:
 
     def add_sub_section(h1: Tag):
         title = sanitize_title(h1.get_text())
-        url = html_file_path + '#' + h1.select_one('a.anchor').get('id')
-        sections[url] = {'lvls': lvls + [{'title': title, 'url': url}], 'content': section_content}
+        path = html_file_path + '#' + h1.select_one('a.anchor').get('id')
+        sections[path] = {'lvls': lvls + [{'title': title, 'path': path}], 'content': section_content}
 
     for elm in textblock.children:
         if elm.name == 'h1' and elm.select_one('a.anchor'):
@@ -41,7 +41,7 @@ def extract_textblock(textblock: Tag, lvls: list, html_file_path: str, sections:
 def extract_memberdecls(memberdecls: Tag, lvls: list, html_file_path: str, sections: dict):
     heading = memberdecls.select_one('tr:first-child > td > h2.groupheader')
     title = sanitize_title(heading.get_text())
-    url = html_file_path + '#' + heading.select_one('a[name]').get('name')
+    path = html_file_path + '#' + heading.select_one('a[name]').get('name')
 
     content = ''
     for tr in memberdecls.select('tr'):
@@ -50,15 +50,15 @@ def extract_memberdecls(memberdecls: Tag, lvls: list, html_file_path: str, secti
         content += tr.get_text() + ' '
 
     content = content.replace('More...', '')
-    sections[url] = {'lvls': lvls + [{'title': title, 'url': url}], 'content': content}
+    sections[path] = {'lvls': lvls + [{'title': title, 'path': path}], 'content': content}
 
 
 def extract_memtitle(memtitle: Tag, lvls: list, html_file_path: str, sections: dict):
     memtitle.select_one('span').decompose()
     title = sanitize_title(memtitle.get_text())
-    url = html_file_path + '#' + memtitle.find_previous_sibling('a').get('id')
+    path = html_file_path + '#' + memtitle.find_previous_sibling('a').get('id')
     content = memtitle.find_next_sibling('div').get_text()
-    sections[url] = {'lvls': lvls + [{'title': title, 'url': url}], 'content': content}
+    sections[path] = {'lvls': lvls + [{'title': title, 'path': path}], 'content': content}
 
 
 class Doxygen(Crawler):
@@ -89,15 +89,15 @@ class Doxygen(Crawler):
                 lvls = []
                 ingroups = heading.select_one('div.ingroups > a')
                 if ingroups:
-                    lvls = [{'title': sanitize_title(ingroups.text), 'url': str(
+                    lvls = [{'title': sanitize_title(ingroups.text), 'path': str(
                         html_file_path.parent / ingroups.get('href'))}]
 
                 for elm in heading.find_all():
                     elm.decompose()
 
                 title = sanitize_title(heading.get_text())
-                url = str(html_file_path)
-                lvls += [{'title': title, 'url': url}]
+                path = str(html_file_path)
+                lvls += [{'title': title, 'path': path}]
 
                 content = ''
                 for elm in wrapper.select_one('.contents').find_all(recursive=False):
@@ -117,6 +117,6 @@ class Doxygen(Crawler):
 
                     content += elm.get_text() + ' '
 
-                sections[url] = {'lvls': lvls, 'content': content}
+                sections[path] = {'lvls': lvls, 'content': content}
 
         return sections

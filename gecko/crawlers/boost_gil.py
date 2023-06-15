@@ -86,9 +86,9 @@ class BoostGIL(Crawler):
                 content += sibling.get_text().strip() + ' '
 
             title = sanitize_title(heading.text)
-            url = file_path
-            lvl0 = [{'title': title, 'url': url}]
-            sections[url] = {'lvls': lvl0, 'content': content, 'up': up}
+            path = file_path
+            lvl0 = [{'title': title, 'path': path}]
+            sections[path] = {'lvls': lvl0, 'content': content, 'up': up}
 
             for section in soup.select('body > .content > .section > .section'):
                 subheading = section.select_one('h2:first-of-type')
@@ -97,9 +97,9 @@ class BoostGIL(Crawler):
                     content += sibling.get_text().strip() + ' '
 
                 title = sanitize_title(subheading.text)
-                url = file_path + '#' + section.get('id')
-                lvls = [{'title': title, 'url': url}] + lvl0
-                sections[url] = {'lvls': lvls, 'content': content, 'up': up}
+                path = file_path + '#' + section.get('id')
+                lvls = [{'title': title, 'path': path}] + lvl0
+                sections[path] = {'lvls': lvls, 'content': content, 'up': up}
 
             return releative_links
 

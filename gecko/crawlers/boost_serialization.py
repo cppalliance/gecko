@@ -47,9 +47,9 @@ def find_parent_lvls(header: Tag, headers: list, html_file_path: Path):
 
     if parent:
         parent_title = sanitize_title(parent.text)
-        parent_url = str(html_file_path) + '#' + parent.a.get('name')
+        parent_path = str(html_file_path) + '#' + parent.a.get('name')
         parent_parent_lvls = find_parent_lvls(parent, headers, html_file_path)
-        return parent_parent_lvls + [{'title': parent_title, 'url': parent_url}]
+        return parent_parent_lvls + [{'title': parent_title, 'path': parent_path}]
 
     return []
 
@@ -71,7 +71,7 @@ class BoostSerialization(Crawler):
                     continue
 
                 lvl0 = [{'title': sanitize_title(soup.select_one(
-                    'h2[align="center"]').text), 'url': str(html_file_path)}]
+                    'h2[align="center"]').text), 'path': str(html_file_path)}]
 
                 lvl0_content = ''
                 for elm in soup.select_one('h2[align="center"]').find_parent('table').next_siblings:
@@ -94,8 +94,8 @@ class BoostSerialization(Crawler):
                         content += elm.get_text().strip() + ' '
 
                     title = sanitize_title(header.text)
-                    url = str(html_file_path) + '#' + header.a.get('name')
-                    lvls = lvl0 + find_parent_lvls(header, headers, html_file_path) + [{'title': title, 'url': url}]
-                    sections[url] = {'lvls': lvls, 'content': content}
+                    path = str(html_file_path) + '#' + header.a.get('name')
+                    lvls = lvl0 + find_parent_lvls(header, headers, html_file_path) + [{'title': title, 'path': path}]
+                    sections[path] = {'lvls': lvls, 'content': content}
 
         return sections

@@ -19,8 +19,8 @@ def scrape_section(section: Tag, sections: dict, lvls: list, html_file_path: str
         id = heading.find('a').get('id')
 
     title = sanitize_title(heading.text)
-    url = html_file_path + '#' + id
-    lvls = lvls + [{'title': title, 'url': url}]
+    path = html_file_path + '#' + id
+    lvls = lvls + [{'title': title, 'path': path}]
 
     content = ''
     for elm in heading.next_siblings:
@@ -28,7 +28,7 @@ def scrape_section(section: Tag, sections: dict, lvls: list, html_file_path: str
             break
         content += elm.get_text().strip() + ' '
 
-    sections[url] = {'lvls': lvls, 'content': content}
+    sections[path] = {'lvls': lvls, 'content': content}
 
     for section in section.find_all('div', class_='section', recursive=False):
         scrape_section(section, sections, lvls, html_file_path)
@@ -59,7 +59,7 @@ class Helmethead(Crawler):
                     heading = sub_heading
 
                 if heading and 'Pointer Container Library' not in heading.text:
-                    lvls = [{'title': sanitize_title(heading.text), 'url': str(html_file_path)}]
+                    lvls = [{'title': sanitize_title(heading.text), 'path': str(html_file_path)}]
                     content = ''
                     for elm in heading.next_siblings:
                         if has_class(elm, 'docinfo'):

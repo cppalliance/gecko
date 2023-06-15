@@ -82,9 +82,9 @@ class BoostOutcome(Crawler):
                 content += sibling.get_text().strip() + ' '
 
             title = sanitize_title(heading.text)
-            url = file_path
-            lvl0 = [{'title': title, 'url': url}]
-            sections[url] = {'lvls': lvl0, 'content': content, 'up': up}
+            path = file_path
+            lvl0 = [{'title': title, 'path': path}]
+            sections[path] = {'lvls': lvl0, 'content': content, 'up': up}
 
             for subheading in soup.select('#content > h2[id]'):
                 content = ''
@@ -94,9 +94,9 @@ class BoostOutcome(Crawler):
                     content += sibling.get_text().strip() + ' '
 
                 title = sanitize_title(subheading.text)
-                url = file_path + '#' + subheading.get('id')
-                lvls = [{'title': title, 'url': url}] + lvl0
-                sections[url] = {'lvls': lvls, 'content': content, 'up': up}
+                path = file_path + '#' + subheading.get('id')
+                lvls = [{'title': title, 'path': path}] + lvl0
+                sections[path] = {'lvls': lvls, 'content': content, 'up': up}
 
             return releative_links
 

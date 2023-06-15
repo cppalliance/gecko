@@ -24,7 +24,7 @@ class BoostFunctional(Crawler):
 
                 heading = soup.select_one('body > h1')
 
-                lvls = [{'title': sanitize_title(heading.text), 'url': str(html_file_path)}]
+                lvls = [{'title': sanitize_title(heading.text), 'path': str(html_file_path)}]
 
                 content = ''
                 for elm in heading.next_siblings:

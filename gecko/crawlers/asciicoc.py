@@ -28,8 +28,8 @@ class AsciiDoc(Crawler):
     def _extract_section_n(self, index_path: str, sections: dict, sect: Tag, lvls: list = []):
         header = sect.select_one('h1, h2, h3, h4, h5, h6')
         title = header.text
-        url = index_path + '#' + header.get('id')
-        lvls = lvls + [{'title': title, 'url': url}]
+        path = index_path + '#' + header.get('id')
+        lvls = lvls + [{'title': title, 'path': path}]
 
         if header.find_next_sibling() and has_class(header.find_next_sibling(), 'sectionbody'):
             siblings = header.find_next_sibling().find_all(recursive=False)
@@ -43,4 +43,4 @@ class AsciiDoc(Crawler):
                 continue
             content += sibling.get_text() + ' '
 
-        sections[url] = {'content': content, 'lvls': lvls}
+        sections[path] = {'content': content, 'lvls': lvls}

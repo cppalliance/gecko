@@ -28,9 +28,9 @@ class Harlequin(Crawler):
             content += sibling.get_text() + ' '
 
         title = h2.text
-        url = html_file_path + '#' + h2.get('id')
+        path = html_file_path + '#' + h2.get('id')
 
-        sections[url] = {'content': content, 'lvls': [{'url': url, 'title': title}]}
+        sections[path] = {'content': content, 'lvls': [{'path': path, 'title': title}]}
 
     def _extract_h2_section_that_has_a_tag(self, html_file_path: str, sections: dict, h2: Tag):
         content = ''
@@ -45,6 +45,6 @@ class Harlequin(Crawler):
             id = h2.find('a')['name']
 
         title = h2.text
-        url = html_file_path + '#' + id
+        path = html_file_path + '#' + id
 
-        sections[url] = {'content': content, 'lvls': [{'url': url, 'title': title}]}
+        sections[path] = {'content': content, 'lvls': [{'path': path, 'title': title}]}

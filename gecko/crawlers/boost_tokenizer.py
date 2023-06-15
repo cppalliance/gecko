@@ -23,8 +23,8 @@ class BoostTokenizer(Crawler):
                     content += elm.get_text().strip() + ' '
 
                 title = heading.get_text()
-                url = str(html_file_path)
+                path = str(html_file_path)
 
-                sections[url] = {'lvls': [{'title': title, 'url': url}], 'content': content}
+                sections[path] = {'lvls': [{'title': title, 'path': path}], 'content': content}
 
         return sections
