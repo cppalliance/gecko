@@ -129,9 +129,11 @@ function App() {
   };
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [keepDialogMounted, setKeepDialogMounted] = React.useState(false);
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
+    setKeepDialogMounted(true);
     setTimeout(() => { inputRef.current.focus() }, 0);
   };
 
@@ -186,7 +188,7 @@ function App() {
       </Container>
       <Dialog
         fullScreen={dialogShouldBeFullScreen}
-        keepMounted
+        keepMounted={keepDialogMounted}
         fullWidth
         maxWidth="md"
         open={dialogOpen}
