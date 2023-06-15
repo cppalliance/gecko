@@ -1,15 +1,8 @@
-import { libraries } from './libraries.js'
-
 import React from 'react';
 
 import TextField from '@mui/material/TextField';
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Select from '@mui/material/Select';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
@@ -17,7 +10,6 @@ import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import grey from '@mui/material/colors/grey';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -113,14 +105,8 @@ function CustomInfiniteHits(props) {
   );
 }
 
-function App() {
-  const [searchClient] = React.useState(algoliasearch('D7O1MLLTAF', '44d0c0aac3c738bebb622150d1ec4ebf'));
-
-  const [library, setLibrary] = React.useState(libraries[0]);
-
-  const handleLibraryChange = (event) => {
-    setLibrary(libraries.filter(i => i.key === event.target.value)[0]);
-  };
+function Search({ library, algoliaIndex, alogliaAppId, alogliaApiKey }) {
+  const [searchClient] = React.useState(algoliasearch(alogliaAppId, alogliaApiKey));
 
   const [selectedTab, setSelectedTab] = React.useState('1');
 
@@ -148,44 +134,15 @@ function App() {
 
   return (
     <InstantSearch searchClient={searchClient}>
-      <Container maxWidth="md">
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Typography variant="h6">
-              <Link
-                underline="none"
-                href="https://github.com/cppalliance/boost-gecko"
-              >
-                Boost.Gecko
-              </Link>
-            </Typography>
-          </Grid>
-          <Grid item xl={10} xs={8}>
-            <FormControl fullWidth>
-              <InputLabel>Library</InputLabel>
-              <Select
-                size="small"
-                value={library.key}
-                onChange={handleLibraryChange}
-                label="Library"
-              >
-                {libraries.map(i => <MenuItem key={i.key} value={i.key}>{i.name}</MenuItem>)}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xl={2} xs={4}>
-            <Button
-              fullWidth
-              sx={{ textTransform: 'capitalize', height: 40 }}
-              startIcon={<SearchIcon />}
-              variant="outlined"
-              onClick={handleDialogOpen}
-            >
-              Search...
-            </Button>
-          </Grid>
-        </Grid>
-      </Container>
+      <Button
+        fullWidth
+        sx={{ textTransform: 'none' }}
+        startIcon={<SearchIcon />}
+        variant="outlined"
+        onClick={handleDialogOpen}
+      >
+        Search...
+      </Button>
       <Dialog
         fullScreen={dialogShouldBeFullScreen}
         keepMounted={keepDialogMounted}
@@ -212,15 +169,15 @@ function App() {
                 variant="fullWidth"
                 sx={{ borderBottom: 1, borderColor: 'divider' }}
               >
-                <Tab value="1" sx={{ textTransform: 'capitalize' }} label={library.name} />
-                <Tab value="2" sx={{ textTransform: 'capitalize' }} label="Other Libraries" />
+                <Tab value="1" sx={{ textTransform: 'none' }} label={library.name} />
+                <Tab value="2" sx={{ textTransform: 'none' }} label="Other Libraries" />
               </Tabs>
             </Grid>
           </Grid>
         </DialogTitle>
         <DialogContent sx={{ p: 2 }}>
           <Box hidden={selectedTab !== "1"} sx={{ pt: 1, typography: 'body1' }}>
-            <Index indexName="all">
+            <Index indexName={algoliaIndex}>
               <Configure
                 hitsPerPage={30}
                 filters={"library_key:" + library.key}
@@ -229,7 +186,7 @@ function App() {
             </Index>
           </Box>
           <Box hidden={selectedTab !== "2"} sx={{ pt: 1, typography: 'body1' }}>
-            <Index indexName="all">
+            <Index indexName={algoliaIndex}>
               <Configure
                 hitsPerPage={30}
                 filters={"NOT library_key:" + library.key}
@@ -244,7 +201,7 @@ function App() {
               <PoweredBy />
             </Grid>
             <Grid item xl={10} xs={8} sx={{ textAlign: 'right' }}>
-              <Button size="small" onClick={handleDialogClose}>Close</Button>
+              <Button size="small" sx={{ textTransform: 'none' }} onClick={handleDialogClose}>Close</Button>
             </Grid>
           </Grid>
         </DialogActions>
@@ -253,4 +210,4 @@ function App() {
   );
 }
 
-export default App;
+export default Search;
