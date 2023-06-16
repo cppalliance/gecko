@@ -1,4 +1,4 @@
-import { libraries } from './libraries'
+import { libraries } from './libraries';
 import Search from './Search';
 
 import React from 'react';
@@ -15,32 +15,26 @@ function Demo() {
   const [library, setLibrary] = React.useState(libraries[0]);
 
   const handleLibraryChange = (event) => {
-    setLibrary(libraries.filter(i => i.key === event.target.value)[0]);
+    setLibrary(libraries.filter((i) => i.key === event.target.value)[0]);
   };
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth='md'>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Link
-            variant="h6"
-            underline="none"
-            href="https://github.com/cppalliance/boost-gecko"
-          >
+          <Link variant='h6' underline='none' href='https://github.com/cppalliance/boost-gecko'>
             Boost.Gecko
           </Link>
         </Grid>
         <Grid item xl={10} xs={8}>
           <FormControl fullWidth>
             <InputLabel>Library</InputLabel>
-            <Select
-              size="small"
-              value={library.key}
-              onChange={handleLibraryChange}
-              label="Library"
-              sx={{ height: 36 }}
-            >
-              {libraries.map(i => <MenuItem key={i.key} value={i.key}>{i.name}</MenuItem>)}
+            <Select size='small' value={library.key} onChange={handleLibraryChange} label='Library' sx={{ height: 36 }}>
+              {libraries.map((i) => (
+                <MenuItem key={i.key} value={i.key}>
+                  {i.name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Grid>
