@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
@@ -15,9 +16,9 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import SearchIcon from '@mui/icons-material/Search';
+import InputAdornment from '@mui/material/InputAdornment';
 
 import algoliasearch from 'algoliasearch/lite';
 import {
@@ -38,10 +39,17 @@ function CustomSearchBox({ inputRef }) {
     <TextField
       fullWidth
       size="small"
-      label="Search..."
+      placeholder="Search..."
       value={currentRefinement}
       onChange={event => refine(event.currentTarget.value)}
       inputRef={inputRef}
+      InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">
+            <SearchIcon />
+          </InputAdornment>
+        ),
+      }}
     />
   );
 }
