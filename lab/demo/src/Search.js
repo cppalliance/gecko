@@ -1,5 +1,7 @@
 import React from 'react';
 
+import urlJoin from 'url-join';
+
 import { useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
@@ -54,7 +56,7 @@ function CustomSearchBox({ inputRef }) {
   );
 }
 
-function CustomHit(hit) {
+function CustomHit(hit, url_prefix) {
   const { objectID, library_key, library_name, hierarchy, _highlightResult } = hit;
   let hierarchyLinks = []
 
@@ -67,7 +69,7 @@ function CustomHit(hit) {
           underline="hover"
           dangerouslySetInnerHTML={{ __html: title.value }}
           key={path}
-          href={'https://www.boost.org/doc/libs/1_82_0/' + path}
+          href={urlJoin(url_prefix, path)}
         ></Link>
       )
     });
@@ -87,7 +89,7 @@ function CustomHit(hit) {
       <Breadcrumbs separator="&rsaquo;" fontSize="small">
         <Link
           underline="hover"
-          href={'https://www.boost.org/doc/libs/1_82_0/libs/' + library_key}
+          href={urlJoin(url_prefix, 'libs', library_key)}
         >
           {library_name}
         </Link>
@@ -102,13 +104,13 @@ function CustomHit(hit) {
   );
 }
 
-function CustomInfiniteHits(props) {
-  const { hits, isLastPage, showMore } = useInfiniteHits(props);
+function CustomInfiniteHits({ url_prefix }) {
+  const { hits, isLastPage, showMore } = useInfiniteHits();
   const { status } = useInstantSearch();
 
   return (
     <Stack spacing={2}>
-      {hits.map(CustomHit)}
+      {hits.map(hit => CustomHit(hit, url_prefix))}
       <Box textAlign='center'>
         <LoadingButton
           size="small"
@@ -123,7 +125,7 @@ function CustomInfiniteHits(props) {
   );
 }
 
-function Search({ library, algoliaIndex, alogliaAppId, alogliaApiKey }) {
+function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey }) {
   const [searchClient] = React.useState(algoliasearch(alogliaAppId, alogliaApiKey));
 
   const [selectedTab, setSelectedTab] = React.useState('1');
@@ -200,7 +202,7 @@ function Search({ library, algoliaIndex, alogliaAppId, alogliaApiKey }) {
                 hitsPerPage={30}
                 filters={"library_key:" + library.key}
               />
-              <CustomInfiniteHits />
+              <CustomInfiniteHits url_prefix={url_prefix} />
             </Index>
           </Box>
           <Box hidden={selectedTab !== "2"} sx={{ pt: 1, typography: 'body1' }}>
@@ -209,7 +211,7 @@ function Search({ library, algoliaIndex, alogliaAppId, alogliaApiKey }) {
                 hitsPerPage={30}
                 filters={"NOT library_key:" + library.key}
               />
-              <CustomInfiniteHits />
+              <CustomInfiniteHits url_prefix={url_prefix} />
             </Index>
           </Box>
         </DialogContent>
