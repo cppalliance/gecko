@@ -31,7 +31,7 @@ import {
   useInfiniteHits,
   useInstantSearch,
   Snippet,
-  PoweredBy
+  PoweredBy,
 } from 'react-instantsearch-hooks-web';
 
 function CustomSearchBox({ inputRef }) {
@@ -40,14 +40,14 @@ function CustomSearchBox({ inputRef }) {
   return (
     <TextField
       fullWidth
-      size="small"
-      placeholder="Search..."
+      size='small'
+      placeholder='Search...'
       value={currentRefinement}
-      onChange={event => refine(event.currentTarget.value)}
+      onChange={(event) => refine(event.currentTarget.value)}
       inputRef={inputRef}
       InputProps={{
         startAdornment: (
-          <InputAdornment position="start">
+          <InputAdornment position='start'>
             <SearchIcon />
           </InputAdornment>
         ),
@@ -58,7 +58,7 @@ function CustomSearchBox({ inputRef }) {
 
 function CustomHit(hit, url_prefix) {
   const { objectID, library_key, library_name, hierarchy, _highlightResult } = hit;
-  let hierarchyLinks = []
+  let hierarchyLinks = [];
 
   if (_highlightResult) {
     Object.keys(_highlightResult.hierarchy).forEach(function (key) {
@@ -66,12 +66,14 @@ function CustomHit(hit, url_prefix) {
       const { path } = hierarchy[key];
       hierarchyLinks.push(
         <Link
-          underline="hover"
-          dangerouslySetInnerHTML={{ __html: title.value }}
+          underline='hover'
+          dangerouslySetInnerHTML={{
+            __html: title.value,
+          }}
           key={path}
           href={urlJoin(url_prefix, path)}
-        ></Link>
-      )
+        ></Link>,
+      );
     });
   }
 
@@ -83,23 +85,16 @@ function CustomHit(hit, url_prefix) {
           color: 'inherit',
           bgcolor: 'inherit',
           fontWeight: 'bolder',
-        }
+        },
       }}
     >
-      <Breadcrumbs separator="&rsaquo;" fontSize="small">
-        <Link
-          underline="hover"
-          href={urlJoin(url_prefix, 'libs', library_key)}
-        >
+      <Breadcrumbs separator='&rsaquo;' fontSize='small'>
+        <Link underline='hover' href={urlJoin(url_prefix, 'libs', library_key)}>
           {library_name}
         </Link>
         {hierarchyLinks}
       </Breadcrumbs>
-      <Snippet
-        style={{ color: grey[700], fontSize: "small" }}
-        hit={hit}
-        attribute="content"
-      />
+      <Snippet style={{ color: grey[700], fontSize: 'small' }} hit={hit} attribute='content' />
     </Box>
   );
 }
@@ -110,10 +105,10 @@ function CustomInfiniteHits({ url_prefix }) {
 
   return (
     <Stack spacing={2}>
-      {hits.map(hit => CustomHit(hit, url_prefix))}
+      {hits.map((hit) => CustomHit(hit, url_prefix))}
       <Box textAlign='center'>
         <LoadingButton
-          size="small"
+          size='small'
           loading={status === 'loading' || status === 'stalled'}
           disabled={isLastPage}
           onClick={showMore}
@@ -121,7 +116,7 @@ function CustomInfiniteHits({ url_prefix }) {
           Show More
         </LoadingButton>
       </Box>
-    </Stack >
+    </Stack>
   );
 }
 
@@ -140,7 +135,9 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
   const handleDialogOpen = () => {
     setDialogOpen(true);
     setKeepDialogMounted(true);
-    setTimeout(() => { inputRef.current.focus() }, 0);
+    setTimeout(() => {
+      inputRef.current.focus();
+    }, 0);
   };
 
   const handleDialogClose = () => {
@@ -158,7 +155,7 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
         fullWidth
         sx={{ textTransform: 'none' }}
         startIcon={<SearchIcon />}
-        variant="outlined"
+        variant='outlined'
         onClick={handleDialogOpen}
       >
         Search...
@@ -167,15 +164,10 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
         fullScreen={dialogShouldBeFullScreen}
         keepMounted={keepDialogMounted}
         fullWidth
-        maxWidth="md"
+        maxWidth='md'
         open={dialogOpen}
         onClose={handleDialogClose}
-        PaperProps={{
-          style: dialogShouldBeFullScreen ? {} : {
-            minHeight: '95vh',
-            maxHeight: '95vh',
-          }
-        }}
+        PaperProps={{ style: dialogShouldBeFullScreen ? {} : { minHeight: '95vh', maxHeight: '95vh' } }}
       >
         <DialogTitle sx={{ p: 2, pb: 0 }}>
           <Grid container spacing={1}>
@@ -186,31 +178,25 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
               <Tabs
                 value={selectedTab}
                 onChange={handleTabChange}
-                variant="fullWidth"
+                variant='fullWidth'
                 sx={{ borderBottom: 1, borderColor: 'divider' }}
               >
-                <Tab value="1" sx={{ textTransform: 'none' }} label={library.name} />
-                <Tab value="2" sx={{ textTransform: 'none' }} label="Other Libraries" />
+                <Tab value='1' sx={{ textTransform: 'none' }} label={library.name} />
+                <Tab value='2' sx={{ textTransform: 'none' }} label='Other Libraries' />
               </Tabs>
             </Grid>
           </Grid>
         </DialogTitle>
         <DialogContent sx={{ p: 2 }}>
-          <Box hidden={selectedTab !== "1"} sx={{ pt: 1, typography: 'body1' }}>
+          <Box hidden={selectedTab !== '1'} sx={{ pt: 1, typography: 'body1' }}>
             <Index indexName={algoliaIndex}>
-              <Configure
-                hitsPerPage={30}
-                filters={"library_key:" + library.key}
-              />
+              <Configure hitsPerPage={30} filters={'library_key:' + library.key} />
               <CustomInfiniteHits url_prefix={url_prefix} />
             </Index>
           </Box>
-          <Box hidden={selectedTab !== "2"} sx={{ pt: 1, typography: 'body1' }}>
+          <Box hidden={selectedTab !== '2'} sx={{ pt: 1, typography: 'body1' }}>
             <Index indexName={algoliaIndex}>
-              <Configure
-                hitsPerPage={30}
-                filters={"NOT library_key:" + library.key}
-              />
+              <Configure hitsPerPage={30} filters={'NOT library_key:' + library.key} />
               <CustomInfiniteHits url_prefix={url_prefix} />
             </Index>
           </Box>
@@ -221,12 +207,14 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
               <PoweredBy />
             </Grid>
             <Grid item xl={10} xs={8} sx={{ textAlign: 'right' }}>
-              <Button size="small" sx={{ textTransform: 'none' }} onClick={handleDialogClose}>Close</Button>
+              <Button size='small' sx={{ textTransform: 'none' }} onClick={handleDialogClose}>
+                Close
+              </Button>
             </Grid>
           </Grid>
         </DialogActions>
       </Dialog>
-    </InstantSearch >
+    </InstantSearch>
   );
 }
 
