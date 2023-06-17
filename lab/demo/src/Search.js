@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 
 import urlJoin from 'url-join';
 
@@ -216,6 +217,17 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
       </Dialog>
     </InstantSearch>
   );
+}
+
+Search.propTypes = {
+  library: PropTypes.shape({
+    key: React.PropTypes.string.isRequired,
+    name: React.PropTypes.string.isRequired
+  }),
+  url_prefix: PropTypes.string.isRequired,
+  algoliaIndex: PropTypes.string.isRequired,
+  alogliaAppId: PropTypes.string.isRequired,
+  alogliaApiKey: PropTypes.string.isRequired,
 }
 
 export default Search;
