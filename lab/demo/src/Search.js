@@ -84,6 +84,7 @@ function CustomHit(hit, url_prefix) {
     <Box
       key={objectID}
       sx={{
+        wordWrap: 'break-word',
         '& mark': {
           color: 'inherit',
           bgcolor: 'inherit',
