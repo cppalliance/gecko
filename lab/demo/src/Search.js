@@ -92,7 +92,7 @@ function CustomHit(hit, url_prefix) {
         },
       }}
     >
-      <Breadcrumbs separator='&rsaquo;' fontSize='small'>
+      <Breadcrumbs separator='&rsaquo;' fontSize='small' sx={{ wordBreak: 'break-all' }}>
         <Link underline='hover' href={urlJoin(url_prefix, 'libs', library_key)}>
           {library_name}
         </Link>
