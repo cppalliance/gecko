@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 import urlJoin from 'url-join';
 
@@ -22,6 +22,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
+import Typography from '@mui/material/Typography';
 
 import algoliasearch from 'algoliasearch/lite';
 import {
@@ -31,6 +32,7 @@ import {
   useSearchBox,
   useInfiniteHits,
   useInstantSearch,
+  useStats,
   Snippet,
   PoweredBy,
 } from 'react-instantsearch-hooks-web';
@@ -100,9 +102,14 @@ function CustomHit(hit, url_prefix) {
   );
 }
 
-function CustomInfiniteHits({ url_prefix }) {
+function CustomInfiniteHits({ url_prefix, setnbHits }) {
   const { hits, isLastPage, showMore } = useInfiniteHits();
   const { status } = useInstantSearch();
+  const { nbHits } = useStats();
+
+  React.useEffect(() => {
+    setnbHits(nbHits);
+  }, [nbHits, setnbHits]);
 
   return (
     <Stack spacing={2}>
@@ -125,6 +132,10 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
   const [searchClient] = React.useState(algoliasearch(alogliaAppId, alogliaApiKey));
 
   const [selectedTab, setSelectedTab] = React.useState('1');
+
+  const [nbHits, setnbHits] = React.useState(0);
+  const [otherLibrariesnbHits, setOtherLibrariesnbHits] = React.useState(0);
+  const kFormatter = (num) => (num > 999 ? (num / 1000).toFixed(1) + 'k' : num);
 
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -182,8 +193,24 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
                 variant='fullWidth'
                 sx={{ borderBottom: 1, borderColor: 'divider' }}
               >
-                <Tab value='1' sx={{ textTransform: 'none' }} label={library.name} />
-                <Tab value='2' sx={{ textTransform: 'none' }} label='Other Libraries' />
+                <Tab
+                  value='1'
+                  sx={{ textTransform: 'none', display: 'inline' }}
+                  label={
+                    <>
+                      {library.name} <Typography variant='caption'>({kFormatter(nbHits)})</Typography>
+                    </>
+                  }
+                />
+                <Tab
+                  value='2'
+                  sx={{ textTransform: 'none', display: 'inline' }}
+                  label={
+                    <>
+                      Other Libraries <Typography variant='caption'>({kFormatter(otherLibrariesnbHits)})</Typography>
+                    </>
+                  }
+                />
               </Tabs>
             </Grid>
           </Grid>
@@ -192,13 +219,13 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
           <Box hidden={selectedTab !== '1'} sx={{ pt: 1, typography: 'body1' }}>
             <Index indexName={algoliaIndex}>
               <Configure hitsPerPage={30} filters={'library_key:' + library.key} />
-              <CustomInfiniteHits url_prefix={url_prefix} />
+              <CustomInfiniteHits url_prefix={url_prefix} setnbHits={setnbHits} />
             </Index>
           </Box>
           <Box hidden={selectedTab !== '2'} sx={{ pt: 1, typography: 'body1' }}>
             <Index indexName={algoliaIndex}>
               <Configure hitsPerPage={30} filters={'NOT library_key:' + library.key} />
-              <CustomInfiniteHits url_prefix={url_prefix} />
+              <CustomInfiniteHits url_prefix={url_prefix} setnbHits={setOtherLibrariesnbHits} />
             </Index>
           </Box>
         </DialogContent>
@@ -221,13 +248,13 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
 
 Search.propTypes = {
   library: PropTypes.shape({
-    key: React.PropTypes.string.isRequired,
-    name: React.PropTypes.string.isRequired
+    key: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
   }),
   url_prefix: PropTypes.string.isRequired,
   algoliaIndex: PropTypes.string.isRequired,
   alogliaAppId: PropTypes.string.isRequired,
   alogliaApiKey: PropTypes.string.isRequired,
-}
+};
 
 export default Search;
