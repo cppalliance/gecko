@@ -1,12 +1,15 @@
 import json
 from pathlib import Path
+
 from algoliasearch.search_client import SearchClient
 
-if __name__ == "__main__":
-    client = SearchClient.create('D7O1MLLTAF', 'YourWriteAPIKey')
-    index = client.init_index("all")
+from .config import config
 
-    for path in Path('../algolia_records').glob('*.json'):
+if __name__ == "__main__":
+    client = SearchClient.create(config['algolia']['app_id'], config['algolia']['api_key'])
+    index = client.init_index(config['boost']['version'])
+
+    for path in Path('./algolia_records').glob('*.json'):
         print('uploading records for {}...'.format(path.stem))
 
         with open(path, 'r', encoding='utf-8') as f:
