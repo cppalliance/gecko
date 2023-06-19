@@ -42,7 +42,7 @@ function Demo() {
           <Search
             library={library}
             url_prefix={'https://www.boost.org/doc/libs/1_82_0'}
-            algoliaIndex={'all'}
+            algoliaIndex={'1_82_0'}
             alogliaAppId={'D7O1MLLTAF'}
             alogliaApiKey={'44d0c0aac3c738bebb622150d1ec4ebf'}
           />
