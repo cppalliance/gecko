@@ -121,6 +121,7 @@ function CustomInfiniteHits({ url_prefix, setnbHits }) {
           loading={status === 'loading' || status === 'stalled'}
           disabled={isLastPage}
           onClick={showMore}
+          sx={{ textTransform: 'none' }}
         >
           Show More
         </LoadingButton>
@@ -180,9 +181,9 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
         maxWidth='md'
         open={dialogOpen}
         onClose={handleDialogClose}
-        PaperProps={{ style: dialogShouldBeFullScreen ? {} : { minHeight: '95vh', maxHeight: '95vh' } }}
+        PaperProps={{ style: dialogShouldBeFullScreen ? {} : { height: '95vh' } }}
       >
-        <DialogTitle sx={{ p: 2, pb: 0 }}>
+        <DialogTitle sx={{ p: 1.5, pb: 0 }}>
           <Grid container spacing={1}>
             <Grid item xs={12}>
               <CustomSearchBox inputRef={inputRef} />
@@ -216,7 +217,7 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
             </Grid>
           </Grid>
         </DialogTitle>
-        <DialogContent sx={{ p: 2 }}>
+        <DialogContent sx={{ p: 1.5 }}>
           <Box hidden={selectedTab !== '1'} sx={{ pt: 1, typography: 'body1' }}>
             <Index indexName={algoliaIndex}>
               <Configure hitsPerPage={30} filters={'library_key:' + library.key} />
@@ -230,12 +231,20 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
             </Index>
           </Box>
         </DialogContent>
-        <DialogActions sx={{ p: 2 }}>
+        <DialogActions sx={{ p: 1.5, pt: 1 }}>
           <Grid container>
-            <Grid item xl={2} xs={4} sx={{ mt: 1 }}>
+            <Grid item xl={2} xs={4} sx={{ mt: 1.2 }}>
               <PoweredBy />
             </Grid>
             <Grid item xl={10} xs={8} sx={{ textAlign: 'right' }}>
+              <Button
+                size='small'
+                sx={{ textTransform: 'none' }}
+                target='_blank'
+                href='https://github.com/cppalliance/boost-gecko/issues'
+              >
+                Report Issue
+              </Button>
               <Button size='small' sx={{ textTransform: 'none' }} onClick={handleDialogClose}>
                 Close
               </Button>
