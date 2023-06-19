@@ -143,11 +143,17 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
     setSelectedTab(newValue);
   };
 
-  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [dialogOpen, setDialogOpen] = React.useState(window.location.hash === '#search-dialog');
   const [keepDialogMounted, setKeepDialogMounted] = React.useState(false);
 
+  React.useEffect(() => {
+    const onHashChange = () => setDialogOpen(window.location.hash === '#search-dialog');
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
   const handleDialogOpen = () => {
-    setDialogOpen(true);
+    window.location.hash = '#search-dialog';
     setKeepDialogMounted(true);
     setTimeout(() => {
       inputRef.current.focus();
@@ -155,7 +161,7 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
   };
 
   const handleDialogClose = () => {
-    setDialogOpen(false);
+    window.history.back();
   };
 
   const theme = useTheme();
@@ -244,9 +250,6 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
                 href='https://github.com/cppalliance/boost-gecko/issues'
               >
                 Report Issue
-              </Button>
-              <Button size='small' sx={{ textTransform: 'none' }} onClick={handleDialogClose}>
-                Close
               </Button>
             </Grid>
           </Grid>
