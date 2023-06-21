@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "Boost.Gecko",
+  "version": "0.0",
+  "description": "Add boost-gecko scripts to boost.org",
+  "content_scripts": [
+    {
+      "js": ["main.min.js"],
+      "matches": ["https://www.boost.org/*"]
+    }
+  ]
+}

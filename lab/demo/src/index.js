@@ -6,8 +6,9 @@ import Search from './Search';
 import { libraries } from './libraries';
 
 const searchDemo = document.querySelector('#search-demo-react-root');
-const boostCommonHeadingDoc = document.querySelector('#boost-common-heading-doc .heading-inner');
-
+const boostCommonHeadingDoc = document.querySelector(
+  '#boost-common-heading-doc .heading-inner, #heading .heading-inner',
+);
 
 if (searchDemo) {
   ReactDOM.createRoot(searchDemo).render(
@@ -19,8 +20,7 @@ if (searchDemo) {
   let url = window.location.href;
   const url_prefix = 'https://www.boost.org/doc/libs/1_82_0/';
 
-  if (!url.startsWith(url_prefix))
-    throw new Error(`Cannot find prefix of ${url_prefix} in the URL.`);
+  if (!url.startsWith(url_prefix)) throw new Error(`Cannot find prefix of ${url_prefix} in the URL.`);
 
   url = url.replace(url_prefix, '');
   url = url.replace('doc/html/boost_', '');
@@ -30,20 +30,18 @@ if (searchDemo) {
 
   const match = url.match(/^(.*?)(?:\.|\/)/);
 
-  if (!match || !match[1])
-    throw new Error(`Cannot extract library_key from the URL.`);
+  if (!match || !match[1]) throw new Error(`Cannot extract library_key from the URL.`);
 
   const library = libraries.filter((i) => i.key === match[1])[0];
 
-  if (!library)
-    throw new Error(`Cannot find a library with such key: ${match[1]}.`);
+  if (!library) throw new Error(`Cannot find a library with such key: ${match[1]}.`);
 
   const addCSS = (css) => (document.head.appendChild(document.createElement('style')).innerHTML = css);
   addCSS('#search-button-react-root {float: right; width: 100px; padding-right: 18px;}');
   addCSS('#search-button-react-root * {color: #1976d2;}');
   addCSS('#search-button-react-root button {background-color: #FFF;}');
 
-  const div = Object.assign(document.createElement('div'), { id: 'search-button-react-root' })
+  const div = Object.assign(document.createElement('div'), { id: 'search-button-react-root' });
 
   boostCommonHeadingDoc.appendChild(div);
 
