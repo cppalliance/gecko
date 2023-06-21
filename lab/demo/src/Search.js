@@ -237,7 +237,7 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
             </Index>
           </Box>
         </DialogContent>
-        <DialogActions sx={{ pc: 1.5, py: 0.5}}>
+        <DialogActions sx={{ pc: 1.5, py: 0.5 }}>
           <Grid container>
             <Grid item xs={6}>
               <PoweredBy style={{ width: 130, paddingTop: 8 }} />
