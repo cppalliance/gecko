@@ -15,6 +15,10 @@ def sanitize_title(title):
     if 'This Page Intentionally Left Blank' in title:
         return 'Reference'
 
+    # Workaround for Reference page in Boost.URL and Boost.Mysql
+    if 'Part Two: Reference.' in title:
+        return 'Reference'
+
     title = title.replace('¶', '')
 
     return title
@@ -82,12 +86,12 @@ class QuickBook(Crawler):
             self._populate_hierachy(sections, section)
 
         for _, section in sections.items():
+            section['lvls'].reverse()
+
             section['lvls'] = remove_duplicate_lvls(section['lvls'])
 
-            # remove library name (it is at the end)
-            section['lvls'].pop()
-
-            section['lvls'].reverse()
+            # remove library name
+            section['lvls'].pop(0)
 
         return sections
 

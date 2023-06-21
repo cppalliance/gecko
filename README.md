@@ -11,29 +11,31 @@ It extracts contents with the correct hierarchy for each library and generates r
 ```JSON
 {
     "type": "content",
-    "library_key": "asio",
-    "library_name": "Asio",
-    "boost_version": "1_82_0",
-    "content": "To aid in debugging asynchronous programs, Boost.Asio provides support for handler ...",
+    "library_key": "url",
+    "library_name": "URL",
+    "content": "this->has_fragment() == false && this->encoded_fragment() == \"\"",
     "weight": {
         "pageRank": 0,
-        "level": 70,
+        "level": 60,
         "position": 0
     },
     "hierarchy": {
         "lvl0": {
-            "title": "Overview",
-            "url": "https://www.boost.org/doc/libs/1_82_0/doc/html/boost_asio/overview.html"
+            "title": "Reference",
+            "path": "libs/url/doc/html/url/ref.html"
         },
         "lvl1": {
-            "title": "Core Concepts and Functionality",
-            "url": "https://www.boost.org/doc/libs/1_82_0/doc/html/boost_asio/overview/core.html"
+            "title": "url",
+            "path": "libs/url/doc/html/url/ref/boost__urls__url.html"
         },
         "lvl2": {
-            "title": "Handler Tracking",
-            "url": "https://www.boost.org/doc/libs/1_82_0/doc/html/boost_asio/overview/core/handler_tracking.html"
+            "title": "url::remove_fragment",
+            "path": "libs/url/doc/html/url/ref/boost__urls__url/remove_fragment.html"
         },
-        "lvl3": null,
+        "lvl3": {
+            "title": "Postconditions",
+            "path": "libs/url/doc/html/url/ref/boost__urls__url/remove_fragment.html#url.ref.boost__urls__url.remove_fragment.postconditions"
+        },
         "lvl4": null,
         "lvl5": null,
         "lvl6": null
