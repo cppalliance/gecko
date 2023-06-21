@@ -124,6 +124,10 @@ class QuickBook(Crawler):
                     'path': file_path
                 }]
 
+                soup.select_one('.refentry > .refnamediv > h2').decompose()
+                content = soup.select_one('.refentry > .refnamediv').get_text()
+                sections[file_path] = {'lvls': lvl1, 'content': content, 'up': up}
+
                 for refsect1 in soup.select('.refentry > .refsect1'):
                     anchor = refsect1.select_one('a').get('name')
 
