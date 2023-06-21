@@ -165,7 +165,7 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
   };
 
   const theme = useTheme();
-  const dialogShouldBeFullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const dialogShouldBeFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const inputRef = React.useRef(null);
 
@@ -237,12 +237,12 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
             </Index>
           </Box>
         </DialogContent>
-        <DialogActions sx={{ p: 1.5, pt: 1 }}>
+        <DialogActions sx={{ pc: 1.5, py: 0.5}}>
           <Grid container>
-            <Grid item xl={2} xs={4} sx={{ mt: 1.2 }}>
-              <PoweredBy />
+            <Grid item xs={6}>
+              <PoweredBy style={{ width: 130, paddingTop: 8 }} />
             </Grid>
-            <Grid item xl={10} xs={8} sx={{ textAlign: 'right' }}>
+            <Grid item xs={6} sx={{ textAlign: 'right' }}>
               <Button
                 size='small'
                 sx={{ textTransform: 'none' }}

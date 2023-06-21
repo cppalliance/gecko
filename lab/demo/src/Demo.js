@@ -26,7 +26,7 @@ function Demo() {
             Boost.Gecko
           </Link>
         </Grid>
-        <Grid item xl={10} xs={8}>
+        <Grid item md={10} xs={8}>
           <FormControl fullWidth>
             <InputLabel>Library</InputLabel>
             <Select size='small' value={library.key} onChange={handleLibraryChange} label='Library' sx={{ height: 36 }}>
@@ -38,7 +38,7 @@ function Demo() {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xl={2} xs={4}>
+        <Grid item md={2} xs={4}>
           <Search
             library={library}
             url_prefix={'https://www.boost.org/doc/libs/1_82_0'}
