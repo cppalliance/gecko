@@ -188,6 +188,7 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
         open={dialogOpen}
         onClose={handleDialogClose}
         PaperProps={{ style: dialogShouldBeFullScreen ? {} : { height: '95vh' } }}
+        sx={{ zIndex: 99999 }}
       >
         <DialogTitle sx={{ p: 1.5, pb: 0 }}>
           <Grid container spacing={1}>
