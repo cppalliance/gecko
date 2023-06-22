@@ -6,9 +6,6 @@ import Search from './Search';
 import { libraries } from './libraries';
 
 const searchDemo = document.querySelector('#search-demo-react-root');
-const boostCommonHeadingDoc = document.querySelector(
-  '#boost-common-heading-doc .heading-inner, #heading .heading-inner',
-);
 
 if (searchDemo) {
   ReactDOM.createRoot(searchDemo).render(
@@ -16,7 +13,7 @@ if (searchDemo) {
       <Demo />
     </React.StrictMode>,
   );
-} else if (boostCommonHeadingDoc) {
+} else {
   let url = window.location.href;
   const url_prefix = 'https://www.boost.org/doc/libs/1_82_0/';
 
@@ -43,7 +40,13 @@ if (searchDemo) {
 
   const div = Object.assign(document.createElement('div'), { id: 'search-button-react-root' });
 
-  boostCommonHeadingDoc.appendChild(div);
+  const heading = document.querySelector('#boost-common-heading-doc .heading-inner, #heading .heading-inner');
+  if (heading) {
+    heading.appendChild(div);
+  } else {
+    addCSS('#search-button-react-root {top: 10px; right: 10px; position: relative; padding:0;}');
+    document.body.prepend(div);
+  }
 
   ReactDOM.createRoot(div).render(
     <React.StrictMode>
