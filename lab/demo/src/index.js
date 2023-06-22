@@ -32,7 +32,7 @@ if (searchDemo) {
 
   if (!match || !match[1]) throw new Error(`Cannot extract library_key from the URL.`);
 
-  const library = libraries.filter((i) => i.key === match[1])[0];
+  const library = libraries.filter((i) => i.key === match[1] || i.key.replace('_', '') === match[1])[0];
 
   if (!library) throw new Error(`Cannot find a library with such key: ${match[1]}.`);
 
