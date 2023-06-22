@@ -44,7 +44,7 @@ if (searchDemo) {
   if (heading) {
     heading.appendChild(div);
   } else {
-    addCSS('#search-button-react-root {top: 10px; right: 10px; position: relative; padding:0;}');
+    addCSS('#search-button-react-root {width: 120px; top: 10px; right: 10px; position: relative; padding:0;}');
     document.body.prepend(div);
   }
 
