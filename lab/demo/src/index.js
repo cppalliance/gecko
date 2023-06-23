@@ -46,15 +46,23 @@ if (searchDemo) {
 
   const div = Object.assign(document.createElement('div'), { id: 'search-button-react-root' });
 
-  const heading = document.querySelector('#boost-common-heading-doc .heading-inner, #heading .heading-inner');
-  if (heading) {
-    addCSS('#search-button-react-root {float: right; width: 100px; padding-right: 18px;}');
-    addCSS('#search-button-react-root * {color: #1976d2;}');
-    addCSS('#search-button-react-root button {background-color: #FFF;}');
-    heading.appendChild(div);
+  // Workaround for gil and hana that have searchbox in their pages
+  if (library.key === 'gil' || library.key === 'hana') {
+    let searchBox = document.querySelector('#searchbox, #MSearchBox');
+    searchBox.innerHTML = '';
+    addCSS('#search-button-react-root {float: right; width: 120px; padding-right: 18px;}');
+    searchBox.prepend(div);
   } else {
-    addCSS('#search-button-react-root {width: 120px; top: 10px; right: 10px; position: relative;}');
-    document.body.prepend(div);
+    const heading = document.querySelector('#boost-common-heading-doc .heading-inner, #heading .heading-inner');
+    if (heading) {
+      addCSS('#search-button-react-root {float: right; width: 100px; padding-right: 18px;}');
+      addCSS('#search-button-react-root * {color: #1976d2;}');
+      addCSS('#search-button-react-root button {background-color: #FFF;}');
+      heading.appendChild(div);
+    } else {
+      addCSS('#search-button-react-root {width: 120px; top: 10px; right: 10px; position: relative;}');
+      document.body.prepend(div);
+    }
   }
 
   ReactDOM.createRoot(div).render(
