@@ -49,9 +49,13 @@ if (searchDemo) {
   // Workaround for gil and hana that have searchbox in their pages
   if (library.key === 'gil' || library.key === 'hana') {
     let searchBox = document.querySelector('#searchbox, #MSearchBox');
-    searchBox.innerHTML = '';
     addCSS('#search-button-react-root {float: right; width: 120px; padding-right: 18px;}');
-    searchBox.prepend(div);
+    searchBox.replaceChildren(div);
+    // Workaround for spirit/classic and wave headers
+  } else if (library.key === 'spirit/classic' || library.key === 'wave') {
+    let td = document.querySelector('body > table:first-of-type td:nth-child(2)');
+    addCSS('#search-button-react-root {float: right; width: 120px;}');
+    td.append(div);
   } else {
     const heading = document.querySelector('#boost-common-heading-doc .heading-inner, #heading .heading-inner');
     if (heading) {
@@ -60,7 +64,8 @@ if (searchDemo) {
       addCSS('#search-button-react-root button {background-color: #FFF;}');
       heading.appendChild(div);
     } else {
-      addCSS('#search-button-react-root {width: 120px; top: 10px; right: 10px; position: relative;}');
+      addCSS('#search-button-react-root button {background-color: #FFF;}');
+      addCSS('#search-button-react-root {width: 120px; top: 10px; right: 10px; position: absolute;}');
       document.body.prepend(div);
     }
   }
