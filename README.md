@@ -43,14 +43,6 @@ It extracts contents with the correct hierarchy for each library and generates r
 }
 ```
 
-## TODOs
-
-- Writing developer documentation.
-- Considering a smarter approach for indexing libraries with unique structures that doesn't necessitate a dedicated crawler.
-- Adding Test.
-- Setting up the repository.
-- Setting up CI.
-
 ## Acknowledgments
 
 - [Tomasz Kalisiak](https://github.com/Bobini1) for adding a crawler for Boost.Hana library.
