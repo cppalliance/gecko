@@ -25,26 +25,35 @@ if (searchDemo) {
   url = url.replace('doc/html/', '');
   url = url.replace('libs/', '');
 
-  const match = url.match(/^(.*?)(?:\.|\/)/);
+  let library = undefined;
 
-  if (!match || !match[1]) throw new Error(`Cannot extract library_key from the URL.`);
+  // First we try to match libraries like functional/factory and numeric/odeint
+  const match = url.match(/([^/]+\/[^/]+)\//);
+  if (match && match[1])
+    library = libraries.filter((i) => i.key === match[1] || i.key.replace('_', '') === match[1])[0];
 
-  const library = libraries.filter((i) => i.key === match[1] || i.key.replace('_', '') === match[1])[0];
+  if (!library) {
+    const match = url.match(/^(.*?)(?:\.|\/)/);
+
+    if (!match || !match[1]) throw new Error(`Cannot extract library_key from the URL.`);
+
+    library = libraries.filter((i) => i.key === match[1] || i.key.replace('_', '') === match[1])[0];
+  }
 
   if (!library) throw new Error(`Cannot find a library with such key: ${match[1]}.`);
 
   const addCSS = (css) => (document.head.appendChild(document.createElement('style')).innerHTML = css);
-  addCSS('#search-button-react-root {float: right; width: 100px; padding-right: 18px;}');
-  addCSS('#search-button-react-root * {color: #1976d2;}');
-  addCSS('#search-button-react-root button {background-color: #FFF;}');
 
   const div = Object.assign(document.createElement('div'), { id: 'search-button-react-root' });
 
   const heading = document.querySelector('#boost-common-heading-doc .heading-inner, #heading .heading-inner');
   if (heading) {
+    addCSS('#search-button-react-root {float: right; width: 100px; padding-right: 18px;}');
+    addCSS('#search-button-react-root * {color: #1976d2;}');
+    addCSS('#search-button-react-root button {background-color: #FFF;}');
     heading.appendChild(div);
   } else {
-    addCSS('#search-button-react-root {width: 120px; top: 10px; right: 10px; position: relative; padding:0;}');
+    addCSS('#search-button-react-root {width: 120px; top: 10px; right: 10px; position: relative;}');
     document.body.prepend(div);
   }
 
