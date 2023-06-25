@@ -184,6 +184,7 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
         fullScreen={dialogShouldBeFullScreen}
         keepMounted={keepDialogMounted}
         fullWidth
+        disableRestoreFocus
         maxWidth='md'
         open={dialogOpen}
         onClose={handleDialogClose}
