@@ -23,6 +23,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
 import algoliasearch from 'algoliasearch/lite';
 import {
@@ -105,12 +107,40 @@ function CustomHit(hit, url_prefix) {
 
 function CustomInfiniteHits({ url_prefix, setnbHits }) {
   const { hits, isLastPage, showMore } = useInfiniteHits();
-  const { status } = useInstantSearch();
+  const { use, status } = useInstantSearch();
+  const [error, setError] = React.useState(null);
   const { nbHits } = useStats();
 
   React.useEffect(() => {
     setnbHits(nbHits);
   }, [nbHits, setnbHits]);
+
+  React.useEffect(() => {
+    const middleware = ({ instantSearchInstance }) => {
+      function handleError(searchError) {
+        setError(searchError);
+      }
+      return {
+        subscribe() {
+          instantSearchInstance.addListener('error', handleError);
+        },
+        unsubscribe() {
+          instantSearchInstance.removeListener('error', handleError);
+        },
+      };
+    };
+
+    return use(middleware);
+  }, [use]);
+
+  if (error) {
+    return (
+      <Alert severity='error'>
+        <AlertTitle>{error.name}</AlertTitle>
+        {error.message}
+      </Alert>
+    );
+  }
 
   return (
     <Stack spacing={2}>
