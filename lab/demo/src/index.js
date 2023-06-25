@@ -60,6 +60,7 @@ if (searchDemo) {
     const heading = document.querySelector('#boost-common-heading-doc .heading-inner, #heading .heading-inner');
     if (heading) {
       addCSS('#search-button-react-root {float: right; width: 100px; padding-right: 18px;}');
+      addCSS('@media (max-device-width: 480px) {#search-button-react-root {padding-top: 18px;}}');
       addCSS('#search-button-react-root * {color: #1976d2;}');
       addCSS('#search-button-react-root button {background-color: #FFF;}');
       heading.appendChild(div);
