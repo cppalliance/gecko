@@ -4,11 +4,11 @@ on:
   push:
     branches: [ develop ]
     paths:
-      - lab/demo/**
+      - lab/search_interface/**
 
 defaults:
   run:
-    working-directory: lab/demo/
+    working-directory: lab/search_interface/
 
 jobs:
   deploy:
@@ -35,7 +35,7 @@ jobs:
       - name: upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./lab/demo/build
+          path: ./lab/search_interface/build
       - name: deploy to github pages
         id: deployment
         uses: actions/deploy-pages@v1
