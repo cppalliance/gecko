@@ -61,7 +61,7 @@ function CustomSearchBox({ inputRef }) {
   );
 }
 
-function CustomHit(hit, url_prefix) {
+function CustomHit(hit, urlPrefix) {
   const { objectID, library_key, library_name, hierarchy, _highlightResult } = hit;
   let hierarchyLinks = [];
 
@@ -76,7 +76,7 @@ function CustomHit(hit, url_prefix) {
             __html: title.value,
           }}
           key={path}
-          href={urlJoin(url_prefix, path)}
+          href={urlJoin(urlPrefix, path)}
         ></Link>,
       );
     });
@@ -95,7 +95,7 @@ function CustomHit(hit, url_prefix) {
       }}
     >
       <Breadcrumbs separator='&rsaquo;' fontSize='small' sx={{ wordBreak: 'break-all' }}>
-        <Link underline='hover' href={urlJoin(url_prefix, 'libs', library_key)}>
+        <Link underline='hover' href={urlJoin(urlPrefix, 'libs', library_key)}>
           {library_name}
         </Link>
         {hierarchyLinks}
@@ -105,7 +105,7 @@ function CustomHit(hit, url_prefix) {
   );
 }
 
-function CustomInfiniteHits({ url_prefix, setnbHits }) {
+function CustomInfiniteHits({ urlPrefix, setnbHits }) {
   const { hits, isLastPage, showMore } = useInfiniteHits();
   const { use, status } = useInstantSearch();
   const [error, setError] = React.useState(null);
@@ -144,7 +144,7 @@ function CustomInfiniteHits({ url_prefix, setnbHits }) {
 
   return (
     <Stack spacing={2}>
-      {hits.map((hit) => CustomHit(hit, url_prefix))}
+      {hits.map((hit) => CustomHit(hit, urlPrefix))}
       <Box textAlign='center'>
         <LoadingButton
           size='small'
@@ -160,7 +160,7 @@ function CustomInfiniteHits({ url_prefix, setnbHits }) {
   );
 }
 
-function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey }) {
+function Search({ library, urlPrefix, algoliaIndex, alogliaAppId, alogliaApiKey }) {
   const [searchClient] = React.useState(algoliasearch(alogliaAppId, alogliaApiKey));
 
   const [selectedTab, setSelectedTab] = React.useState('1');
@@ -259,13 +259,13 @@ function Search({ library, url_prefix, algoliaIndex, alogliaAppId, alogliaApiKey
           <Box hidden={selectedTab !== '1'} sx={{ pt: 1, typography: 'body1' }}>
             <Index indexName={algoliaIndex}>
               <Configure hitsPerPage={30} filters={'library_key:' + library.key} />
-              <CustomInfiniteHits url_prefix={url_prefix} setnbHits={setnbHits} />
+              <CustomInfiniteHits urlPrefix={urlPrefix} setnbHits={setnbHits} />
             </Index>
           </Box>
           <Box hidden={selectedTab !== '2'} sx={{ pt: 1, typography: 'body1' }}>
             <Index indexName={algoliaIndex}>
               <Configure hitsPerPage={30} filters={'NOT library_key:' + library.key} />
-              <CustomInfiniteHits url_prefix={url_prefix} setnbHits={setOtherLibrariesnbHits} />
+              <CustomInfiniteHits urlPrefix={urlPrefix} setnbHits={setOtherLibrariesnbHits} />
             </Index>
           </Box>
         </DialogContent>
@@ -296,7 +296,7 @@ Search.propTypes = {
     key: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
   }),
-  url_prefix: PropTypes.string.isRequired,
+  urlPrefix: PropTypes.string.isRequired,
   algoliaIndex: PropTypes.string.isRequired,
   alogliaAppId: PropTypes.string.isRequired,
   alogliaApiKey: PropTypes.string.isRequired,
