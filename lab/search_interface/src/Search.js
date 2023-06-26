@@ -61,8 +61,8 @@ function CustomSearchBox({ inputRef }) {
   );
 }
 
-function CustomHit(hit, urlPrefix) {
-  const { objectID, library_key, library_name, hierarchy, _highlightResult } = hit;
+function CustomHit({ hit, urlPrefix }) {
+  const { library_key, library_name, hierarchy, _highlightResult } = hit;
   let hierarchyLinks = [];
 
   if (_highlightResult) {
@@ -84,7 +84,6 @@ function CustomHit(hit, urlPrefix) {
 
   return (
     <Box
-      key={objectID}
       sx={{
         wordWrap: 'break-word',
         '& mark': {
@@ -144,7 +143,7 @@ function CustomInfiniteHits({ urlPrefix, setnbHits }) {
 
   return (
     <Stack spacing={2}>
-      {hits.map((hit) => CustomHit(hit, urlPrefix))}
+      {hits.map((hit) => <CustomHit key={hit.objectID} hit={hit} urlPrefix={urlPrefix} />)}
       <Box textAlign='center'>
         <LoadingButton
           size='small'
