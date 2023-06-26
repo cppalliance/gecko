@@ -15,11 +15,11 @@ if (searchDemo) {
   );
 } else {
   let url = window.location.href;
-  const url_prefix = 'https://www.boost.org/doc/libs/1_82_0/';
+  const urlPrefix = 'https://www.boost.org/doc/libs/1_82_0/';
 
-  if (!url.startsWith(url_prefix)) throw new Error(`Cannot find prefix of ${url_prefix} in the URL.`);
+  if (!url.startsWith(urlPrefix)) throw new Error(`Cannot find prefix of ${urlPrefix} in the URL.`);
 
-  url = url.replace(url_prefix, '');
+  url = url.replace(urlPrefix, '');
   url = url.replace('doc/html/boost_', '');
   url = url.replace('doc/html/boost/', '');
   url = url.replace('doc/html/', '');
@@ -75,7 +75,7 @@ if (searchDemo) {
     <React.StrictMode>
       <Search
         library={library}
-        url_prefix={'https://www.boost.org/doc/libs/1_82_0'}
+        urlPrefix={'https://www.boost.org/doc/libs/1_82_0'}
         algoliaIndex={'1_82_0'}
         alogliaAppId={'D7O1MLLTAF'}
         alogliaApiKey={'44d0c0aac3c738bebb622150d1ec4ebf'}
