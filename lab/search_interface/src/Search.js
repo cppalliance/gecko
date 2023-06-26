@@ -25,6 +25,10 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import Autocomplete from '@mui/material/Autocomplete';
+import HistoryIcon from '@mui/icons-material/History';
+
+import RecentSearches from 'recent-searches';
 
 import algoliasearch from 'algoliasearch/lite';
 import {
@@ -39,29 +43,45 @@ import {
   PoweredBy,
 } from 'react-instantsearch-hooks-web';
 
-function CustomSearchBox({ inputRef }) {
+function CustomSearchBox({ inputRef, recentSearches }) {
   const { currentRefinement, refine } = useSearchBox();
 
   return (
-    <TextField
-      fullWidth
+    <Autocomplete
+      freeSolo
+      openOnFocus
+      disablePortal
       size='small'
-      placeholder='Search...'
+      options={recentSearches.map((option) => option.query)}
       value={currentRefinement}
-      onChange={(event) => refine(event.currentTarget.value)}
-      inputRef={inputRef}
-      InputProps={{
-        startAdornment: (
-          <InputAdornment position='start'>
-            <SearchIcon />
-          </InputAdornment>
-        ),
-      }}
+      onInputChange={(e, newValue) => refine(newValue)}
+      onChange={(e, newValue) => refine(newValue)}
+      renderOption={(props, option) => (
+        <Box {...props}>
+          <HistoryIcon fontSize='small' sx={{ pr: 1.5, color: grey[600] }} />
+          {option}
+        </Box>
+      )}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          placeholder='Search...'
+          inputRef={inputRef}
+          InputProps={{
+            ...params.InputProps,
+            startAdornment: (
+              <InputAdornment position='start'>
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+      )}
     />
   );
 }
 
-function CustomHit({ hit, urlPrefix }) {
+function CustomHit({ hit, urlPrefix, onClick }) {
   const { library_key, library_name, hierarchy, _highlightResult } = hit;
   let hierarchyLinks = [];
 
@@ -76,6 +96,8 @@ function CustomHit({ hit, urlPrefix }) {
             __html: title.value,
           }}
           key={path}
+          onClick={onClick}
+          onAuxClick={onClick}
           href={urlJoin(urlPrefix, path)}
         ></Link>,
       );
@@ -104,7 +126,7 @@ function CustomHit({ hit, urlPrefix }) {
   );
 }
 
-function CustomInfiniteHits({ urlPrefix, setnbHits }) {
+function CustomInfiniteHits({ urlPrefix, setnbHits, onClick }) {
   const { hits, isLastPage, showMore } = useInfiniteHits();
   const { use, status } = useInstantSearch();
   const [error, setError] = React.useState(null);
@@ -143,7 +165,9 @@ function CustomInfiniteHits({ urlPrefix, setnbHits }) {
 
   return (
     <Stack spacing={2}>
-      {hits.map((hit) => <CustomHit key={hit.objectID} hit={hit} urlPrefix={urlPrefix} />)}
+      {hits.map((hit) => (
+        <CustomHit key={hit.objectID} hit={hit} urlPrefix={urlPrefix} onClick={onClick} />
+      ))}
       <Box textAlign='center'>
         <LoadingButton
           size='small'
@@ -161,6 +185,12 @@ function CustomInfiniteHits({ urlPrefix, setnbHits }) {
 
 function Search({ library, urlPrefix, algoliaIndex, alogliaAppId, alogliaApiKey }) {
   const [searchClient] = React.useState(algoliasearch(alogliaAppId, alogliaApiKey));
+
+  const [recentSearches, setRecentSearches] = React.useState(null);
+
+  React.useEffect(() => {
+    setRecentSearches(new RecentSearches({ namespace: 'rs-' + library.key }));
+  }, [library]);
 
   const [selectedTab, setSelectedTab] = React.useState('1');
 
@@ -198,6 +228,10 @@ function Search({ library, urlPrefix, algoliaIndex, alogliaAppId, alogliaApiKey 
 
   const inputRef = React.useRef(null);
 
+  const onClick = () => {
+    recentSearches.setRecentSearch(inputRef.current.value);
+  };
+
   return (
     <InstantSearch searchClient={searchClient}>
       <Button
@@ -223,7 +257,10 @@ function Search({ library, urlPrefix, algoliaIndex, alogliaAppId, alogliaApiKey 
         <DialogTitle sx={{ p: 1.5, pb: 0 }}>
           <Grid container spacing={1}>
             <Grid item xs={12}>
-              <CustomSearchBox inputRef={inputRef} />
+              <CustomSearchBox
+                inputRef={inputRef}
+                recentSearches={inputRef.current ? recentSearches.getRecentSearches(inputRef.current.value) : []}
+              />
             </Grid>
             <Grid item xs={12}>
               <Tabs
@@ -258,13 +295,13 @@ function Search({ library, urlPrefix, algoliaIndex, alogliaAppId, alogliaApiKey 
           <Box hidden={selectedTab !== '1'} sx={{ pt: 1, typography: 'body1' }}>
             <Index indexName={algoliaIndex}>
               <Configure hitsPerPage={30} filters={'library_key:' + library.key} />
-              <CustomInfiniteHits urlPrefix={urlPrefix} setnbHits={setnbHits} />
+              <CustomInfiniteHits urlPrefix={urlPrefix} setnbHits={setnbHits} onClick={onClick} />
             </Index>
           </Box>
           <Box hidden={selectedTab !== '2'} sx={{ pt: 1, typography: 'body1' }}>
             <Index indexName={algoliaIndex}>
               <Configure hitsPerPage={30} filters={'NOT library_key:' + library.key} />
-              <CustomInfiniteHits urlPrefix={urlPrefix} setnbHits={setOtherLibrariesnbHits} />
+              <CustomInfiniteHits urlPrefix={urlPrefix} setnbHits={setOtherLibrariesnbHits} onClick={onClick} />
             </Index>
           </Box>
         </DialogContent>
