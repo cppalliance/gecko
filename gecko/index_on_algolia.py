@@ -6,7 +6,7 @@ from algoliasearch.search_client import SearchClient
 from .config import config
 
 if __name__ == "__main__":
-    client = SearchClient.create(config['algolia']['app_id'], config['algolia']['api_key'])
+    client = SearchClient.create(config['algolia']['app-id'], config['algolia']['api-key'])
     index = client.init_index(config['boost']['version'])
 
     for path in Path('./algolia_records').glob('*.json'):

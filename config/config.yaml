@@ -3,214 +3,799 @@ boost:
   root: "../boost_1_82_0"
 
 algolia:
-  app_id: D7O1MLLTAF
-  api_key: YourWriteAPIKey
+  app-id: D7O1MLLTAF
+  api-key: YourWriteAPIKey
 
 crawlers:
   - name: BoostIostreams
     libraries:
-      - iostreams
+      - key: iostreams
+        last-records: 284
+        last-words: 34965
+        last-lvls: 568
 
   - name: BoostPreprocessor
     libraries:
-      - preprocessor
+      - key: preprocessor
+        last-records: 516
+        last-words: 79625
+        last-lvls: 516
 
   - name: BoostGIL
     libraries:
-      - gil
+      - key: gil
+        last-records: 122
+        last-words: 25367
+        last-lvls: 298
 
   - name: BoostMPL
     libraries:
-      - mpl
+      - key: mpl
+        last-records: 1628
+        last-words: 33772
+        last-lvls: 6178
 
   - name: BoostOutcome
     libraries:
-      - outcome
+      - key: outcome
+        last-records: 433
+        last-words: 80597
+        last-lvls: 1424
 
   - name: BoostException
     libraries:
-      - exception
+      - key: exception
+        last-records: 68
+        last-words: 8476
+        last-lvls: 68
 
   - name: BoostTokenizer
     libraries:
-      - tokenizer
+      - key: tokenizer
+        last-records: 8
+        last-words: 3358
+        last-lvls: 8
 
   - name: BoostPolygon
     libraries:
-      - polygon
+      - key: polygon
+        last-records: 32
+        last-words: 44526
+        last-lvls: 32
 
   - name: BoostFunctional
     libraries:
-      - functional
+      - key: functional
+        last-records: 6
+        last-words: 3036
+        last-lvls: 6
 
   - name: BoostSerialization
     libraries:
-      - serialization
+      - key: serialization
+        last-records: 176
+        last-words: 37897
+        last-lvls: 360
 
   - name: BoostFormat
     libraries:
-      - format
+      - key: format
+        last-records: 14
+        last-words: 13332
+        last-lvls: 17
 
   - name: Gargoyle
     libraries:
-      - spirit/classic
-      - wave
+      - key: spirit/classic
+        last-records: 54
+        last-words: 53194
+        last-lvls: 54
+
+      - key: wave
+        last-records: 19
+        last-words: 20146
+        last-lvls: 19
 
   - name: Helmethead
     libraries:
-      - graph_parallel
-      - iterator
-      - ptr_container
+      - key: graph_parallel
+        last-records: 240
+        last-words: 28480
+        last-lvls: 509
+
+      - key: iterator
+        last-records: 212
+        last-words: 24462
+        last-lvls: 624
+
+      - key: ptr_container
+        last-records: 142
+        last-words: 15298
+        last-lvls: 247
 
   - name: Harlequin
     libraries:
-      - numeric/interval
-      - numeric/ublas
+      - key: numeric/interval
+        last-records: 9
+        last-words: 14193
+        last-lvls: 9
+
+      - key: numeric/ublas
+        last-records: 71
+        last-words: 44515
+        last-lvls: 71
 
   - name: Tarentola
     libraries:
-      - parameter
-      - parameter_python
+      - key: parameter
+        last-records: 100
+        last-words: 25765
+        last-lvls: 225
+
+      - key: parameter_python
+        last-records: 19
+        last-words: 1805
+        last-lvls: 29
 
   - name: FlatPage
     libraries:
-      - assign
-      - concept_check
-      - dynamic_bitset
-      - filesystem
-      - flyweight
-      - multi_index
-      - property_map
-      - rational
-      - statechart
-      - timer
-      - uuid
+      - key: assign
+        last-records: 26
+        last-words: 4038
+        last-lvls: 43
+
+      - key: concept_check
+        last-records: 25
+        last-words: 5294
+        last-lvls: 37
+
+      - key: dynamic_bitset
+        last-records: 20
+        last-words: 3778
+        last-lvls: 20
+
+      - key: filesystem
+        last-records: 110
+        last-words: 27736
+        last-lvls: 237
+
+      - key: flyweight
+        last-records: 154
+        last-words: 14234
+        last-lvls: 231
+
+      - key: multi_index
+        last-records: 290
+        last-words: 45906
+        last-lvls: 539
+
+      - key: property_map
+        last-records: 23
+        last-words: 5523
+        last-lvls: 23
+
+      - key: rational
+        last-records: 23
+        last-words: 3976
+        last-lvls: 34
+
+      - key: statechart
+        last-records: 123
+        last-words: 27069
+        last-lvls: 172
+
+      - key: timer
+        last-records: 31
+        last-words: 3373
+        last-lvls: 50
+
+      - key: uuid
+        last-records: 44
+        last-words: 2791
+        last-lvls: 104
 
   - name: Doxygen
     libraries:
-      - hana
-      - locale
-      - nowide
+      - key: hana
+        last-records: 428
+        last-words: 132821
+        last-lvls: 1036
+
+      - key: locale
+        last-records: 465
+        last-words: 47094
+        last-lvls: 963
+
+      - key: nowide
+        last-records: 107
+        last-words: 8074
+        last-lvls: 199
 
   - name: AsciiDoc
     libraries:
-      - assert
-      - container_hash
-      - describe
-      - endian
-      - io
-      - lambda2
-      - leaf
-      - mp11
-      - predef
-      - qvm
-      - smart_ptr
-      - system
-      - throw_exception
-      - unordered
-      - variant2
+      - key: assert
+        last-records: 20
+        last-words: 1444
+        last-lvls: 35
+
+      - key: container_hash
+        last-records: 41
+        last-words: 6813
+        last-lvls: 82
+
+      - key: describe
+        last-records: 74
+        last-words: 6725
+        last-lvls: 167
+
+      - key: endian
+        last-records: 93
+        last-words: 12753
+        last-lvls: 225
+
+      - key: io
+        last-records: 42
+        last-words: 2637
+        last-lvls: 90
+
+      - key: lambda2
+        last-records: 23
+        last-words: 1749
+        last-lvls: 55
+
+      - key: leaf
+        last-records: 135
+        last-words: 25624
+        last-lvls: 293
+
+      - key: mp11
+        last-records: 221
+        last-words: 12421
+        last-lvls: 629
+
+      - key: predef
+        last-records: 174
+        last-words: 8457
+        last-lvls: 466
+
+      - key: qvm
+        last-records: 208
+        last-words: 18345
+        last-lvls: 590
+
+      - key: smart_ptr
+        last-records: 293
+        last-words: 21784
+        last-lvls: 700
+
+      - key: system
+        last-records: 102
+        last-words: 12211
+        last-lvls: 292
+
+      - key: throw_exception
+        last-records: 15
+        last-words: 1434
+        last-lvls: 25
+
+      - key: unordered
+        last-records: 793
+        last-words: 61697
+        last-lvls: 2877
+
+      - key: variant2
+        last-records: 50
+        last-words: 6122
+        last-lvls: 125
 
   - name: QuickBook
     libraries:
-      - accumulators
-      - algorithm
-      - align
-      - any
-      - array
-      - asio
-      - atomic
-      - beast
-      - bimap
-      - bind
-      - callable_traits
-      - chrono
-      - circular_buffer
-      - compute
-      - config
-      - container
-      - context
-      - contract
-      - conversion
-      - convert
-      - core
-      - coroutine
-      - coroutine2
-      - crc
-      - date_time
-      - detail
-      - dll
-      - fiber
-      - foreach
-      - function
-      - function_types
-      - functional/factory
-      - functional/forward
-      - functional/overloaded_function
-      - fusion
-      - geometry
-      - graph
-      - heap
-      - histogram
-      - hof
-      - icl
-      - integer
-      - interprocess
-      - intrusive
-      - json
-      - lambda
-      - lexical_cast
-      - local_function
-      - lockfree
-      - log
-      - math
-      - metaparse
-      - move
-      - mpi
-      - msm
-      - multi_array
-      - multiprecision
-      - mysql
-      - numeric/conversion
-      - numeric/odeint
-      - optional
-      - pfr
-      - phoenix
-      - poly_collection
-      - pool
-      - process
-      - program_options
-      - property_tree
-      - proto
-      - python
-      - random
-      - range
-      - ratio
-      - regex
-      - safe_numerics
-      - scope_exit
-      - signals2
-      - sort
-      - spirit
-      - spirit/repository
-      - stacktrace
-      - static_assert
-      - static_string
-      - stl_interfaces
-      - string_algo
-      - test
-      - thread
-      - tribool
-      - tti
-      - tuple
-      - type_erasure
-      - type_index
-      - type_traits
-      - typeof
-      - units
-      - url
-      - utility
-      - variant
-      - vmd
-      - winapi
-      - xpressive
-      - yap
+      - key: accumulators
+        last-records: 818
+        last-words: 28868
+        last-lvls: 2659
+
+      - key: algorithm
+        last-records: 439
+        last-words: 19827
+        last-lvls: 1198
+
+      - key: align
+        last-records: 47
+        last-words: 2752
+        last-lvls: 84
+
+      - key: any
+        last-records: 27
+        last-words: 2239
+        last-lvls: 84
+
+      - key: array
+        last-records: 18
+        last-words: 1322
+        last-lvls: 59
+
+      - key: asio
+        last-records: 10254
+        last-words: 392054
+        last-lvls: 37720
+
+      - key: atomic
+        last-records: 72
+        last-words: 13562
+        last-lvls: 132
+
+      - key: beast
+        last-records: 4571
+        last-words: 152929
+        last-lvls: 17252
+
+      - key: bimap
+        last-records: 168
+        last-words: 37701
+        last-lvls: 414
+
+      - key: bind
+        last-records: 64
+        last-words: 6396
+        last-lvls: 62
+
+      - key: callable_traits
+        last-records: 255
+        last-words: 10952
+        last-lvls: 499
+
+      - key: chrono
+        last-records: 369
+        last-words: 28121
+        last-lvls: 722
+
+      - key: circular_buffer
+        last-records: 47
+        last-words: 21007
+        last-lvls: 105
+
+      - key: compute
+        last-records: 754
+        last-words: 22393
+        last-lvls: 2467
+
+      - key: config
+        last-records: 54
+        last-words: 15581
+        last-lvls: 90
+
+      - key: container
+        last-records: 546
+        last-words: 95244
+        last-lvls: 1923
+
+      - key: context
+        last-records: 115
+        last-words: 7448
+        last-lvls: 276
+
+      - key: contract
+        last-records: 422
+        last-words: 70490
+        last-lvls: 1315
+
+      - key: conversion
+        last-records: 10
+        last-words: 835
+        last-lvls: 14
+
+      - key: convert
+        last-records: 134
+        last-words: 13788
+        last-lvls: 407
+
+      - key: core
+        last-records: 354
+        last-words: 15988
+        last-lvls: 696
+
+      - key: coroutine
+        last-records: 116
+        last-words: 10402
+        last-lvls: 339
+
+      - key: coroutine2
+        last-records: 88
+        last-words: 7704
+        last-lvls: 239
+
+      - key: crc
+        last-records: 40
+        last-words: 8130
+        last-lvls: 113
+
+      - key: date_time
+        last-records: 580
+        last-words: 29127
+        last-lvls: 2027
+
+      - key: detail
+        last-records: 2
+        last-words: 19
+        last-lvls: 1
+
+      - key: dll
+        last-records: 116
+        last-words: 14553
+        last-lvls: 333
+
+      - key: fiber
+        last-records: 375
+        last-words: 36174
+        last-lvls: 977
+
+      - key: foreach
+        last-records: 18
+        last-words: 2525
+        last-lvls: 24
+
+      - key: function
+        last-records: 55
+        last-words: 6511
+        last-lvls: 176
+
+      - key: function_types
+        last-records: 59
+        last-words: 3524
+        last-lvls: 149
+
+      - key: functional/factory
+        last-records: 21
+        last-words: 1349
+        last-lvls: 20
+
+      - key: functional/forward
+        last-records: 22
+        last-words: 1412
+        last-lvls: 21
+
+      - key: functional/overloaded_function
+        last-records: 10
+        last-words: 1021
+        last-lvls: 13
+
+      - key: fusion
+        last-records: 1702
+        last-words: 45685
+        last-lvls: 7006
+
+      - key: geometry
+        last-records: 2525
+        last-words: 86328
+        last-lvls: 10619
+
+      - key: graph
+        last-records: 10
+        last-words: 1382
+        last-lvls: 7
+
+      - key: heap
+        last-records: 104
+        last-words: 8392
+        last-lvls: 353
+
+      - key: histogram
+        last-records: 468
+        last-words: 39413
+        last-lvls: 1553
+
+      - key: hof
+        last-records: 415
+        last-words: 13366
+        last-lvls: 1162
+
+      - key: icl
+        last-records: 734
+        last-words: 43367
+        last-lvls: 2712
+
+      - key: integer
+        last-records: 68
+        last-words: 4410
+        last-lvls: 123
+
+      - key: interprocess
+        last-records: 794
+        last-words: 86014
+        last-lvls: 2539
+
+      - key: intrusive
+        last-records: 710
+        last-words: 186240
+        last-lvls: 2409
+
+      - key: json
+        last-records: 4043
+        last-words: 71180
+        last-lvls: 17275
+
+      - key: lambda
+        last-records: 63
+        last-words: 12795
+        last-lvls: 113
+
+      - key: lexical_cast
+        last-records: 20
+        last-words: 5669
+        last-lvls: 32
+
+      - key: local_function
+        last-records: 53
+        last-words: 12138
+        last-lvls: 92
+
+      - key: lockfree
+        last-records: 50
+        last-words: 5865
+        last-lvls: 142
+
+      - key: log
+        last-records: 1821
+        last-words: 117089
+        last-lvls: 8067
+
+      - key: math
+        last-records: 1907
+        last-words: 345946
+        last-lvls: 6718
+
+      - key: metaparse
+        last-records: 744
+        last-words: 53075
+        last-lvls: 1477
+
+      - key: move
+        last-records: 209
+        last-words: 11265
+        last-lvls: 643
+
+      - key: mpi
+        last-records: 285
+        last-words: 28567
+        last-lvls: 955
+
+      - key: msm
+        last-records: 180
+        last-words: 47416
+        last-lvls: 442
+
+      - key: multi_array
+        last-records: 29
+        last-words: 20112
+        last-lvls: 28
+
+      - key: multiprecision
+        last-records: 202
+        last-words: 67609
+        last-lvls: 603
+
+      - key: mysql
+        last-records: 2053
+        last-words: 60556
+        last-lvls: 8152
+
+      - key: numeric/conversion
+        last-records: 57
+        last-words: 8934
+        last-lvls: 102
+
+      - key: numeric/odeint
+        last-records: 523
+        last-words: 52300
+        last-lvls: 1834
+
+      - key: optional
+        last-records: 85
+        last-words: 16686
+        last-lvls: 192
+
+      - key: pfr
+        last-records: 106
+        last-words: 5108
+        last-lvls: 72
+
+      - key: phoenix
+        last-records: 208
+        last-words: 20468
+        last-lvls: 586
+
+      - key: poly_collection
+        last-records: 98
+        last-words: 13837
+        last-lvls: 186
+
+      - key: pool
+        last-records: 128
+        last-words: 11149
+        last-lvls: 435
+
+      - key: process
+        last-records: 379
+        last-words: 23108
+        last-lvls: 1310
+
+      - key: program_options
+        last-records: 220
+        last-words: 13136
+        last-lvls: 798
+
+      - key: property_tree
+        last-records: 143
+        last-words: 8906
+        last-lvls: 477
+
+      - key: proto
+        last-records: 974
+        last-words: 69074
+        last-lvls: 3516
+
+      - key: python
+        last-records: 510
+        last-words: 45343
+        last-lvls: 1301
+
+      - key: random
+        last-records: 536
+        last-words: 33043
+        last-lvls: 2285
+
+      - key: range
+        last-records: 653
+        last-words: 27195
+        last-lvls: 2850
+
+      - key: ratio
+        last-records: 138
+        last-words: 8039
+        last-lvls: 267
+
+      - key: regex
+        last-records: 290
+        last-words: 49539
+        last-lvls: 833
+
+      - key: safe_numerics
+        last-records: 173
+        last-words: 28633
+        last-lvls: 459
+
+      - key: scope_exit
+        last-records: 24
+        last-words: 3481
+        last-lvls: 39
+
+      - key: signals2
+        last-records: 174
+        last-words: 15767
+        last-lvls: 528
+
+      - key: sort
+        last-records: 185
+        last-words: 26185
+        last-lvls: 708
+
+      - key: spirit
+        last-records: 1829
+        last-words: 153759
+        last-lvls: 7681
+
+      - key: spirit/repository
+        last-records: 117
+        last-words: 8289
+        last-lvls: 418
+
+      - key: stacktrace
+        last-records: 47
+        last-words: 4378
+        last-lvls: 135
+
+      - key: static_assert
+        last-records: 8
+        last-words: 1284
+        last-lvls: 7
+
+      - key: static_string
+        last-records: 1219
+        last-words: 16337
+        last-lvls: 5476
+
+      - key: stl_interfaces
+        last-records: 134
+        last-words: 15846
+        last-lvls: 381
+
+      - key: string_algo
+        last-records: 63
+        last-words: 8416
+        last-lvls: 114
+
+      - key: test
+        last-records: 1095
+        last-words: 77149
+        last-lvls: 4226
+
+      - key: thread
+        last-records: 740
+        last-words: 63219
+        last-lvls: 1464
+
+      - key: tribool
+        last-records: 20
+        last-words: 1138
+        last-lvls: 52
+
+      - key: tti
+        last-records: 255
+        last-words: 28477
+        last-lvls: 629
+
+      - key: tuple
+        last-records: 33
+        last-words: 4142
+        last-lvls: 46
+
+      - key: type_erasure
+        last-records: 274
+        last-words: 14367
+        last-lvls: 910
+
+      - key: type_index
+        last-records: 85
+        last-words: 6511
+        last-lvls: 241
+
+      - key: type_traits
+        last-records: 214
+        last-words: 46622
+        last-lvls: 442
+
+      - key: typeof
+        last-records: 24
+        last-words: 2654
+        last-lvls: 40
+
+      - key: units
+        last-records: 991
+        last-words: 30377
+        last-lvls: 2976
+
+      - key: url
+        last-records: 9471
+        last-words: 130428
+        last-lvls: 37505
+
+      - key: utility
+        last-records: 151
+        last-words: 18558
+        last-lvls: 523
+
+      - key: variant
+        last-records: 76
+        last-words: 9430
+        last-lvls: 178
+
+      - key: vmd
+        last-records: 376
+        last-words: 47395
+        last-lvls: 1021
+
+      - key: winapi
+        last-records: 4
+        last-words: 972
+        last-lvls: 3
+
+      - key: xpressive
+        last-records: 505
+        last-words: 36005
+        last-lvls: 1640
+
+      - key: yap
+        last-records: 220
+        last-words: 20363
+        last-lvls: 666

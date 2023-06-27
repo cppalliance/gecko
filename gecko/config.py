@@ -1,5 +1,5 @@
 import os
-import yaml
+from ruamel.yaml import YAML
 from schema import Schema
 
 config_schema = Schema({
@@ -8,13 +8,20 @@ config_schema = Schema({
         'root': os.path.exists
     },
     'algolia': {
-        'app_id': str,
-        'api_key': str
+        'app-id': str,
+        'api-key': str
     },
     'crawlers': [
         {
             'name': str,
-            'libraries': [str]
+            'libraries': [
+                {
+                    'key': str,
+                    'last-records': int,
+                    'last-words': int,
+                    'last-lvls': int
+                }
+            ]
         }
     ]
 })
@@ -28,5 +35,14 @@ if not os.path.exists(config_path):
     config_path = './config/config.yaml'
 
 with open(config_path, 'r', encoding='utf-8') as file:
-    config = yaml.safe_load(file)
+    yaml = YAML()
+    yaml.preserve_quotes = True
+    config = yaml.load(file)
     config_schema.validate(config)
+
+
+def update_config_file():
+    with open(config_path, 'w', encoding='utf-8') as file:
+        yaml = YAML()
+        yaml.indent(mapping=2, sequence=4, offset=2)
+        yaml.dump(config, file)
