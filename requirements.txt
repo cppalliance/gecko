@@ -2,5 +2,5 @@ algoliasearch==3.0.0
 beautifulsoup4==4.12.2
 docopt==0.6.2
 lxml==4.8.0
-ruamel.base==1.0.0
+ruamel.yaml==0.17.32
 schema==0.7.5
