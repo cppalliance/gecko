@@ -22,7 +22,7 @@ class Harlequin(Crawler):
 
     def _extract_h2_section_that_has_id(self, html_file_path: str, sections: dict, h2: Tag):
         content = ''
-        for sibling in h2.find_next_siblings():
+        for sibling in h2.next_siblings:
             if sibling.name == 'h2' and sibling.has_attr('id'):
                 break
             content += sibling.get_text() + ' '
@@ -34,7 +34,7 @@ class Harlequin(Crawler):
 
     def _extract_h2_section_that_has_a_tag(self, html_file_path: str, sections: dict, h2: Tag):
         content = ''
-        for sibling in h2.find_next_siblings():
+        for sibling in h2.next_siblings:
             if sibling.name == 'h2' and sibling.select_one('a'):
                 break
             content += sibling.get_text() + ' '

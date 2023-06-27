@@ -117,7 +117,7 @@ crawlers:
     libraries:
       - key: numeric/interval
         last-records: 9
-        last-words: 14193
+        last-words: 14223
         last-lvls: 9
 
       - key: numeric/ublas
@@ -141,42 +141,42 @@ crawlers:
     libraries:
       - key: assign
         last-records: 26
-        last-words: 4038
+        last-words: 4716
         last-lvls: 43
 
       - key: concept_check
         last-records: 25
-        last-words: 5294
+        last-words: 5297
         last-lvls: 37
 
       - key: dynamic_bitset
         last-records: 20
-        last-words: 3778
+        last-words: 5913
         last-lvls: 20
 
       - key: filesystem
         last-records: 110
-        last-words: 27736
+        last-words: 27787
         last-lvls: 237
 
       - key: flyweight
         last-records: 154
-        last-words: 14234
+        last-words: 15424
         last-lvls: 231
 
       - key: multi_index
         last-records: 290
-        last-words: 45906
+        last-words: 57377
         last-lvls: 539
 
       - key: property_map
         last-records: 23
-        last-words: 5523
+        last-words: 6447
         last-lvls: 23
 
       - key: rational
         last-records: 23
-        last-words: 3976
+        last-words: 4606
         last-lvls: 34
 
       - key: statechart
@@ -191,7 +191,7 @@ crawlers:
 
       - key: uuid
         last-records: 44
-        last-words: 2791
+        last-words: 3007
         last-lvls: 104
 
   - name: Doxygen
@@ -376,9 +376,9 @@ crawlers:
         last-lvls: 276
 
       - key: contract
-        last-records: 422
-        last-words: 70490
-        last-lvls: 1315
+        last-records: 421
+        last-words: 67600
+        last-lvls: 1313
 
       - key: conversion
         last-records: 10
@@ -472,7 +472,7 @@ crawlers:
 
       - key: graph
         last-records: 10
-        last-words: 1382
+        last-words: 1329
         last-lvls: 7
 
       - key: heap
@@ -517,7 +517,7 @@ crawlers:
 
       - key: lambda
         last-records: 63
-        last-words: 12795
+        last-words: 12935
         last-lvls: 113
 
       - key: lexical_cast
@@ -567,7 +567,7 @@ crawlers:
 
       - key: multi_array
         last-records: 29
-        last-words: 20112
+        last-words: 20129
         last-lvls: 28
 
       - key: multiprecision
@@ -661,9 +661,9 @@ crawlers:
         last-lvls: 833
 
       - key: safe_numerics
-        last-records: 173
-        last-words: 28633
-        last-lvls: 459
+        last-records: 171
+        last-words: 27133
+        last-lvls: 455
 
       - key: scope_exit
         last-records: 24
@@ -672,7 +672,7 @@ crawlers:
 
       - key: signals2
         last-records: 174
-        last-words: 15767
+        last-words: 15804
         last-lvls: 528
 
       - key: sort
@@ -772,8 +772,8 @@ crawlers:
 
       - key: utility
         last-records: 151
-        last-words: 18558
-        last-lvls: 523
+        last-words: 18529
+        last-lvls: 524
 
       - key: variant
         last-records: 76

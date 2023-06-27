@@ -31,7 +31,7 @@ class Tarentola(Crawler):
         if header.find_next_sibling() and has_class(header.find_next_sibling(), 'section'):
             siblings = header.find_next_sibling().find_all(recursive=False)
         else:
-            siblings = header.find_next_siblings()
+            siblings = header.next_siblings
 
         content = ''
         for sibling in siblings:

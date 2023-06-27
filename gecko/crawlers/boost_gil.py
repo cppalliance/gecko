@@ -80,7 +80,7 @@ class BoostGIL(Crawler):
                 elm.decompose()
 
             content = ''
-            for sibling in heading.find_next_siblings():
+            for sibling in heading.next_siblings:
                 if has_class(sibling, 'section'):
                     break
                 content += sibling.get_text().strip() + ' '
@@ -93,7 +93,7 @@ class BoostGIL(Crawler):
             for section in soup.select('body > .content > .section > .section'):
                 subheading = section.select_one('h2:first-of-type')
                 content = ''
-                for sibling in subheading.find_next_siblings():
+                for sibling in subheading.next_siblings:
                     content += sibling.get_text().strip() + ' '
 
                 title = sanitize_title(subheading.text)

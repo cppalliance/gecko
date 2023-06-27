@@ -76,7 +76,7 @@ class BoostOutcome(Crawler):
                 toc.decompose()
 
             content = ''
-            for sibling in heading.find_next_siblings():
+            for sibling in heading.next_siblings:
                 if sibling.name == 'h2' and sibling.has_attr('id'):
                     break
                 content += sibling.get_text().strip() + ' '
@@ -88,7 +88,7 @@ class BoostOutcome(Crawler):
 
             for subheading in soup.select('#content > h2[id]'):
                 content = ''
-                for sibling in subheading.find_next_siblings():
+                for sibling in subheading.next_siblings:
                     if sibling.name == 'h2' and sibling.has_attr('id'):
                         break
                     content += sibling.get_text().strip() + ' '
