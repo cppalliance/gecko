@@ -71,9 +71,9 @@ if __name__ == "__main__":
     for crawler_cfg in config['crawlers']:
         crawler = globals()[crawler_cfg['name']](boost_root=config['boost']['root'])
 
-        for library_key in crawler_cfg['libraries']:
-            sections = crawler.crawl(library_key)
+        for library_cfg in crawler_cfg['libraries']:
+            sections = crawler.crawl(library_cfg['key'])
 
-            create_algolia_records(library_key=library_key,
+            create_algolia_records(library_key=library_cfg['key'],
                                    sections=sections,
                                    boost_root=config['boost']['root'])
