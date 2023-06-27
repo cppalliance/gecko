@@ -136,7 +136,7 @@ class QuickBook(Crawler):
                     anchor = refsect1.select_one('a').get('name')
 
                     content = ''
-                    for sibling in refsect1.select_one('h2').find_next_siblings():
+                    for sibling in refsect1.select_one('h2').next_siblings:
                         if has_class(sibling, 'refsect2'):
                             break
                         content += sibling.get_text().strip() + ' '
@@ -153,7 +153,7 @@ class QuickBook(Crawler):
                         anchor = refsect2.select_one('a').get('name')
 
                         content = ''
-                        for sibling in refsect2.select_one('h3').find_next_siblings():
+                        for sibling in refsect2.select_one('h3').next_siblings:
                             if has_class(sibling, 'refsect3'):
                                 break
                             content += sibling.get_text().strip() + ' '
@@ -165,11 +165,10 @@ class QuickBook(Crawler):
                         }]+lvl2
                         sections[path] = {'lvls': lvl3, 'content': content, 'up': up}
             else:
-                for anchor in soup.select('h1 > a.headerlink, h2 > a.headerlink, h3 > a.headerlink, h4 > a.headerlink, '
-                                          'h5 > a.headerlink, h6 > a.headerlink, h1 > a.link, h2 > a.link, h3 > a.link,'
-                                          'h4 > a.link, h5 > a.link, h6 > a.link, h1.title > a:first-child, h2.title > '
-                                          'a:first-child, h3.title > a:first-child, h4.title > a:first-child, h5.title '
-                                          '> a:first-child, h6.title > a:first-child'):
+                for anchor in soup.select('h1 > a.headerlink, h2 > a.headerlink, h3 > a.headerlink, h4 > a.headerlink, h5 > a.headerlink, h6 > a.headerlink'
+                                          ', h1:not(.title) > a.link, h2:not(.title) > a.link, h3:not(.title) > a.link,h4:not(.title) > a.link, h5:not(.title) > a.link, h6:not(.title) > a.link'
+                                          ', h1.title > a:first-child, h2.title > a:first-child, h3.title > a:first-child, h4.title > a:first-child, h5.title > a:first-child, h6.title > a:first-child'):
+
                     # titlepage headers
                     header = anchor.find_parent(class_='titlepage')
 
@@ -180,7 +179,7 @@ class QuickBook(Crawler):
                             continue
 
                     content = ''
-                    for sibling in header.find_next_siblings():
+                    for sibling in header.next_siblings:
                         if sibling.name in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
                             break
 

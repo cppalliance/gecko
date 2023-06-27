@@ -34,11 +34,11 @@ class AsciiDoc(Crawler):
         if header.find_next_sibling() and has_class(header.find_next_sibling(), 'sectionbody'):
             siblings = header.find_next_sibling().find_all(recursive=False)
         else:
-            siblings = header.find_next_siblings()
+            siblings = header.next_siblings
 
         content = ''
         for sibling in siblings:
-            if sibling.has_attr('class') and len([i for i in sibling.get('class') if i.startswith('sect')]) > 0:
+            if isinstance(sibling, Tag) and sibling.has_attr('class') and len([i for i in sibling.get('class') if i.startswith('sect')]) > 0:
                 self._extract_section_n(index_path, sections, sibling, lvls)
                 continue
             content += sibling.get_text() + ' '

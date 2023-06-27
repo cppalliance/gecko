@@ -108,7 +108,7 @@ class FlatPage(Crawler):
                     last_h3 = header
 
                 content = ''
-                for sibling in header.find_next_siblings():
+                for sibling in header.next_siblings:
                     if sibling.name == 'ol':
                         continue
                     if sibling == next_header:
