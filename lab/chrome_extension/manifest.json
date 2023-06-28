@@ -6,7 +6,7 @@
   "content_scripts": [
     {
       "js": ["main.min.js"],
-      "matches": ["https://www.boost.org/*"]
+      "matches": ["https://*.boost.org/*"]
     }
   ]
 }

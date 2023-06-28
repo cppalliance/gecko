@@ -14,26 +14,26 @@ if (searchDemo) {
     </React.StrictMode>,
   );
 } else {
-  let url = window.location.href;
-  const urlPrefix = 'https://www.boost.org/doc/libs/1_82_0/';
+  let path = window.location.pathname;
+  const pathPrefix = '/doc/libs/1_82_0/';
 
-  if (!url.startsWith(urlPrefix)) throw new Error(`Cannot find prefix of ${urlPrefix} in the URL.`);
+  if (!path.startsWith(pathPrefix)) throw new Error(`Cannot find prefix of ${pathPrefix} in the URL.`);
 
-  url = url.replace(urlPrefix, '');
-  url = url.replace('doc/html/boost_', '');
-  url = url.replace('doc/html/boost/', '');
-  url = url.replace('doc/html/', '');
-  url = url.replace('libs/', '');
+  path = path.replace(pathPrefix, '');
+  path = path.replace('doc/html/boost_', '');
+  path = path.replace('doc/html/boost/', '');
+  path = path.replace('doc/html/', '');
+  path = path.replace('libs/', '');
 
   let library = undefined;
 
   // First we try to match libraries like functional/factory and numeric/odeint
-  const match = url.match(/([^/]+\/[^/]+)\//);
+  const match = path.match(/([^/]+\/[^/]+)\//);
   if (match && match[1])
     library = libraries.filter((i) => i.key === match[1] || i.key.replace('_', '') === match[1])[0];
 
   if (!library) {
-    const match = url.match(/^(.*?)(?:\.|\/)/);
+    const match = path.match(/^(.*?)(?:\.|\/)/);
 
     if (!match || !match[1]) throw new Error(`Cannot extract library_key from the URL.`);
 
@@ -75,7 +75,7 @@ if (searchDemo) {
     <React.StrictMode>
       <Search
         library={library}
-        urlPrefix={'https://www.boost.org/doc/libs/1_82_0'}
+        urlPrefix={window.location.origin + '/doc/libs/1_82_0'}
         algoliaIndex={'1_82_0'}
         alogliaAppId={'D7O1MLLTAF'}
         alogliaApiKey={'44d0c0aac3c738bebb622150d1ec4ebf'}
