@@ -53,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "@svgr/cli": "^8.0.1",
     "prettier": "^2.8.8"
   }
 }

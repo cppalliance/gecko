@@ -27,6 +27,7 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Autocomplete from '@mui/material/Autocomplete';
 import HistoryIcon from '@mui/icons-material/History';
+import SvgIcon from '@mui/material/SvgIcon';
 
 import RecentSearches from 'recent-searches';
 
@@ -42,6 +43,8 @@ import {
   Snippet,
   PoweredBy,
 } from 'react-instantsearch-hooks-web';
+
+import CppallianceLogo from './CppallianceLogo';
 
 function CustomSearchBox({ inputRef, recentSearches }) {
   const { currentRefinement, refine } = useSearchBox();
@@ -312,10 +315,10 @@ function Search({ library, urlPrefix, algoliaIndex, alogliaAppId, alogliaApiKey 
             </Grid>
             <Grid item xs={6} sx={{ textAlign: 'right' }}>
               <Button
-                size='small'
                 sx={{ textTransform: 'none' }}
                 target='_blank'
-                href='https://github.com/cppalliance/boost-gecko/issues'
+                href='https://github.com/cppalliance/boost-gecko'
+                startIcon={<SvgIcon component={CppallianceLogo} inheritViewBox />}
               >
                 Report Issue
               </Button>
