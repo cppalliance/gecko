@@ -59,13 +59,12 @@ function CustomSearchBox({ inputRef, recentSearches }) {
   return (
     <Autocomplete
       freeSolo
-      openOnFocus
       disablePortal
       size='small'
       options={recentSearches.map((option) => option.query)}
       value={currentRefinement}
       onInputChange={(e, newValue) => refine(newValue)}
-      onChange={(e, newValue) => refine(newValue)}
+      onChange={(e, newValue) => refine(newValue || '')}
       renderOption={(props, option) => (
         <Box {...props}>
           <HistoryIcon fontSize='small' sx={{ pr: 1.5, color: grey[600] }} />
