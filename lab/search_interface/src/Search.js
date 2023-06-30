@@ -51,7 +51,7 @@ let queryHookTimerId;
 function CustomSearchBox({ inputRef, recentSearches }) {
   const queryHook = React.useCallback((query, search) => {
     clearTimeout(queryHookTimerId);
-    queryHookTimerId = setTimeout(() => search(query), 50);
+    queryHookTimerId = setTimeout(() => search(query), 300);
   }, []);
   const { currentRefinement, refine } = useSearchBox({ queryHook });
   const { status } = useInstantSearch();
@@ -100,26 +100,21 @@ function CustomSearchBox({ inputRef, recentSearches }) {
 
 function CustomHit({ hit, urlPrefix, onClick, singleLib }) {
   const { library_key, library_name, hierarchy, _highlightResult } = hit;
-  let hierarchyLinks = [];
-
-  if (_highlightResult) {
-    Object.keys(_highlightResult.hierarchy).forEach(function (key) {
-      const { title } = _highlightResult.hierarchy[key];
-      const { path } = hierarchy[key];
-      hierarchyLinks.push(
-        <Link
-          underline='hover'
-          dangerouslySetInnerHTML={{
-            __html: title.value,
-          }}
-          key={path}
-          onClick={onClick}
-          onAuxClick={onClick}
-          href={urlJoin(urlPrefix, path)}
-        ></Link>,
-      );
-    });
-  }
+  const hierarchyLinks = React.useMemo(() => {
+    if (!_highlightResult) return [];
+    return Object.keys(_highlightResult.hierarchy).map((key) => (
+      <Link
+        underline='hover'
+        dangerouslySetInnerHTML={{
+          __html: _highlightResult.hierarchy[key].title.value,
+        }}
+        key={hierarchy[key].path}
+        onClick={onClick}
+        onAuxClick={onClick}
+        href={urlJoin(urlPrefix, hierarchy[key].path)}
+      ></Link>
+    ));
+  }, [urlPrefix, onClick, hierarchy, _highlightResult]);
 
   return (
     <Box
@@ -173,6 +168,14 @@ function CustomInfiniteHits({ urlPrefix, setnbHits, onClick, singleLib }) {
     return use(middleware);
   }, [use]);
 
+  const memoizedHits = React.useMemo(
+    () =>
+      hits.map((hit) => (
+        <CustomHit key={hit.objectID} hit={hit} urlPrefix={urlPrefix} onClick={onClick} singleLib={singleLib} />
+      )),
+    [hits, urlPrefix, onClick, singleLib],
+  );
+
   if (error) {
     return (
       <Alert severity='error'>
@@ -184,9 +187,7 @@ function CustomInfiniteHits({ urlPrefix, setnbHits, onClick, singleLib }) {
 
   return (
     <Stack spacing={2}>
-      {hits.map((hit) => (
-        <CustomHit key={hit.objectID} hit={hit} urlPrefix={urlPrefix} onClick={onClick} singleLib={singleLib} />
-      ))}
+      {memoizedHits}
       <Box textAlign='center'>
         <Button size='small' disabled={isLastPage} onClick={showMore} sx={{ textTransform: 'none' }}>
           Show More
@@ -211,9 +212,7 @@ function Search({ library, urlPrefix, algoliaIndex, alogliaAppId, alogliaApiKey 
   const [otherLibrariesnbHits, setOtherLibrariesnbHits] = React.useState(0);
   const kFormatter = (num) => (num > 999 ? (num / 1000).toFixed(1) + 'k' : num);
 
-  const handleTabChange = (event, newValue) => {
-    setSelectedTab(newValue);
-  };
+  const handleTabChange = React.useCallback((event, newValue) => setSelectedTab(newValue), []);
 
   const [dialogOpen, setDialogOpen] = React.useState(window.location.hash === '#search-dialog');
   const [keepDialogMounted, setKeepDialogMounted] = React.useState(false);
@@ -224,26 +223,25 @@ function Search({ library, urlPrefix, algoliaIndex, alogliaAppId, alogliaApiKey 
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
 
-  const handleDialogOpen = () => {
-    window.location.hash = '#search-dialog';
-    setKeepDialogMounted(true);
-    setTimeout(() => {
-      inputRef.current.focus();
-    }, 0);
-  };
-
-  const handleDialogClose = () => {
-    window.history.back();
-  };
+  const handleDialogClose = React.useCallback(() => window.history.back(), []);
 
   const theme = useTheme();
   const dialogShouldBeFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const inputRef = React.useRef(null);
 
-  const onClick = () => {
-    recentSearches.setRecentSearch(inputRef.current.value);
-  };
+  const handleDialogOpen = React.useCallback(() => {
+    window.location.hash = '#search-dialog';
+    setKeepDialogMounted(true);
+    setTimeout(() => {
+      inputRef.current.focus();
+    }, 0);
+  }, [inputRef]);
+
+  const onClick = React.useCallback(
+    () => recentSearches.setRecentSearch(inputRef.current.value),
+    [recentSearches, inputRef],
+  );
 
   return (
     <InstantSearch searchClient={searchClient}>
