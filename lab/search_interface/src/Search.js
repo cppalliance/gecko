@@ -46,8 +46,14 @@ import {
 
 import CppallianceLogo from './CppallianceLogo';
 
+let queryHookTimerId;
+
 function CustomSearchBox({ inputRef, recentSearches }) {
-  const { currentRefinement, refine } = useSearchBox();
+  const queryHook = React.useCallback((query, search) => {
+    clearTimeout(queryHookTimerId);
+    queryHookTimerId = setTimeout(() => search(query), 50);
+  }, []);
+  const { currentRefinement, refine } = useSearchBox({ queryHook });
   const { status } = useInstantSearch();
 
   return (
