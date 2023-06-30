@@ -7,7 +7,6 @@ import { useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
-import LoadingButton from '@mui/lab/LoadingButton';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
@@ -28,6 +27,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Autocomplete from '@mui/material/Autocomplete';
 import HistoryIcon from '@mui/icons-material/History';
 import SvgIcon from '@mui/material/SvgIcon';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import RecentSearches from 'recent-searches';
 
@@ -48,6 +48,7 @@ import CppallianceLogo from './CppallianceLogo';
 
 function CustomSearchBox({ inputRef, recentSearches }) {
   const { currentRefinement, refine } = useSearchBox();
+  const { status } = useInstantSearch();
 
   return (
     <Autocomplete
@@ -72,6 +73,14 @@ function CustomSearchBox({ inputRef, recentSearches }) {
           inputRef={inputRef}
           InputProps={{
             ...params.InputProps,
+            endAdornment: (
+              <React.Fragment>
+                {status === 'loading' || status === 'stalled' ? (
+                  <CircularProgress sx={{ color: grey[600] }} size={16} />
+                ) : null}
+                {params.InputProps.endAdornment}
+              </React.Fragment>
+            ),
             startAdornment: (
               <InputAdornment position='start'>
                 <SearchIcon />
@@ -133,7 +142,7 @@ function CustomHit({ hit, urlPrefix, onClick, singleLib }) {
 
 function CustomInfiniteHits({ urlPrefix, setnbHits, onClick, singleLib }) {
   const { hits, isLastPage, showMore } = useInfiniteHits();
-  const { use, status } = useInstantSearch();
+  const { use } = useInstantSearch();
   const [error, setError] = React.useState(null);
   const { nbHits } = useStats();
 
@@ -174,15 +183,9 @@ function CustomInfiniteHits({ urlPrefix, setnbHits, onClick, singleLib }) {
         <CustomHit key={hit.objectID} hit={hit} urlPrefix={urlPrefix} onClick={onClick} singleLib={singleLib} />
       ))}
       <Box textAlign='center'>
-        <LoadingButton
-          size='small'
-          loading={status === 'loading' || status === 'stalled'}
-          disabled={isLastPage}
-          onClick={showMore}
-          sx={{ textTransform: 'none' }}
-        >
+        <Button size='small' disabled={isLastPage} onClick={showMore} sx={{ textTransform: 'none' }}>
           Show More
-        </LoadingButton>
+        </Button>
       </Box>
     </Stack>
   );
