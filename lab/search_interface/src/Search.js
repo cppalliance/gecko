@@ -84,7 +84,7 @@ function CustomSearchBox({ inputRef, recentSearches }) {
   );
 }
 
-function CustomHit({ hit, urlPrefix, onClick }) {
+function CustomHit({ hit, urlPrefix, onClick, singleLib }) {
   const { library_key, library_name, hierarchy, _highlightResult } = hit;
   let hierarchyLinks = [];
 
@@ -119,9 +119,11 @@ function CustomHit({ hit, urlPrefix, onClick }) {
       }}
     >
       <Breadcrumbs separator='&rsaquo;' fontSize='small' sx={{ wordBreak: 'break-all' }}>
-        <Link underline='hover' href={urlJoin(urlPrefix, 'libs', library_key)}>
-          {library_name}
-        </Link>
+        {(!singleLib || hierarchyLinks.length === 0) && (
+          <Link underline='hover' href={urlJoin(urlPrefix, 'libs', library_key)}>
+            {library_name}
+          </Link>
+        )}
         {hierarchyLinks}
       </Breadcrumbs>
       <Snippet style={{ color: grey[700], fontSize: 'small' }} hit={hit} attribute='content' />
@@ -129,7 +131,7 @@ function CustomHit({ hit, urlPrefix, onClick }) {
   );
 }
 
-function CustomInfiniteHits({ urlPrefix, setnbHits, onClick }) {
+function CustomInfiniteHits({ urlPrefix, setnbHits, onClick, singleLib }) {
   const { hits, isLastPage, showMore } = useInfiniteHits();
   const { use, status } = useInstantSearch();
   const [error, setError] = React.useState(null);
@@ -169,7 +171,7 @@ function CustomInfiniteHits({ urlPrefix, setnbHits, onClick }) {
   return (
     <Stack spacing={2}>
       {hits.map((hit) => (
-        <CustomHit key={hit.objectID} hit={hit} urlPrefix={urlPrefix} onClick={onClick} />
+        <CustomHit key={hit.objectID} hit={hit} urlPrefix={urlPrefix} onClick={onClick} singleLib={singleLib} />
       ))}
       <Box textAlign='center'>
         <LoadingButton
@@ -298,7 +300,7 @@ function Search({ library, urlPrefix, algoliaIndex, alogliaAppId, alogliaApiKey 
           <Box hidden={selectedTab !== '1'} sx={{ pt: 1, typography: 'body1' }}>
             <Index indexName={algoliaIndex}>
               <Configure hitsPerPage={30} filters={'library_key:' + library.key} />
-              <CustomInfiniteHits urlPrefix={urlPrefix} setnbHits={setnbHits} onClick={onClick} />
+              <CustomInfiniteHits urlPrefix={urlPrefix} setnbHits={setnbHits} onClick={onClick} singleLib />
             </Index>
           </Box>
           <Box hidden={selectedTab !== '2'} sx={{ pt: 1, typography: 'body1' }}>
