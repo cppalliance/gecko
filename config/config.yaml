@@ -598,9 +598,9 @@ crawlers:
         last-lvls: 192
 
       - key: pfr
-        last-records: 106
-        last-words: 5108
-        last-lvls: 72
+        last-records: 119
+        last-words: 6277
+        last-lvls: 367
 
       - key: phoenix
         last-records: 208
