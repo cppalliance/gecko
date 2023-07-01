@@ -94,13 +94,17 @@ function parseURL() {
 
   if (!library) {
     const match = path.match(/^(.*?)(?:\.|\/)/);
-
-    if (!match || !match[1]) throw new Error(`Cannot extract library_key from the URL.`);
-
-    library = libraries.filter((i) => i.key === match[1] || i.key.replace('_', '') === match[1])[0];
+    if (match && match[1])
+      library = libraries.filter((i) => i.key === match[1] || i.key.replace('_', '') === match[1])[0];
   }
 
-  if (!library) throw new Error(`Cannot find a library with such key: ${match[1]}.`);
+  if (!library) {
+    const match = path.match(/BOOST_([^_]+)/);
+    if (match && match[1])
+      library = libraries.filter((i) => i.key === match[1].toLowerCase())[0];
+  }
+
+  if (!library) throw new Error(`Cannot extract a library_key from the URL`);
 
   return { boostVersion, library };
 }
