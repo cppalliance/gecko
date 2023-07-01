@@ -76,7 +76,9 @@ class QuickBook(Crawler):
                     continue
 
                 if library_key not in link.lower() and library_key.replace('_', '') not in link.lower():
-                    continue
+                    # Workaround for pfr file in wrong path
+                    if not(library_key == 'pfr' and 'reference_section.html' in link):
+                        continue
 
                 if link not in scraped_links:
                     links_to_scrape.add(link)
