@@ -3,6 +3,7 @@ from .boost_exception import BoostException
 from .boost_format import BoostFormat
 from .boost_functional import BoostFunctional
 from .boost_gil import BoostGIL
+from .boost_graph import BoostGraph
 from .boost_iostreams import BoostIostreams
 from .boost_mpl import BoostMPL
 from .boost_outcome import BoostOutcome
