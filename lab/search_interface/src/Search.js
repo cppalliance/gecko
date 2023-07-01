@@ -323,6 +323,7 @@ function Search({ library, urlPrefix, algoliaIndex, alogliaAppId, alogliaApiKey 
             </Grid>
             <Grid item xs={6} sx={{ textAlign: 'right' }}>
               <Button
+                size='small'
                 sx={{ textTransform: 'none' }}
                 target='_blank'
                 href='https://github.com/cppalliance/boost-gecko'
