@@ -7,6 +7,13 @@ algolia:
   api-key: YourWriteAPIKey
 
 crawlers:
+  - name: BoostGraph
+    libraries:
+      - key: graph
+        last-records: 160
+        last-words: 118676
+        last-lvls: 160
+
   - name: BoostIostreams
     libraries:
       - key: iostreams
@@ -469,11 +476,6 @@ crawlers:
         last-records: 2525
         last-words: 86328
         last-lvls: 10619
-
-      - key: graph
-        last-records: 10
-        last-words: 1329
-        last-lvls: 7
 
       - key: heap
         last-records: 104
