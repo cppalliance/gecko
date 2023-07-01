@@ -100,8 +100,7 @@ function parseURL() {
 
   if (!library) {
     const match = path.match(/BOOST_([^_]+)/);
-    if (match && match[1])
-      library = libraries.filter((i) => i.key === match[1].toLowerCase())[0];
+    if (match && match[1]) library = libraries.filter((i) => i.key === match[1].toLowerCase())[0];
   }
 
   if (!library) throw new Error(`Cannot extract a library_key from the URL`);
