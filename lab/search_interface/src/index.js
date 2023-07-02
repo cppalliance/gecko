@@ -30,6 +30,7 @@ if (searchDemo) {
         '/doc/libs/' + boostVersion,
         `/doc/libs/${boostVersion}/doc/html`,
         `/doc/libs/${boostVersion}/doc/html/index.html`,
+        `/doc/libs/${boostVersion}/libs/libraries.htm`,
       ].includes(window.location.pathname.replace(/\/+$/, ''))
     )
       throw new Error(`Cannot extract a library_key from the URL`);
