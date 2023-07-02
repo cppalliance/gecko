@@ -203,7 +203,8 @@ function Search({ library, urlPrefix, algoliaIndex, alogliaAppId, alogliaApiKey 
   const [recentSearches, setRecentSearches] = React.useState(null);
 
   React.useEffect(() => {
-    setRecentSearches(new RecentSearches({ namespace: 'rs-' + library.key }));
+    if (library) setRecentSearches(new RecentSearches({ namespace: 'rs-' + library.key }));
+    else setRecentSearches(new RecentSearches({ namespace: 'rs-main-page' }));
   }, [library]);
 
   const [selectedTab, setSelectedTab] = React.useState('1');
@@ -238,7 +239,7 @@ function Search({ library, urlPrefix, algoliaIndex, alogliaAppId, alogliaApiKey 
     }, 0);
   }, [inputRef]);
 
-  const onClick = React.useCallback(
+  const setRecentSearch = React.useCallback(
     () => recentSearches.setRecentSearch(inputRef.current.value),
     [recentSearches, inputRef],
   );
@@ -274,47 +275,73 @@ function Search({ library, urlPrefix, algoliaIndex, alogliaAppId, alogliaApiKey 
               />
             </Grid>
             <Grid item xs={12}>
-              <Tabs
-                value={selectedTab}
-                onChange={handleTabChange}
-                variant='fullWidth'
-                sx={{ borderBottom: 1, borderColor: 'divider' }}
-              >
-                <Tab
-                  value='1'
-                  sx={{ textTransform: 'none', display: 'inline' }}
-                  label={
-                    <>
-                      {library.name} <Typography variant='caption'>({kFormatter(nbHits)})</Typography>
-                    </>
-                  }
-                />
-                <Tab
-                  value='2'
-                  sx={{ textTransform: 'none', display: 'inline' }}
-                  label={
-                    <>
-                      Other Libraries <Typography variant='caption'>({kFormatter(otherLibrariesnbHits)})</Typography>
-                    </>
-                  }
-                />
-              </Tabs>
+              {!library ? (
+                <Typography
+                  variant='caption'
+                  gutterBottom
+                  sx={{ display: 'block', borderBottom: 1, borderColor: 'divider' }}
+                >
+                  <Box component='span' fontWeight='bolder'>
+                    Tip:
+                  </Box>{' '}
+                  limit the search scope by navigating to a library page.
+                </Typography>
+              ) : (
+                <Tabs
+                  value={selectedTab}
+                  onChange={handleTabChange}
+                  variant='fullWidth'
+                  sx={{ borderBottom: 1, borderColor: 'divider' }}
+                >
+                  <Tab
+                    value='1'
+                    sx={{ textTransform: 'none', display: 'inline' }}
+                    label={
+                      <>
+                        {library.name} <Typography variant='caption'>({kFormatter(nbHits)})</Typography>
+                      </>
+                    }
+                  />
+                  <Tab
+                    value='2'
+                    sx={{ textTransform: 'none', display: 'inline' }}
+                    label={
+                      <>
+                        Other Libraries <Typography variant='caption'>({kFormatter(otherLibrariesnbHits)})</Typography>
+                      </>
+                    }
+                  />
+                </Tabs>
+              )}
             </Grid>
           </Grid>
         </DialogTitle>
         <DialogContent sx={{ p: 1.5 }}>
-          <Box hidden={selectedTab !== '1'} sx={{ pt: 1, typography: 'body1' }}>
+          {!library ? (
             <Index indexName={algoliaIndex}>
-              <Configure hitsPerPage={30} filters={'library_key:' + library.key} />
-              <CustomInfiniteHits urlPrefix={urlPrefix} setnbHits={setnbHits} onClick={onClick} singleLib />
+              <Configure hitsPerPage={30} />
+              <CustomInfiniteHits urlPrefix={urlPrefix} setnbHits={setnbHits} onClick={setRecentSearch} />
             </Index>
-          </Box>
-          <Box hidden={selectedTab !== '2'} sx={{ pt: 1, typography: 'body1' }}>
-            <Index indexName={algoliaIndex}>
-              <Configure hitsPerPage={30} filters={'NOT library_key:' + library.key} />
-              <CustomInfiniteHits urlPrefix={urlPrefix} setnbHits={setOtherLibrariesnbHits} onClick={onClick} />
-            </Index>
-          </Box>
+          ) : (
+            <>
+              <Box hidden={selectedTab !== '1'} sx={{ pt: 1, typography: 'body1' }}>
+                <Index indexName={algoliaIndex}>
+                  <Configure hitsPerPage={30} filters={'library_key:' + library.key} />
+                  <CustomInfiniteHits urlPrefix={urlPrefix} setnbHits={setnbHits} onClick={setRecentSearch} singleLib />
+                </Index>
+              </Box>
+              <Box hidden={selectedTab !== '2'} sx={{ pt: 1, typography: 'body1' }}>
+                <Index indexName={algoliaIndex}>
+                  <Configure hitsPerPage={30} filters={'NOT library_key:' + library.key} />
+                  <CustomInfiniteHits
+                    urlPrefix={urlPrefix}
+                    setnbHits={setOtherLibrariesnbHits}
+                    onClick={setRecentSearch}
+                  />
+                </Index>
+              </Box>
+            </>
+          )}
         </DialogContent>
         <DialogActions sx={{ pc: 1.5, py: 0.5 }}>
           <Grid container>

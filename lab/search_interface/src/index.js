@@ -16,20 +16,22 @@ if (searchDemo) {
 } else {
   try {
     const indexedVersions = ['1_82_0'];
-    const { boostVersion, library } = parseURL();
+    let { boostVersion, library } = parseURL();
 
-    if (!indexedVersions.includes(boostVersion))
-      throw new Error(`There is not search index for this version of boost.`);
+    // For /doc/libs/ page we search in latest version
+    if (!boostVersion) boostVersion = indexedVersions[0]; // latest
+
+    if (!indexedVersions.includes(boostVersion)) throw new Error(`There is no search index for this version of boost.`);
 
     const div = Object.assign(document.createElement('div'), { id: 'search-button-react-root' });
 
     // Workaround for gil and hana that have searchbox in their pages
-    if (library.key === 'gil' || library.key === 'hana') {
+    if (library && (library.key === 'gil' || library.key === 'hana')) {
       let searchBox = document.querySelector('#searchbox, #MSearchBox');
       addCSS('#search-button-react-root {float: right; width: 120px; padding-right: 18px;}');
       searchBox.replaceChildren(div);
       // Workaround for spirit/classic and wave headers
-    } else if (library.key === 'spirit/classic' || library.key === 'wave') {
+    } else if (library && (library.key === 'spirit/classic' || library.key === 'wave')) {
       let td = document.querySelector('body > table:first-of-type td:nth-child(2)');
       addCSS('#search-button-react-root {float: right; width: 120px;}');
       td.append(div);
@@ -67,25 +69,25 @@ function addCSS(css) {
 }
 
 function parseURL() {
+  let library = undefined;
+  let boostVersion = undefined;
   let path = window.location.pathname;
 
   const pathPrefix = '/doc/libs/';
   if (!path.startsWith(pathPrefix)) throw new Error(`Cannot find prefix of ${pathPrefix} in the URL.`);
   path = path.replace(pathPrefix, '');
 
-  const boostVersion = (function () {
+  {
     const match = path.match(/^(.*?)\//);
-    if (!match || !match[1]) throw new Error(`Cannot extract boost version from the URL.`);
-    return match[1];
-  })();
-  path = path.replace(boostVersion + '/', '');
+    if (!match || !match[1]) return { boostVersion, library };
+    boostVersion = match[1];
+  }
 
+  path = path.replace(boostVersion + '/', '');
   path = path.replace('doc/html/boost_', '');
   path = path.replace('doc/html/boost/', '');
   path = path.replace('doc/html/', '');
   path = path.replace('libs/', '');
-
-  let library = undefined;
 
   // First we try to match libraries like functional/factory and numeric/odeint
   const match = path.match(/([^/]+\/[^/]+)\//);
@@ -102,8 +104,6 @@ function parseURL() {
     const match = path.match(/BOOST_([^_]+)/);
     if (match && match[1]) library = libraries.filter((i) => i.key === match[1].toLowerCase())[0];
   }
-
-  if (!library) throw new Error(`Cannot extract a library_key from the URL`);
 
   return { boostVersion, library };
 }
