@@ -23,6 +23,17 @@ if (searchDemo) {
 
     if (!indexedVersions.includes(boostVersion)) throw new Error(`There is no search index for this version of boost.`);
 
+    if (
+      !library &&
+      ![
+        '/doc/libs',
+        '/doc/libs/' + boostVersion,
+        `/doc/libs/${boostVersion}/doc/html`,
+        `/doc/libs/${boostVersion}/doc/html/index.html`,
+      ].includes(window.location.pathname.replace(/\/+$/, ''))
+    )
+      throw new Error(`Cannot extract a library_key from the URL`);
+
     const div = Object.assign(document.createElement('div'), { id: 'search-button-react-root' });
 
     // Workaround for gil and hana that have searchbox in their pages
