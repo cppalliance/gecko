@@ -1,5 +1,5 @@
 import { libraries } from './libraries';
-import Search from './Search';
+import SearchButton from './Search/SearchButton';
 
 import React from 'react';
 
@@ -39,7 +39,7 @@ function Demo() {
           </FormControl>
         </Grid>
         <Grid item md={2} xs={4}>
-          <Search
+          <SearchButton
             library={library}
             urlPrefix={'https://www.boost.org/doc/libs/1_82_0'}
             algoliaIndex={'1_82_0'}

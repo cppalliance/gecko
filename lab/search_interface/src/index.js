@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import Demo from './Demo';
-import Search from './Search';
+import SearchButton from './Search/SearchButton';
 import { libraries } from './libraries';
 
 const searchDemo = document.querySelector('#search-demo-react-root');
@@ -18,21 +18,20 @@ if (searchDemo) {
     const indexedVersions = ['1_82_0'];
     let { boostVersion, library } = parseURL();
 
-    // For /doc/libs/ page we search in latest version
-    if (!boostVersion) boostVersion = indexedVersions[0]; // latest
+    // For /doc/libs page we set boostVersion to latest
+    if (!boostVersion) boostVersion = indexedVersions[0];
 
-    if (!indexedVersions.includes(boostVersion)) throw new Error(`There is no search index for this version of boost.`);
+    if (!indexedVersions.includes(boostVersion)) throw new Error(`There is no search index for this version of boost`);
 
-    if (
-      !library &&
-      ![
-        '/doc/libs',
-        '/doc/libs/' + boostVersion,
-        `/doc/libs/${boostVersion}/doc/html`,
-        `/doc/libs/${boostVersion}/doc/html/index.html`,
-        `/doc/libs/${boostVersion}/libs/libraries.htm`,
-      ].includes(window.location.pathname.replace(/\/+$/, ''))
-    )
+    const specialPages = [
+      '/doc/libs',
+      `/doc/libs/${boostVersion}`,
+      `/doc/libs/${boostVersion}/doc/html`,
+      `/doc/libs/${boostVersion}/doc/html/index.html`,
+      `/doc/libs/${boostVersion}/libs/libraries.htm`,
+    ];
+
+    if (!library && !specialPages.includes(window.location.pathname.replace(/\/+$/, '')))
       throw new Error(`Cannot extract a library_key from the URL`);
 
     const div = Object.assign(document.createElement('div'), { id: 'search-button-react-root' });
@@ -64,7 +63,7 @@ if (searchDemo) {
 
     ReactDOM.createRoot(div).render(
       <React.StrictMode>
-        <Search
+        <SearchButton
           library={library}
           urlPrefix={window.location.origin + '/doc/libs/1_82_0'}
           algoliaIndex={boostVersion}
@@ -86,7 +85,7 @@ function parseURL() {
   let path = window.location.pathname;
 
   const pathPrefix = '/doc/libs/';
-  if (!path.startsWith(pathPrefix)) throw new Error(`Cannot find prefix of ${pathPrefix} in the URL.`);
+  if (!path.startsWith(pathPrefix)) throw new Error(`Cannot find prefix of ${pathPrefix} in the URL`);
   path = path.replace(pathPrefix, '');
 
   {
