@@ -25,7 +25,7 @@
     "build": "react-scripts build && cp build/static/js/main*.js build/static/js/main.min.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "format": "prettier --write \"src/*.+(js|jsx|json|css|md)\""
+    "format": "prettier --write ./src"
   },
   "eslintConfig": {
     "extends": [
