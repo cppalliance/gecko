@@ -31,7 +31,11 @@ if (searchDemo) {
       `/doc/libs/${boostVersion}/libs/libraries.htm`,
     ];
 
-    if (!library && !specialPages.includes(window.location.pathname.replace(/\/+$/, '')))
+    if (
+      !library &&
+      window.location.pathname.startsWith('/doc/libs') &&
+      !specialPages.includes(window.location.pathname.replace(/\/+$/, ''))
+    )
       throw new Error(`Cannot extract a library_key from the URL`);
 
     const div = Object.assign(document.createElement('div'), { id: 'search-button-react-root' });
@@ -85,7 +89,7 @@ function parseURL() {
   let path = window.location.pathname;
 
   const pathPrefix = '/doc/libs/';
-  if (!path.startsWith(pathPrefix)) throw new Error(`Cannot find prefix of ${pathPrefix} in the URL`);
+  if (!path.startsWith(pathPrefix)) return { boostVersion, library };
   path = path.replace(pathPrefix, '');
 
   {
