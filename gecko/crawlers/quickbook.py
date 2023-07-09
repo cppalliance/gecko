@@ -124,7 +124,7 @@ class QuickBook(Crawler):
 
     def _scrape_html_file(self, library_key: str, file_path: str, sections: dict) -> set:
         if not os.path.isfile(file_path):
-            print("File doesn't exis", file_path)
+            print("File does not exist", file_path)
             return []
 
         with open(file_path, 'r', encoding='utf-8', errors='ignore') as file:
