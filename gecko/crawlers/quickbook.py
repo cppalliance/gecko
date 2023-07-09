@@ -24,6 +24,26 @@ def sanitize_title(title):
     return title
 
 
+def is_beast_hidden_pages(path: str):
+    if path.endswith('beast/doc/html/beast_hidden.html'):
+        return True
+
+    if path.endswith('beast/doc/html/beast/ref.html'):
+        return True
+
+    return False
+
+
+def beast_alternative_up(up: str):
+    if up.endswith('beast/doc/html/beast_hidden.html'):
+        return up.replace('beast/doc/html/beast_hidden.html', 'beast/doc/html/beast/quickref.html')
+
+    if up.endswith('beast/doc/html/beast/ref.html'):
+        return up.replace('beast/doc/html/beast/ref.html', 'beast/doc/html/beast/quickref.html')
+
+    return up
+
+
 def remove_duplicate_lvls(lvls: list):
     encountered_titles = set()
     unique_dicts = []
@@ -66,22 +86,27 @@ class QuickBook(Crawler):
             link = links_to_scrape.pop()
             scraped_links.add(link)
 
-            releative_links = self._scrape_html_file(file_path=link, sections=sections)
+            releative_links = self._scrape_html_file(library_key=library_key, file_path=link, sections=sections)
 
             for link in releative_links:
                 # remvoe anchor
                 link = urlparse(link).path
+
+                if link in scraped_links:
+                    continue
 
                 if not link.endswith(".html"):
                     continue
 
                 if library_key not in link.lower() and library_key.replace('_', '') not in link.lower():
                     # Workaround for pfr file in wrong path
-                    if not(library_key == 'pfr' and 'reference_section.html' in link):
+                    if not (library_key == 'pfr' and 'reference_section.html' in link):
                         continue
 
-                if link not in scraped_links:
-                    links_to_scrape.add(link)
+                if library_key == 'beast' and is_beast_hidden_pages(link):
+                    continue
+
+                links_to_scrape.add(link)
 
         # here we have access to all links so we can find and populate hierachy
         for _, section in sections.items():
@@ -97,7 +122,7 @@ class QuickBook(Crawler):
 
         return sections
 
-    def _scrape_html_file(self, file_path: str, sections: dict) -> set:
+    def _scrape_html_file(self, library_key: str, file_path: str, sections: dict) -> set:
         if not os.path.isfile(file_path):
             print("File doesn't exis", file_path)
             return []
@@ -121,6 +146,8 @@ class QuickBook(Crawler):
             up = soup.select_one('body > .spirit-nav > a[accesskey="u"], body > .navfooter a[accesskey="u"]')
             if up and up.get('href') != '#':
                 up = urljoin(file_path, up.get('href'))
+                if library_key == 'beast':
+                    up = beast_alternative_up(up)
 
             # ref pages have a different structure, like:
             # https://www.boost.org/doc/libs/1_82_0/doc/html/boost/algorithm/erase_range_copy.html
