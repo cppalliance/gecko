@@ -333,9 +333,9 @@ crawlers:
         last-lvls: 132
 
       - key: beast
-        last-records: 4571
+        last-records: 4569
         last-words: 152929
-        last-lvls: 17252
+        last-lvls: 17250
 
       - key: bimap
         last-records: 168
