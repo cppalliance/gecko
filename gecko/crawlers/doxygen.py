@@ -40,6 +40,10 @@ def extract_textblock(textblock: Tag, lvls: list, html_file_path: str, sections:
 
 def extract_memberdecls(memberdecls: Tag, lvls: list, html_file_path: str, sections: dict):
     heading = memberdecls.select_one('tr:first-child > td > h2.groupheader')
+
+    if not heading.select_one('a[name]'):
+        return
+
     title = sanitize_title(heading.get_text())
     path = html_file_path + '#' + heading.select_one('a[name]').get('name')
 
