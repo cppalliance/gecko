@@ -15,11 +15,15 @@ if (searchDemo) {
   );
 } else {
   try {
-    const indexedVersions = ['1_82_0'];
+    const indexedVersions = ['1_83_0', '1_82_0'];
     let { boostVersion, library } = parseURL();
 
-    // For /doc/libs page we set boostVersion to latest
-    if (!boostVersion) boostVersion = indexedVersions[0];
+    // For generic pages we use current version of boost
+    if (!boostVersion)
+      boostVersion = document
+        .querySelector('script[data-current-version]')
+        .getAttribute('data-current-version')
+        .replaceAll('.', '_');
 
     if (!indexedVersions.includes(boostVersion)) throw new Error(`There is no search index for this version of boost`);
 
@@ -69,7 +73,7 @@ if (searchDemo) {
       <React.StrictMode>
         <SearchButton
           library={library}
-          urlPrefix={window.location.origin + '/doc/libs/1_82_0'}
+          urlPrefix={window.location.origin + `/doc/libs/${boostVersion}`}
           algoliaIndex={boostVersion}
           alogliaAppId={'D7O1MLLTAF'}
           alogliaApiKey={'44d0c0aac3c738bebb622150d1ec4ebf'}
