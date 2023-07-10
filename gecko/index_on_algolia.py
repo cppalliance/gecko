@@ -15,11 +15,15 @@ if __name__ == "__main__":
         with open(path, 'r', encoding='utf-8') as f:
             records = json.load(f)
 
+            # Delete the existing records for this library.
+            index.delete_by({'filters': 'library_key:{}'.format(records[0]['library_key'])})
+
             for record in records:
                 # TODO do something about truncation of long contents
                 record['content'] = record['content'][:90000]
 
-            records = [record for record in records if not(record['content'] == '' and not record['hierarchy']['lvl0'])]
+            records = [record for record in records if not (
+                record['content'] == '' and not record['hierarchy']['lvl0'])]
 
             # TODO instead of using autoGenerateObjectIDIfNotExist we might create a hash out of hierarchy items
             index.save_objects(records, {'autoGenerateObjectIDIfNotExist': True})
