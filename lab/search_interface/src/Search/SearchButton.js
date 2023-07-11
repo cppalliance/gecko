@@ -177,7 +177,7 @@ function SearchButton({ library, urlPrefix, algoliaIndex, alogliaAppId, alogliaA
                 size='small'
                 sx={{ textTransform: 'none' }}
                 target='_blank'
-                href='https://github.com/boostorg/website/issues'
+                href='https://github.com/cppalliance/boost-gecko/issues'
                 startIcon={<SvgIcon component={CppallianceLogo} inheritViewBox />}
               >
                 Report Issue
