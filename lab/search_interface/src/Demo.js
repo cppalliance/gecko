@@ -40,6 +40,7 @@ function Demo() {
         </Grid>
         <Grid item md={2} xs={4}>
           <SearchButton
+            versionWarning={false}
             library={library}
             urlPrefix={'https://www.boost.org/doc/libs/1_82_0'}
             algoliaIndex={'1_82_0'}

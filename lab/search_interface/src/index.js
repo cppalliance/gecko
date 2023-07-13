@@ -15,32 +15,12 @@ if (searchDemo) {
   );
 } else {
   try {
-    const indexedVersions = ['1_83_0', '1_82_0'];
     let { boostVersion, library } = parseURL();
 
-    // For generic pages we use current version of boost
-    if (!boostVersion)
-      boostVersion = document
-        .querySelector('script[data-current-version]')
-        .getAttribute('data-current-version')
-        .replaceAll('.', '_');
-
-    if (!indexedVersions.includes(boostVersion)) throw new Error(`There is no search index for this version of boost`);
-
-    const specialPages = [
-      '/doc/libs',
-      `/doc/libs/${boostVersion}`,
-      `/doc/libs/${boostVersion}/doc/html`,
-      `/doc/libs/${boostVersion}/doc/html/index.html`,
-      `/doc/libs/${boostVersion}/libs/libraries.htm`,
-    ];
-
-    if (
-      !library &&
-      window.location.pathname.startsWith('/doc/libs') &&
-      !specialPages.includes(window.location.pathname.replace(/\/+$/, ''))
-    )
-      throw new Error(`Cannot extract a library_key from the URL`);
+    const currentBoostVersion = document
+      .querySelector('script[data-current-version]')
+      .getAttribute('data-current-version')
+      .replaceAll('.', '_');
 
     const div = Object.assign(document.createElement('div'), { id: 'search-button-react-root' });
 
@@ -72,15 +52,16 @@ if (searchDemo) {
     ReactDOM.createRoot(div).render(
       <React.StrictMode>
         <SearchButton
+          versionWarning={boostVersion && boostVersion !== currentBoostVersion}
           library={library}
-          urlPrefix={window.location.origin + `/doc/libs/${boostVersion}`}
-          algoliaIndex={boostVersion}
+          urlPrefix={window.location.origin + `/doc/libs/${currentBoostVersion}`}
+          algoliaIndex={currentBoostVersion}
           alogliaAppId={'D7O1MLLTAF'}
           alogliaApiKey={'44d0c0aac3c738bebb622150d1ec4ebf'}
         />
       </React.StrictMode>,
     );
-  } catch {}
+  } catch { }
 }
 
 function addCSS(css) {
@@ -123,6 +104,17 @@ function parseURL() {
     const match = path.match(/BOOST_([^_]+)/);
     if (match && match[1]) library = libraries.filter((i) => i.key === match[1].toLowerCase())[0];
   }
+
+  const specialPages = [
+    '/doc/libs',
+    `/doc/libs/${boostVersion}`,
+    `/doc/libs/${boostVersion}/doc/html`,
+    `/doc/libs/${boostVersion}/doc/html/index.html`,
+    `/doc/libs/${boostVersion}/libs/libraries.htm`,
+  ];
+
+  if (!library && !specialPages.includes(window.location.pathname.replace(/\/+$/, '')))
+    throw new Error(`Cannot extract the library_key from the URL`);
 
   return { boostVersion, library };
 }
