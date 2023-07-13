@@ -25,7 +25,7 @@ import CppallianceLogo from './CppallianceLogo';
 import SearchBox from './SearchBox';
 import InfiniteHits from './InfiniteHits';
 
-function SearchButton({ library, urlPrefix, algoliaIndex, alogliaAppId, alogliaApiKey }) {
+function SearchButton({ versionWarning, library, urlPrefix, algoliaIndex, alogliaAppId, alogliaApiKey }) {
   const [searchClient] = React.useState(algoliasearch(alogliaAppId, alogliaApiKey));
 
   const [recentSearches, setRecentSearches] = React.useState(null);
@@ -103,6 +103,14 @@ function SearchButton({ library, urlPrefix, algoliaIndex, alogliaAppId, alogliaA
               />
             </Grid>
             <Grid item xs={12}>
+              {versionWarning && (
+                <Typography variant='caption' sx={{ display: 'block' }}>
+                  <Box component='span' fontWeight='bolder'>
+                    Note:
+                  </Box>{' '}
+                  search limited to the latest version of documentation.
+                </Typography>
+              )}
               {!library ? (
                 <Typography
                   variant='caption'
@@ -191,6 +199,7 @@ function SearchButton({ library, urlPrefix, algoliaIndex, alogliaAppId, alogliaA
 }
 
 SearchButton.propTypes = {
+  versionWarning: PropTypes.bool.isRequired,
   library: PropTypes.shape({
     key: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
