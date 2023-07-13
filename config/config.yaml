@@ -1,6 +1,6 @@
 boost:
-  version: "1_82_0"
-  root: "../boost_1_82_0"
+  version: "1_83_0"
+  root: "../boost_1_83_0"
 
 algolia:
   app-id: D7O1MLLTAF
@@ -11,7 +11,7 @@ crawlers:
     libraries:
       - key: graph
         last-records: 160
-        last-words: 118676
+        last-words: 118564
         last-lvls: 160
 
   - name: BoostIostreams
@@ -32,7 +32,7 @@ crawlers:
     libraries:
       - key: gil
         last-records: 122
-        last-words: 25367
+        last-words: 25365
         last-lvls: 298
 
   - name: BoostMPL
@@ -45,9 +45,9 @@ crawlers:
   - name: BoostOutcome
     libraries:
       - key: outcome
-        last-records: 433
-        last-words: 80597
-        last-lvls: 1424
+        last-records: 434
+        last-words: 80893
+        last-lvls: 1426
 
   - name: BoostException
     libraries:
@@ -153,7 +153,7 @@ crawlers:
 
       - key: concept_check
         last-records: 25
-        last-words: 5297
+        last-words: 5294
         last-lvls: 37
 
       - key: dynamic_bitset
@@ -162,23 +162,23 @@ crawlers:
         last-lvls: 20
 
       - key: filesystem
-        last-records: 110
-        last-words: 27787
-        last-lvls: 237
+        last-records: 112
+        last-words: 29011
+        last-lvls: 245
 
       - key: flyweight
-        last-records: 154
-        last-words: 15424
-        last-lvls: 231
+        last-records: 155
+        last-words: 15498
+        last-lvls: 232
 
       - key: multi_index
-        last-records: 290
-        last-words: 57377
-        last-lvls: 539
+        last-records: 291
+        last-words: 57438
+        last-lvls: 540
 
       - key: property_map
         last-records: 23
-        last-words: 6447
+        last-words: 6444
         last-lvls: 23
 
       - key: rational
@@ -209,14 +209,14 @@ crawlers:
         last-lvls: 1036
 
       - key: locale
-        last-records: 465
-        last-words: 47094
-        last-lvls: 963
+        last-records: 496
+        last-words: 49245
+        last-lvls: 1019
 
       - key: nowide
-        last-records: 107
-        last-words: 8074
-        last-lvls: 199
+        last-records: 108
+        last-words: 8220
+        last-lvls: 200
 
   - name: AsciiDoc
     libraries:
@@ -224,6 +224,11 @@ crawlers:
         last-records: 20
         last-words: 1444
         last-lvls: 35
+
+      - key: compat
+        last-records: 46
+        last-words: 1079
+        last-lvls: 124
 
       - key: container_hash
         last-records: 41
@@ -256,9 +261,9 @@ crawlers:
         last-lvls: 293
 
       - key: mp11
-        last-records: 221
-        last-words: 12421
-        last-lvls: 629
+        last-records: 228
+        last-words: 13617
+        last-lvls: 647
 
       - key: predef
         last-records: 174
@@ -267,7 +272,7 @@ crawlers:
 
       - key: qvm
         last-records: 208
-        last-words: 18345
+        last-words: 18331
         last-lvls: 590
 
       - key: smart_ptr
@@ -277,7 +282,7 @@ crawlers:
 
       - key: system
         last-records: 102
-        last-words: 12211
+        last-words: 12223
         last-lvls: 292
 
       - key: throw_exception
@@ -286,25 +291,25 @@ crawlers:
         last-lvls: 25
 
       - key: unordered
-        last-records: 793
-        last-words: 61697
-        last-lvls: 2877
+        last-records: 894
+        last-words: 70308
+        last-lvls: 3230
 
       - key: variant2
-        last-records: 50
-        last-words: 6122
-        last-lvls: 125
+        last-records: 51
+        last-words: 6161
+        last-lvls: 127
 
   - name: QuickBook
     libraries:
       - key: accumulators
-        last-records: 818
-        last-words: 28868
-        last-lvls: 2659
+        last-records: 832
+        last-words: 29094
+        last-lvls: 2732
 
       - key: algorithm
         last-records: 439
-        last-words: 19827
+        last-words: 19839
         last-lvls: 1198
 
       - key: align
@@ -313,9 +318,9 @@ crawlers:
         last-lvls: 84
 
       - key: any
-        last-records: 27
-        last-words: 2239
-        last-lvls: 84
+        last-records: 56
+        last-words: 2950
+        last-lvls: 39
 
       - key: array
         last-records: 18
@@ -323,19 +328,19 @@ crawlers:
         last-lvls: 59
 
       - key: asio
-        last-records: 10254
-        last-words: 392054
-        last-lvls: 37720
+        last-records: 10257
+        last-words: 392236
+        last-lvls: 37730
 
       - key: atomic
-        last-records: 72
-        last-words: 13562
-        last-lvls: 132
+        last-records: 73
+        last-words: 13586
+        last-lvls: 134
 
       - key: beast
-        last-records: 4569
-        last-words: 152929
-        last-lvls: 17250
+        last-records: 4908
+        last-words: 160747
+        last-lvls: 18670
 
       - key: bimap
         last-records: 168
@@ -364,7 +369,7 @@ crawlers:
 
       - key: compute
         last-records: 754
-        last-words: 22393
+        last-words: 22952
         last-lvls: 2467
 
       - key: config
@@ -373,9 +378,9 @@ crawlers:
         last-lvls: 90
 
       - key: container
-        last-records: 546
-        last-words: 95244
-        last-lvls: 1923
+        last-records: 544
+        last-words: 95133
+        last-lvls: 1913
 
       - key: context
         last-records: 115
@@ -384,7 +389,7 @@ crawlers:
 
       - key: contract
         last-records: 421
-        last-words: 67600
+        last-words: 67602
         last-lvls: 1313
 
       - key: conversion
@@ -398,9 +403,9 @@ crawlers:
         last-lvls: 407
 
       - key: core
-        last-records: 354
-        last-words: 15988
-        last-lvls: 696
+        last-records: 362
+        last-words: 16266
+        last-lvls: 708
 
       - key: coroutine
         last-records: 116
@@ -419,7 +424,7 @@ crawlers:
 
       - key: date_time
         last-records: 580
-        last-words: 29127
+        last-words: 29138
         last-lvls: 2027
 
       - key: detail
@@ -428,9 +433,9 @@ crawlers:
         last-lvls: 1
 
       - key: dll
-        last-records: 116
-        last-words: 14553
-        last-lvls: 333
+        last-records: 112
+        last-words: 15079
+        last-lvls: 319
 
       - key: fiber
         last-records: 375
@@ -473,23 +478,23 @@ crawlers:
         last-lvls: 7006
 
       - key: geometry
-        last-records: 2525
-        last-words: 86328
-        last-lvls: 10619
+        last-records: 2526
+        last-words: 86300
+        last-lvls: 10621
 
       - key: heap
-        last-records: 104
-        last-words: 8392
-        last-lvls: 353
+        last-records: 97
+        last-words: 8297
+        last-lvls: 316
 
       - key: histogram
-        last-records: 468
-        last-words: 39413
-        last-lvls: 1553
+        last-records: 469
+        last-words: 39505
+        last-lvls: 1555
 
       - key: hof
         last-records: 415
-        last-words: 13366
+        last-words: 13372
         last-lvls: 1162
 
       - key: icl
@@ -504,18 +509,18 @@ crawlers:
 
       - key: interprocess
         last-records: 794
-        last-words: 86014
+        last-words: 86042
         last-lvls: 2539
 
       - key: intrusive
         last-records: 710
-        last-words: 186240
+        last-words: 148474
         last-lvls: 2409
 
       - key: json
-        last-records: 4043
-        last-words: 71180
-        last-lvls: 17275
+        last-records: 4033
+        last-words: 74669
+        last-lvls: 17115
 
       - key: lambda
         last-records: 63
@@ -533,19 +538,19 @@ crawlers:
         last-lvls: 92
 
       - key: lockfree
-        last-records: 50
-        last-words: 5865
-        last-lvls: 142
+        last-records: 49
+        last-words: 5902
+        last-lvls: 137
 
       - key: log
-        last-records: 1821
-        last-words: 117089
-        last-lvls: 8067
+        last-records: 1851
+        last-words: 117772
+        last-lvls: 8192
 
       - key: math
-        last-records: 1907
-        last-words: 345946
-        last-lvls: 6718
+        last-records: 1912
+        last-words: 346666
+        last-lvls: 6732
 
       - key: metaparse
         last-records: 744
@@ -554,13 +559,13 @@ crawlers:
 
       - key: move
         last-records: 209
-        last-words: 11265
+        last-words: 11270
         last-lvls: 643
 
       - key: mpi
-        last-records: 285
-        last-words: 28567
-        last-lvls: 955
+        last-records: 281
+        last-words: 28460
+        last-lvls: 941
 
       - key: msm
         last-records: 180
@@ -578,9 +583,9 @@ crawlers:
         last-lvls: 603
 
       - key: mysql
-        last-records: 2053
-        last-words: 60556
-        last-lvls: 8152
+        last-records: 2610
+        last-words: 82749
+        last-lvls: 10368
 
       - key: numeric/conversion
         last-records: 57
@@ -589,7 +594,7 @@ crawlers:
 
       - key: numeric/odeint
         last-records: 523
-        last-words: 52300
+        last-words: 52299
         last-lvls: 1834
 
       - key: optional
@@ -599,7 +604,7 @@ crawlers:
 
       - key: pfr
         last-records: 119
-        last-words: 6277
+        last-words: 6305
         last-lvls: 367
 
       - key: phoenix
@@ -613,24 +618,24 @@ crawlers:
         last-lvls: 186
 
       - key: pool
-        last-records: 128
-        last-words: 11149
-        last-lvls: 435
+        last-records: 134
+        last-words: 11233
+        last-lvls: 465
 
       - key: process
-        last-records: 379
-        last-words: 23108
-        last-lvls: 1310
+        last-records: 382
+        last-words: 23042
+        last-lvls: 1319
 
       - key: program_options
-        last-records: 220
-        last-words: 13136
-        last-lvls: 798
+        last-records: 222
+        last-words: 13223
+        last-lvls: 808
 
       - key: property_tree
-        last-records: 143
-        last-words: 8906
-        last-lvls: 477
+        last-records: 144
+        last-words: 8939
+        last-lvls: 482
 
       - key: proto
         last-records: 974
@@ -644,7 +649,7 @@ crawlers:
 
       - key: random
         last-records: 536
-        last-words: 33043
+        last-words: 32759
         last-lvls: 2285
 
       - key: range
@@ -654,7 +659,7 @@ crawlers:
 
       - key: ratio
         last-records: 138
-        last-words: 8039
+        last-words: 8064
         last-lvls: 267
 
       - key: regex
@@ -679,13 +684,13 @@ crawlers:
 
       - key: sort
         last-records: 185
-        last-words: 26185
+        last-words: 26178
         last-lvls: 708
 
       - key: spirit
-        last-records: 1829
-        last-words: 153759
-        last-lvls: 7681
+        last-records: 1830
+        last-words: 153805
+        last-lvls: 7684
 
       - key: spirit/repository
         last-records: 117
@@ -703,14 +708,14 @@ crawlers:
         last-lvls: 7
 
       - key: static_string
-        last-records: 1219
-        last-words: 16337
-        last-lvls: 5476
+        last-records: 1220
+        last-words: 16341
+        last-lvls: 5479
 
       - key: stl_interfaces
-        last-records: 134
-        last-words: 15846
-        last-lvls: 381
+        last-records: 133
+        last-words: 16244
+        last-lvls: 376
 
       - key: string_algo
         last-records: 63
@@ -718,9 +723,9 @@ crawlers:
         last-lvls: 114
 
       - key: test
-        last-records: 1095
-        last-words: 77149
-        last-lvls: 4226
+        last-records: 1096
+        last-words: 77191
+        last-lvls: 4232
 
       - key: thread
         last-records: 740
@@ -744,12 +749,12 @@ crawlers:
 
       - key: type_erasure
         last-records: 274
-        last-words: 14367
+        last-words: 14365
         last-lvls: 910
 
       - key: type_index
         last-records: 85
-        last-words: 6511
+        last-words: 6510
         last-lvls: 241
 
       - key: type_traits
@@ -764,18 +769,18 @@ crawlers:
 
       - key: units
         last-records: 991
-        last-words: 30377
+        last-words: 30380
         last-lvls: 2976
 
       - key: url
-        last-records: 9471
-        last-words: 130428
-        last-lvls: 37505
+        last-records: 9496
+        last-words: 158110
+        last-lvls: 37570
 
       - key: utility
-        last-records: 151
-        last-words: 18529
-        last-lvls: 524
+        last-records: 152
+        last-words: 18555
+        last-lvls: 528
 
       - key: variant
         last-records: 76
@@ -794,7 +799,7 @@ crawlers:
 
       - key: xpressive
         last-records: 505
-        last-words: 36005
+        last-words: 36029
         last-lvls: 1640
 
       - key: yap

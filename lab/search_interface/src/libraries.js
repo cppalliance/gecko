@@ -64,6 +64,10 @@ export const libraries = [
     name: 'Circular Buffer',
   },
   {
+    key: 'compat',
+    name: 'Compat',
+  },
+  {
     key: 'compute',
     name: 'Compute',
   },
