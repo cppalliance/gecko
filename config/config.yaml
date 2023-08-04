@@ -46,7 +46,7 @@ crawlers:
     libraries:
       - key: outcome
         last-records: 434
-        last-words: 80893
+        last-words: 80900
         last-lvls: 1426
 
   - name: BoostException
@@ -210,7 +210,7 @@ crawlers:
 
       - key: locale
         last-records: 496
-        last-words: 49245
+        last-words: 49247
         last-lvls: 1019
 
       - key: nowide
@@ -309,7 +309,7 @@ crawlers:
 
       - key: algorithm
         last-records: 439
-        last-words: 19839
+        last-words: 19835
         last-lvls: 1198
 
       - key: align
@@ -328,9 +328,9 @@ crawlers:
         last-lvls: 59
 
       - key: asio
-        last-records: 10257
-        last-words: 392236
-        last-lvls: 37730
+        last-records: 10260
+        last-words: 392437
+        last-lvls: 37738
 
       - key: atomic
         last-records: 73
@@ -338,9 +338,9 @@ crawlers:
         last-lvls: 134
 
       - key: beast
-        last-records: 4908
-        last-words: 160747
-        last-lvls: 18670
+        last-records: 4901
+        last-words: 159587
+        last-lvls: 18648
 
       - key: bimap
         last-records: 168
@@ -479,7 +479,7 @@ crawlers:
 
       - key: geometry
         last-records: 2526
-        last-words: 86300
+        last-words: 86379
         last-lvls: 10621
 
       - key: heap
@@ -519,8 +519,8 @@ crawlers:
 
       - key: json
         last-records: 4033
-        last-words: 74669
-        last-lvls: 17115
+        last-words: 73842
+        last-lvls: 17114
 
       - key: lambda
         last-records: 63
@@ -564,7 +564,7 @@ crawlers:
 
       - key: mpi
         last-records: 281
-        last-words: 28460
+        last-words: 28522
         last-lvls: 941
 
       - key: msm
@@ -584,7 +584,7 @@ crawlers:
 
       - key: mysql
         last-records: 2610
-        last-words: 82749
+        last-words: 82765
         last-lvls: 10368
 
       - key: numeric/conversion
@@ -598,9 +598,9 @@ crawlers:
         last-lvls: 1834
 
       - key: optional
-        last-records: 85
-        last-words: 16686
-        last-lvls: 192
+        last-records: 86
+        last-words: 16701
+        last-lvls: 194
 
       - key: pfr
         last-records: 119
@@ -708,9 +708,9 @@ crawlers:
         last-lvls: 7
 
       - key: static_string
-        last-records: 1220
-        last-words: 16341
-        last-lvls: 5479
+        last-records: 1219
+        last-words: 16337
+        last-lvls: 5476
 
       - key: stl_interfaces
         last-records: 133
@@ -773,9 +773,9 @@ crawlers:
         last-lvls: 2976
 
       - key: url
-        last-records: 9496
-        last-words: 158110
-        last-lvls: 37570
+        last-records: 9577
+        last-words: 136021
+        last-lvls: 37897
 
       - key: utility
         last-records: 152
