@@ -7,14 +7,15 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import grey from '@mui/material/colors/grey';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import { useTheme } from '@mui/material/styles';
 
 import { useInfiniteHits, useInstantSearch, useStats, Snippet } from 'react-instantsearch-hooks-web';
 
 function CustomHit({ hit, urlPrefix, onClick, singleLib }) {
+  const theme = useTheme();
   const { library_key, library_name, hierarchy, _highlightResult } = hit;
   const hierarchyLinks = React.useMemo(() => {
     if (!_highlightResult) return [];
@@ -51,7 +52,7 @@ function CustomHit({ hit, urlPrefix, onClick, singleLib }) {
         )}
         {hierarchyLinks}
       </Breadcrumbs>
-      <Snippet style={{ color: grey[700], fontSize: 'small' }} hit={hit} attribute='content' />
+      <Snippet style={{ color: theme.palette.text.secondary, fontSize: 'small' }} hit={hit} attribute='content' />
     </Box>
   );
 }

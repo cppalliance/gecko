@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
@@ -15,6 +14,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import SearchIcon from '@mui/icons-material/Search';
 import Typography from '@mui/material/Typography';
 import SvgIcon from '@mui/material/SvgIcon';
+import { useTheme } from '@mui/material/styles';
 
 import RecentSearches from 'recent-searches';
 
@@ -178,7 +178,7 @@ function SearchButton({ versionWarning, library, urlPrefix, algoliaIndex, alogli
         <DialogActions sx={{ pc: 1.5, py: 0.5 }}>
           <Grid container>
             <Grid item xs={6}>
-              <PoweredBy style={{ width: 130, paddingTop: 8 }} />
+              <PoweredBy theme={theme.palette.mode} style={{ width: 130, paddingTop: 8 }} />
             </Grid>
             <Grid item xs={6} sx={{ textAlign: 'right' }}>
               <Button
