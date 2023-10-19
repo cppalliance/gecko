@@ -14,14 +14,17 @@ if (searchDemo) {
     </React.StrictMode>,
   );
 } else {
-  try {
-    const { boostVersion, library } = parseURL();
-    const searchButton = document.getElementById('gecko-search-button');
+  const { boostVersion, library } = parseURL();
+
+  const rootElement = document.createElement('div');
+  const root = ReactDOM.createRoot(rootElement);
+  const searchButton = document.getElementById('gecko-search-button');
+
+  const renderRoot = () => {
     const currentBoostVersion = searchButton.getAttribute('data-current-boost-version');
     const themeMode = searchButton.getAttribute('data-theme-mode');
 
-    const div = document.createElement('div');
-    ReactDOM.createRoot(div).render(
+    root.render(
       <React.StrictMode>
         <SearchDialog
           themeMode={themeMode}
@@ -34,7 +37,14 @@ if (searchDemo) {
         />
       </React.StrictMode>,
     );
-  } catch { }
+  };
+
+  renderRoot();
+
+
+  // Rerender root on any change to the attributes (E.g. data-theme-mode)
+  const observer = new MutationObserver(renderRoot);
+  observer.observe(document.getElementById('gecko-search-button'), { attributes: true });
 }
 
 function parseURL() {
