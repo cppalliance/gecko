@@ -14,7 +14,7 @@
     "algoliasearch": "^4.17.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-instantsearch-hooks-web": "^6.44.2",
+    "react-instantsearch": "^7.2.0",
     "react-scripts": "5.0.1",
     "recent-searches": "^1.0.5",
     "url-join": "^5.0.0",
