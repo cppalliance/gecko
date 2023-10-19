@@ -9,7 +9,7 @@ import HistoryIcon from '@mui/icons-material/History';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useTheme } from '@mui/material/styles';
 
-import { useSearchBox, useInstantSearch } from 'react-instantsearch-hooks-web';
+import { useSearchBox, useInstantSearch } from 'react-instantsearch';
 
 let queryHookTimerId;
 

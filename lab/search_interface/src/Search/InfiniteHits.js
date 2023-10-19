@@ -12,7 +12,7 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import { useTheme } from '@mui/material/styles';
 
-import { useInfiniteHits, useInstantSearch, useStats, Snippet } from 'react-instantsearch-hooks-web';
+import { useInfiniteHits, useInstantSearch, useStats, Snippet } from 'react-instantsearch';
 
 function CustomHit({ hit, urlPrefix, onClick, singleLib }) {
   const theme = useTheme();
@@ -66,7 +66,7 @@ CustomHit.propTypes = {
 
 function InfiniteHits({ urlPrefix, setnbHits, onClick, singleLib }) {
   const { hits, isLastPage, showMore } = useInfiniteHits();
-  const { use } = useInstantSearch();
+  const { addMiddlewares } = useInstantSearch();
   const [error, setError] = React.useState(null);
   const { nbHits } = useStats();
 
@@ -89,8 +89,8 @@ function InfiniteHits({ urlPrefix, setnbHits, onClick, singleLib }) {
       };
     };
 
-    return use(middleware);
-  }, [use]);
+    return addMiddlewares(middleware);
+  }, [addMiddlewares]);
 
   const memoizedHits = React.useMemo(
     () =>
