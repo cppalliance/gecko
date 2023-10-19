@@ -23,14 +23,15 @@ if (searchDemo) {
   const renderRoot = () => {
     const currentBoostVersion = searchButton.getAttribute('data-current-boost-version');
     const themeMode = searchButton.getAttribute('data-theme-mode');
-
+    const fontFamily = searchButton.getAttribute('data-font-family');
     root.render(
       <React.StrictMode>
         <SearchDialog
           themeMode={themeMode}
+          fontFamily={fontFamily}
           versionWarning={!!boostVersion && boostVersion !== currentBoostVersion}
           library={library}
-          urlPrefix={window.location.origin + `/doc/libs/${currentBoostVersion}`}
+          urlPrefix={window.location.origin + `/doc/libs/boost_${currentBoostVersion}`}
           algoliaIndex={currentBoostVersion}
           alogliaAppId={'D7O1MLLTAF'}
           alogliaApiKey={'44d0c0aac3c738bebb622150d1ec4ebf'}
@@ -40,7 +41,6 @@ if (searchDemo) {
   };
 
   renderRoot();
-
 
   // Rerender root on any change to the attributes (E.g. data-theme-mode)
   const observer = new MutationObserver(renderRoot);

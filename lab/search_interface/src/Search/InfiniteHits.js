@@ -44,7 +44,7 @@ function CustomHit({ hit, urlPrefix, onClick, singleLib }) {
         },
       }}
     >
-      <Breadcrumbs separator='&rsaquo;' fontSize='small' sx={{ wordBreak: 'break-all' }}>
+      <Breadcrumbs separator='&rsaquo;' sx={{ wordBreak: 'break-all' }}>
         {(!singleLib || hierarchyLinks.length === 0) && (
           <Link underline='hover' href={urlJoin(urlPrefix, 'libs', library_key)}>
             {library_name}
@@ -52,7 +52,7 @@ function CustomHit({ hit, urlPrefix, onClick, singleLib }) {
         )}
         {hierarchyLinks}
       </Breadcrumbs>
-      <Snippet style={{ color: theme.palette.text.secondary, fontSize: 'small' }} hit={hit} attribute='content' />
+      <Snippet style={{ color: theme.palette.text.secondary }} hit={hit} attribute='content' />
     </Box>
   );
 }
@@ -113,7 +113,7 @@ function InfiniteHits({ urlPrefix, setnbHits, onClick, singleLib }) {
     <Stack spacing={2}>
       {memoizedHits}
       <Box textAlign='center'>
-        <Button size='small' disabled={isLastPage} onClick={showMore} sx={{ textTransform: 'none' }}>
+        <Button disabled={isLastPage} onClick={showMore} sx={{ textTransform: 'none' }}>
           Show More
         </Button>
       </Box>

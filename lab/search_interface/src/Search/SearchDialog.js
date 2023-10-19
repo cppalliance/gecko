@@ -24,7 +24,7 @@ import CppallianceLogo from './CppallianceLogo';
 import SearchBox from './SearchBox';
 import InfiniteHits from './InfiniteHits';
 
-function SearchDialog({ themeMode, versionWarning, library, urlPrefix, algoliaIndex, alogliaAppId, alogliaApiKey }) {
+function SearchDialog({ themeMode, fontFamily, versionWarning, library, urlPrefix, algoliaIndex, alogliaAppId, alogliaApiKey }) {
   const [searchClient] = React.useState(algoliasearch(alogliaAppId, alogliaApiKey));
 
   const [recentSearches, setRecentSearches] = React.useState(null);
@@ -53,7 +53,10 @@ function SearchDialog({ themeMode, versionWarning, library, urlPrefix, algoliaIn
 
   const handleDialogClose = React.useCallback(() => window.history.back(), []);
 
-  const theme = React.useMemo(() => createTheme({ palette: { mode: themeMode } }), [themeMode]);
+  const theme = React.useMemo(() => createTheme({
+    palette: { mode: themeMode },
+    typography: { allVariants: { fontFamily } },
+  }), [themeMode, fontFamily]);
 
   const dialogShouldBeFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -177,11 +180,10 @@ function SearchDialog({ themeMode, versionWarning, library, urlPrefix, algoliaIn
           <DialogActions sx={{ pc: 1.5, py: 0.5 }}>
             <Grid container>
               <Grid item xs={6}>
-                <PoweredBy theme={theme.palette.mode} style={{ width: 130, paddingTop: 8 }} />
+                <PoweredBy theme={theme.palette.mode} style={{ width: 140, paddingTop: 12 }} />
               </Grid>
               <Grid item xs={6} sx={{ textAlign: 'right' }}>
                 <Button
-                  size='small'
                   sx={{ textTransform: 'none' }}
                   target='_blank'
                   href='https://github.com/cppalliance/boost-gecko/issues'
@@ -200,6 +202,7 @@ function SearchDialog({ themeMode, versionWarning, library, urlPrefix, algoliaIn
 
 SearchDialog.propTypes = {
   themeMode: PropTypes.string.isRequired,
+  fontFamily: PropTypes.string.isRequired,
   versionWarning: PropTypes.bool.isRequired,
   library: PropTypes.shape({
     key: PropTypes.string.isRequired,

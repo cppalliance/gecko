@@ -26,24 +26,29 @@ function SearchBox({ inputRef, recentSearches }) {
     <Autocomplete
       freeSolo
       disablePortal
-      size='small'
       options={recentSearches.map((option) => option.query)}
       value={currentRefinement}
       onInputChange={(e, newValue) => refine(newValue)}
       onChange={(e, newValue) => refine(newValue || '')}
       renderOption={(props, option) => (
         <Box {...props}>
-          <HistoryIcon fontSize='small' sx={{ mr: 1.5, color: theme.palette.text.secondary }}/>
+          <HistoryIcon sx={{ mr: 1.5, color: theme.palette.text.secondary }} />
           {option}
         </Box>
       )}
       renderInput={(params) => (
         <TextField
           {...params}
+          sx={{
+            '& input:focus': {
+              boxShadow: 'none'
+            }
+          }}
           placeholder='Search...'
           inputRef={inputRef}
           InputProps={{
             ...params.InputProps,
+            style: { fontSize: "1.2rem" },
             endAdornment: (
               <React.Fragment>
                 {status === 'loading' || status === 'stalled' ? (
