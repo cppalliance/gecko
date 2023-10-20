@@ -54,8 +54,21 @@ function SearchDialog({ themeMode, fontFamily, versionWarning, library, urlPrefi
   const handleDialogClose = React.useCallback(() => window.history.back(), []);
 
   const theme = React.useMemo(() => createTheme({
-    palette: { mode: themeMode },
-    typography: { allVariants: { fontFamily } },
+    palette: {
+      mode: themeMode,
+      primary: {
+        main: (themeMode === 'dark' ? '#7DD3FC' : '#0284C7'),
+      },
+      ...(themeMode === 'dark' &&
+      {
+        background: {
+          paper: '#172A34',
+        }
+      })
+    },
+    typography: {
+      allVariants: { fontFamily }
+    },
   }), [themeMode, fontFamily]);
 
   const dialogShouldBeFullScreen = useMediaQuery(theme.breakpoints.down('sm'));

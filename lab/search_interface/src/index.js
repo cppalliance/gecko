@@ -31,7 +31,7 @@ if (searchDemo) {
           fontFamily={fontFamily}
           versionWarning={!!boostVersion && boostVersion !== currentBoostVersion}
           library={library}
-          urlPrefix={window.location.origin + `/doc/libs/boost_${currentBoostVersion}`}
+          urlPrefix={window.location.origin + `/doc/libs/${currentBoostVersion}`}
           algoliaIndex={currentBoostVersion}
           alogliaAppId={'D7O1MLLTAF'}
           alogliaApiKey={'44d0c0aac3c738bebb622150d1ec4ebf'}
