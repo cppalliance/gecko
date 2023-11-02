@@ -25,7 +25,32 @@ import SearchBox from './SearchBox';
 import InfiniteHits from './InfiniteHits';
 
 function SearchDialog({ themeMode, fontFamily, versionWarning, library, urlPrefix, algoliaIndex, alogliaAppId, alogliaApiKey }) {
-  const [searchClient] = React.useState(algoliasearch(alogliaAppId, alogliaApiKey));
+  const [searchClient] = React.useState(() => {
+    const algoliaClient = algoliasearch(alogliaAppId, alogliaApiKey);
+    // Prevents empty search query
+    return {
+      ...algoliaClient,
+      search(requests) {
+        if (requests.every(({ params }) => !params.query)) {
+          return Promise.resolve({
+            results: requests.map(() => ({
+              hits: [],
+              nbHits: 0,
+              nbPages: 0,
+              page: 0,
+              processingTimeMS: 0,
+              hitsPerPage: 0,
+              exhaustiveNbHits: false,
+              query: '',
+              params: '',
+            })),
+          });
+        }
+
+        return algoliaClient.search(requests);
+      }
+    };
+  });
 
   const [recentSearches, setRecentSearches] = React.useState(null);
 
@@ -67,7 +92,7 @@ function SearchDialog({ themeMode, fontFamily, versionWarning, library, urlPrefi
       })
     },
     typography: {
-      allVariants: { fontFamily }
+      allVariants: { ...fontFamily && { fontFamily } }
     },
   }), [themeMode, fontFamily]);
 
@@ -215,7 +240,7 @@ function SearchDialog({ themeMode, fontFamily, versionWarning, library, urlPrefi
 
 SearchDialog.propTypes = {
   themeMode: PropTypes.string.isRequired,
-  fontFamily: PropTypes.string.isRequired,
+  fontFamily: PropTypes.string,
   versionWarning: PropTypes.bool.isRequired,
   library: PropTypes.shape({
     key: PropTypes.string.isRequired,
