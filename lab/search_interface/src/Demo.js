@@ -42,8 +42,8 @@ function Demo() {
           <SearchButton
             versionWarning={false}
             library={library}
-            urlPrefix={'https://www.boost.org/doc/libs/1_82_0'}
-            algoliaIndex={'1_82_0'}
+            urlPrefix={'https://www.boost.org/doc/libs/1_84_0'}
+            algoliaIndex={'1_84_0'}
             alogliaAppId={'D7O1MLLTAF'}
             alogliaApiKey={'44d0c0aac3c738bebb622150d1ec4ebf'}
           />
