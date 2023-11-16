@@ -153,7 +153,7 @@ crawlers:
 
       - key: concept_check
         last-records: 25
-        last-words: 5294
+        last-words: 5297
         last-lvls: 37
 
       - key: dynamic_bitset
@@ -178,7 +178,7 @@ crawlers:
 
       - key: property_map
         last-records: 23
-        last-words: 6444
+        last-words: 6447
         last-lvls: 23
 
       - key: rational
@@ -218,10 +218,10 @@ crawlers:
         last-words: 8220
         last-lvls: 200
 
-      # - key: redis
-      #   last-records: 88
-      #   last-words: 10660
-      #   last-lvls: 204
+      - key: redis
+        last-records: 88
+        last-words: 10660
+        last-lvls: 204
 
   - name: AsciiDoc
     libraries:
@@ -305,10 +305,10 @@ crawlers:
         last-words: 6161
         last-lvls: 127
 
-      # - key: cobalt
-      #   last-records: 131
-      #   last-words: 14546
-      #   last-lvls: 319
+      - key: cobalt
+        last-records: 131
+        last-words: 14546
+        last-lvls: 319
 
   - name: QuickBook
     libraries:
