@@ -64,6 +64,10 @@ export const libraries = [
     name: 'Circular Buffer',
   },
   {
+    key: 'cobalt',
+    name: 'Cobalt',
+  },
+  {
     key: 'compat',
     name: 'Compat',
   },
@@ -438,6 +442,10 @@ export const libraries = [
   {
     key: 'rational',
     name: 'Rational',
+  },
+  {
+    key: 'redis',
+    name: 'Redis',
   },
   {
     key: 'regex',
