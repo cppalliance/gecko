@@ -1,6 +1,6 @@
 boost:
-  version: "1_84_0"
-  root: "../boost_1_84_0"
+  version: "1_85_0"
+  root: "../boost_1_85_0"
 
 algolia:
   app-id: D7O1MLLTAF
@@ -229,6 +229,11 @@ crawlers:
         last-records: 20
         last-words: 1444
         last-lvls: 35
+
+      - key: charconv
+        last-records: 81
+        last-words: 4059
+        last-lvls: 204
 
       - key: compat
         last-records: 46
@@ -681,6 +686,11 @@ crawlers:
         last-records: 171
         last-words: 27133
         last-lvls: 455
+
+      - key: scope
+        last-records: 103
+        last-words: 16825
+        last-lvls: 326
 
       - key: scope_exit
         last-records: 24

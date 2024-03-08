@@ -56,6 +56,10 @@ export const libraries = [
     name: 'CallableTraits',
   },
   {
+    key: 'charconv',
+    name: 'CharConv',
+  },
+  {
     key: 'chrono',
     name: 'Chrono',
   },
@@ -454,6 +458,10 @@ export const libraries = [
   {
     key: 'safe_numerics',
     name: 'Safe Numerics',
+  },
+  {
+    key: 'scope',
+    name: 'Scope',
   },
   {
     key: 'scope_exit',
