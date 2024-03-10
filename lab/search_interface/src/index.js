@@ -21,7 +21,7 @@ if (searchDemo) {
   const searchButton = document.getElementById('gecko-search-button');
 
   const renderRoot = () => {
-    const currentBoostVersion = searchButton.getAttribute('data-current-boost-version');
+    const currentBoostVersion = searchButton.getAttribute('data-current-boost-version').replaceAll('.', '_');
     const themeMode = searchButton.getAttribute('data-theme-mode');
     const fontFamily = searchButton.getAttribute('data-font-family');
     root.render(
@@ -83,17 +83,6 @@ function parseURL() {
     const match = path.match(/BOOST_([^_]+)/);
     if (match && match[1]) library = libraries.filter((i) => i.key === match[1].toLowerCase())[0];
   }
-
-  const specialPages = [
-    '/doc/libs',
-    `/doc/libs/${boostVersion}`,
-    `/doc/libs/${boostVersion}/doc/html`,
-    `/doc/libs/${boostVersion}/doc/html/index.html`,
-    `/doc/libs/${boostVersion}/libs/libraries.htm`,
-  ];
-
-  if (!library && !specialPages.includes(window.location.pathname.replace(/\/+$/, '')))
-    throw new Error(`Cannot extract the library_key from the URL`);
 
   boostVersion = boostVersion.replace('boost_', '');
 
