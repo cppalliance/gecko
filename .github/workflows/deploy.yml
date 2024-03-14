@@ -4,12 +4,12 @@ on:
   push:
     branches: [ develop ]
     paths:
-      - lab/search_interface/**
+      - search_interface/**
       - .github/workflows/deploy.yml
 
 defaults:
   run:
-    working-directory: lab/search_interface/
+    working-directory: search_interface/
 
 jobs:
   deploy:
@@ -37,7 +37,7 @@ jobs:
       - name: upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./lab/search_interface/build
+          path: ./search_interface/build
       - name: deploy to github pages
         id: deployment
         uses: actions/deploy-pages@v1
