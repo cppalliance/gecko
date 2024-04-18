@@ -4,7 +4,7 @@ boost:
 
 algolia:
   app-id: D7O1MLLTAF
-  api-key: YourWriteAPIKey
+  api-key: ALGOLIA_WRITE_API_KEY
 
 crawlers:
   - name: BoostGraph

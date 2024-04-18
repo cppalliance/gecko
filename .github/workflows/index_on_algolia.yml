@@ -1,0 +1,52 @@
+name: Index on Algolia
+
+on:
+  push:
+    branches: [develop, ci-*]
+    paths:
+      - config/**
+      - .github/workflows/index_on_algolia.yml
+
+jobs:
+  index-on-algolia:
+    name: Index on Algolia
+    runs-on: ubuntu-latest
+    environment: upload-search-records
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Download and extract boost release archive
+        run: |
+          BOOST_VERSION=$(sed -n 's/.*version: "\(.*\)"/\1/p' config/config.yaml)
+          BOOST_VERSION_MAIN=$(echo $BOOST_VERSION | sed -E 's/([0-9]+)_([0-9]+)_([0-9]+)(.*)/\1.\2.\3/g')
+          wget --no-verbose https://boostorg.jfrog.io/artifactory/main/release/$BOOST_VERSION_MAIN/source/boost_$BOOST_VERSION.tar.gz
+          tar -xzf boost_$BOOST_VERSION.tar.gz -C ../
+
+      - name: Extract records
+        run: python -m gecko.extract_records
+
+      - name: Check validity of records
+        run: python -m gecko.sanitizer check
+
+      - name: Index on Algolia
+        env:
+          ALGOLIA_WRITE_API_KEY: ${{ secrets.ALGOLIA_WRITE_API_KEY }}
+        run: |
+          sed -i "s/ALGOLIA_WRITE_API_KEY/$ALGOLIA_WRITE_API_KEY/g" config/config.yaml
+          python -m gecko.index_on_algolia
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: algolia_records
+          path: ./algolia_records
