@@ -14,6 +14,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Typography from '@mui/material/Typography';
 import SvgIcon from '@mui/material/SvgIcon';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CloseIcon from '@mui/icons-material/Close';
 
 import RecentSearches from 'recent-searches';
 
@@ -136,11 +137,22 @@ function SearchDialog({ themeMode, fontFamily, versionWarning, library, urlPrefi
         >
           <DialogTitle sx={{ p: 1.5, pb: 0, color: theme.palette.text.primary }}>
             <Grid container spacing={1}>
-              <Grid item xs={12}>
+              <Grid item xs>
                 <SearchBox
                   inputRef={inputRef}
                   recentSearches={inputRef.current ? recentSearches.getRecentSearches(inputRef.current.value) : []}
                 />
+              </Grid>
+              <Grid item>
+                <Button
+                  onClick={handleDialogClose}
+                  size='small'
+                  variant='outlined'
+                  sx={{ minWidth: 44, height: 44, textTransform: 'none', flexDirection: 'column' }}
+                >
+                  <CloseIcon fontSize='inherit' />
+                  <Typography fontSize='inherit'>Esc</Typography>
+                </Button>
               </Grid>
               <Grid item xs={12}>
                 {versionWarning && (

@@ -26,6 +26,8 @@ function SearchBox({ inputRef, recentSearches }) {
     <Autocomplete
       freeSolo
       disablePortal
+      disableClearable
+      size='small'
       options={recentSearches.map((option) => option.query)}
       value={currentRefinement}
       onInputChange={(e, newValue) => refine(newValue)}
