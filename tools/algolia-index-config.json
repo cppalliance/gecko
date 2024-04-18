@@ -1,0 +1,89 @@
+{
+  "settings": {
+    "minWordSizefor1Typo": 3,
+    "minWordSizefor2Typos": 7,
+    "hitsPerPage": 20,
+    "maxValuesPerFacet": 100,
+    "minProximity": 1,
+    "searchableAttributes": [
+      "unordered(hierarchy.lvl0)",
+      "unordered(hierarchy.lvl1)",
+      "unordered(hierarchy.lvl2)",
+      "unordered(hierarchy.lvl3)",
+      "unordered(hierarchy.lvl4)",
+      "unordered(hierarchy.lvl5)",
+      "unordered(hierarchy.lvl6)",
+      "content"
+    ],
+    "numericAttributesToIndex": null,
+    "attributesToRetrieve": [
+      "boost_version",
+      "hierarchy.lvl0.path",
+      "hierarchy.lvl1.path",
+      "hierarchy.lvl2.path",
+      "hierarchy.lvl3.path",
+      "hierarchy.lvl4.path",
+      "hierarchy.lvl5.path",
+      "hierarchy.lvl6.path",
+      "library_key",
+      "library_name",
+      "type",
+      "url_without_anchor"
+    ],
+    "allowTyposOnNumericTokens": false,
+    "ignorePlurals": true,
+    "camelCaseAttributes": [
+      "hierarchy",
+      "content"
+    ],
+    "advancedSyntax": true,
+    "attributeCriteriaComputedByMinProximity": true,
+    "distinct": true,
+    "unretrievableAttributes": null,
+    "optionalWords": null,
+    "attributesForFaceting": [
+      "library_key"
+    ],
+    "attributesToSnippet": [
+      "content:25"
+    ],
+    "attributesToHighlight": [
+      "hierarchy.lvl0.title",
+      "hierarchy.lvl1.title",
+      "hierarchy.lvl2.title",
+      "hierarchy.lvl3.title",
+      "hierarchy.lvl4.title",
+      "hierarchy.lvl5.title",
+      "hierarchy.lvl6.title"
+    ],
+    "paginationLimitedTo": 1000,
+    "attributeForDistinct": "url",
+    "exactOnSingleWordQuery": "attribute",
+    "ranking": [
+      "words",
+      "filters",
+      "typo",
+      "attribute",
+      "proximity",
+      "exact",
+      "custom"
+    ],
+    "customRanking": [
+      "desc(weight.pageRank)",
+      "desc(weight.level)",
+      "asc(weight.position)"
+    ],
+    "separatorsToIndex": "!#()[]{}*+-_一,:;<>?@/\\^|%&~£¥$§€`'‘’“”†‡.",
+    "removeWordsIfNoResults": "allOptional",
+    "queryType": "prefixLast",
+    "highlightPreTag": "<em>",
+    "highlightPostTag": "</em>",
+    "typoTolerance": "false",
+    "alternativesAsExact": [
+      "ignorePlurals",
+      "singleWordSynonym"
+    ]
+  },
+  "rules": [],
+  "synonyms": []
+}
