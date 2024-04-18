@@ -1,7 +1,19 @@
+"""Extracts search records from documentation in Boost release directory
+Usage:
+    extract_records
+    extract_records --concurrency=4
+
+Options:
+  -h --help              Show this screen
+  --concurrency=<level>  Concurrency level
+
+"""
+from multiprocessing import Pool
 from pathlib import Path
-import re
 import json
 import os
+import re
+from docopt import docopt
 
 from .crawlers import *
 from .config import config
@@ -66,14 +78,21 @@ def create_algolia_records(library_key: str, sections: dict, boost_root: str):
         json.dump(records, outfile, indent=4)
 
 
+def extract_records(crawler_name: str, library_key: str, boost_root: Path):
+    crawler = globals()[crawler_name](boost_root)
+    sections = crawler.crawl(library_key)
+    create_algolia_records(library_key, sections, boost_root)
+
+
 if __name__ == "__main__":
+    args = docopt(__doc__)
 
-    for crawler_cfg in config['crawlers']:
-        crawler = globals()[crawler_cfg['name']](boost_root=config['boost']['root'])
+    concurrency = int(args['--concurrency']) if args['--concurrency'] else None
 
-        for library_cfg in crawler_cfg['libraries']:
-            sections = crawler.crawl(library_cfg['key'])
+    with Pool(concurrency) as pool:
+        task_args = []
+        for crawler_cfg in config['crawlers']:
+            for library_cfg in crawler_cfg['libraries']:
+                task_args.append((crawler_cfg['name'], library_cfg['key'], config['boost']['root']))
 
-            create_algolia_records(library_key=library_cfg['key'],
-                                   sections=sections,
-                                   boost_root=config['boost']['root'])
+        pool.starmap(extract_records, task_args)
