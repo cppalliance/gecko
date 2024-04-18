@@ -1,18 +1,19 @@
-name: Deploy
+name: Deploy Demo
 
 on:
   push:
-    branches: [ develop ]
+    branches: [develop, ci-*]
     paths:
       - search_interface/**
-      - .github/workflows/deploy.yml
+      - .github/workflows/deploy_demo.yml
 
 defaults:
   run:
     working-directory: search_interface/
 
 jobs:
-  deploy:
+  deploy-demo:
+    name: Deploy Demo
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -22,22 +23,27 @@ jobs:
       pages: write
       id-token: write
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v3
-      - name: setup node
+
+      - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
-      - name: install dependencies
+
+      - name: Install dependencies
         run: npm ci
-      - name: build app
+
+      - name: Build react app
         run: npm run build
         env:
           PUBLIC_URL: http://cppalliance.org/boost-gecko/
-      - name: upload artifact
+
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           path: ./search_interface/build
-      - name: deploy to github pages
+
+      - name: Deploy to github pages
         id: deployment
         uses: actions/deploy-pages@v1
