@@ -64,6 +64,7 @@ def create_algolia_records(library_key: str, sections: dict, boost_root: str):
                 'level': 100 - len(section['lvls']) * 10,
                 'position': 0
             },
+            'path': section['lvls'][-1]['path'] if len(section['lvls']) > 0 else None,
             'hierarchy': {
                 'lvl0': section['lvls'][0] if len(section['lvls']) > 0 else None,
                 'lvl1': section['lvls'][1] if len(section['lvls']) > 1 else None,

@@ -5,6 +5,7 @@ on:
     branches: [develop, ci-*]
     paths:
       - config/**
+      - gecko/**
       - .github/workflows/index_on_algolia.yml
 
 jobs:

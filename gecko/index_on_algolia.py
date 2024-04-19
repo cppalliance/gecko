@@ -23,9 +23,13 @@ if __name__ == "__main__":
             # Delete the existing records for this library.
             index.delete_by({'filters': 'library_key:{}'.format(records[0]['library_key'])})
 
+            # Split long documents into smaller parts.
             for record in records:
-                # TODO do something about truncation of long contents
-                record['content'] = record['content'][:90000]
+                if len(record['content']) > 5000:
+                    new_record = record
+                    new_record['content'] = new_record['content'][4900:]
+                    record['content'] = record['content'][:5000]
+                    records.append(new_record)
 
             records = [record for record in records if not (
                 record['content'] == '' and not record['hierarchy']['lvl0'])]

@@ -22,7 +22,6 @@ algolia:
       - content
     numericAttributesToIndex: null
     attributesToRetrieve:
-      - boost_version
       - hierarchy.lvl0.path
       - hierarchy.lvl1.path
       - hierarchy.lvl2.path
@@ -32,8 +31,6 @@ algolia:
       - hierarchy.lvl6.path
       - library_key
       - library_name
-      - type
-      - url_without_anchor
     allowTyposOnNumericTokens: false
     ignorePlurals: true
     camelCaseAttributes:
@@ -57,7 +54,7 @@ algolia:
       - hierarchy.lvl5.title
       - hierarchy.lvl6.title
     paginationLimitedTo: 1000
-    attributeForDistinct: url
+    attributeForDistinct: path
     exactOnSingleWordQuery: attribute
     ranking:
       - words
