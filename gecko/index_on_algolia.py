@@ -7,7 +7,12 @@ from .config import config
 
 if __name__ == "__main__":
     client = SearchClient.create(config['algolia']['app-id'], config['algolia']['api-key'])
+
+    print('Initializing {} index ...'.format(config['boost']['version']))
     index = client.init_index(config['boost']['version'])
+
+    print('Setting settings for {} index ...'.format(config['boost']['version']))
+    index.set_settings(config['algolia']['settings'])
 
     for path in Path('./algolia_records').glob('*.json'):
         print('uploading records for {}...'.format(path.stem))

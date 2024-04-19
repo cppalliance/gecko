@@ -9,7 +9,8 @@ config_schema = Schema({
     },
     'algolia': {
         'app-id': str,
-        'api-key': str
+        'api-key': str,
+        'settings':dict
     },
     'crawlers': [
         {
