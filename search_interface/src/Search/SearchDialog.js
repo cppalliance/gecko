@@ -148,10 +148,10 @@ function SearchDialog({ themeMode, fontFamily, versionWarning, library, urlPrefi
                   onClick={handleDialogClose}
                   size='small'
                   variant='outlined'
-                  sx={{ minWidth: 44, height: 44, textTransform: 'none', flexDirection: 'column' }}
+                  sx={{ pt: 0.8, minWidth: 44, height: 44, textTransform: 'none', flexDirection: 'column' }}
                 >
                   <CloseIcon fontSize='inherit' />
-                  <Typography fontSize='inherit'>Esc</Typography>
+                  Esc
                 </Button>
               </Grid>
               <Grid item xs={12}>
