@@ -307,6 +307,11 @@ crawlers:
         last-words: 4059
         last-lvls: 204
 
+      - key: cobalt
+        last-records: 131
+        last-words: 14546
+        last-lvls: 319
+
       - key: compat
         last-records: 46
         last-words: 1079
@@ -381,11 +386,6 @@ crawlers:
         last-records: 51
         last-words: 6161
         last-lvls: 127
-
-      - key: cobalt
-        last-records: 131
-        last-words: 14546
-        last-lvls: 319
 
   - name: QuickBook
     libraries:
