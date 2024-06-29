@@ -50,7 +50,10 @@ function Demo() {
         <Grid item md={8} xs={5}>
           <FormControl fullWidth>
             <InputLabel>Library</InputLabel>
-            <Select size='small' value={library.key} onChange={handleLibraryChange} label='Library' sx={{ height: 36 }}>
+            <Select size='small' value={library ? library.key : 'none'} onChange={handleLibraryChange} label='Library' sx={{ height: 36 }}>
+              <MenuItem value='none'>
+                <em>None</em>
+              </MenuItem>
               {libraries.map((i) => (
                 <MenuItem key={i.key} value={i.key}>
                   {i.name}
@@ -75,8 +78,11 @@ function Demo() {
         themeMode={themeMode}
         versionWarning={false}
         library={library}
-        urlPrefix={'https://www.boost.org/doc/libs/1_85_0'}
-        algoliaIndex={'1_85_0'}
+        onLearnPages={false}
+        librariesUrlPrefix={'https://www.boost.io/doc/libs/1_85_0'}
+        learnUrlPrefix={'https://www.boost.io/doc/'}
+        librariesAlgoliaIndex={'1_85_0'}
+        learnAlgoliaIndex={'learn'}
         alogliaAppId={'D7O1MLLTAF'}
         alogliaApiKey={'44d0c0aac3c738bebb622150d1ec4ebf'}
       />

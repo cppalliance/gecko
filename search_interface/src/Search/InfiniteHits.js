@@ -14,7 +14,7 @@ import { useTheme } from '@mui/material/styles';
 
 import { useInfiniteHits, useInstantSearch, useStats, Snippet } from 'react-instantsearch';
 
-function CustomHit({ hit, urlPrefix, onClick, singleLib }) {
+function CustomHit({ hit, urlPrefix, onClick, showLibName }) {
   const theme = useTheme();
   const { library_key, library_name, hierarchy, _highlightResult } = hit;
   const hierarchyLinks = React.useMemo(() => {
@@ -45,7 +45,7 @@ function CustomHit({ hit, urlPrefix, onClick, singleLib }) {
       }}
     >
       <Breadcrumbs separator='&rsaquo;' sx={{ wordBreak: 'break-all' }}>
-        {(!singleLib || hierarchyLinks.length === 0) && (
+        {(showLibName || hierarchyLinks.length === 0) && (
           <Link underline='hover' href={urlJoin(urlPrefix, 'libs', library_key)}>
             {library_name}
           </Link>
@@ -61,10 +61,10 @@ CustomHit.propTypes = {
   hit: PropTypes.object.isRequired,
   urlPrefix: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  singleLib: PropTypes.bool,
+  showLibName: PropTypes.bool,
 };
 
-function InfiniteHits({ urlPrefix, setnbHits, onClick, singleLib }) {
+function InfiniteHits({ urlPrefix, setnbHits, onClick, showLibName }) {
   const { hits, isLastPage, showMore } = useInfiniteHits();
   const { addMiddlewares } = useInstantSearch();
   const [error, setError] = React.useState(null);
@@ -95,9 +95,9 @@ function InfiniteHits({ urlPrefix, setnbHits, onClick, singleLib }) {
   const memoizedHits = React.useMemo(
     () =>
       hits.map((hit) => (
-        <CustomHit key={hit.objectID} hit={hit} urlPrefix={urlPrefix} onClick={onClick} singleLib={singleLib} />
+        <CustomHit key={hit.objectID} hit={hit} urlPrefix={urlPrefix} onClick={onClick} showLibName={showLibName} />
       )),
-    [hits, urlPrefix, onClick, singleLib],
+    [hits, urlPrefix, onClick, showLibName],
   );
 
   if (error) {
@@ -125,7 +125,7 @@ InfiniteHits.propTypes = {
   urlPrefix: PropTypes.string.isRequired,
   setnbHits: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
-  singleLib: PropTypes.bool,
+  showLibName: PropTypes.bool,
 };
 
 export default InfiniteHits;
