@@ -9,19 +9,19 @@ if __name__ == "__main__":
     client = SearchClient.create(config['algolia']['app-id'], config['algolia']['api-key'])
 
     print('Initializing {} index ...'.format(config['boost']['version']))
-    index = client.init_index(config['boost']['version'])
+    libraries_index = client.init_index(config['boost']['version'])
 
     print('Setting settings for {} index ...'.format(config['boost']['version']))
-    index.set_settings(config['algolia']['settings'])
+    libraries_index.set_settings(config['algolia']['settings'])
 
-    for path in Path('./algolia_records').glob('*.json'):
+    for path in Path('./algolia_records/libraries').glob('*.json'):
         print('uploading records for {}...'.format(path.stem))
 
         with open(path, 'r', encoding='utf-8') as f:
             records = json.load(f)
 
             # Delete the existing records for this library.
-            index.delete_by({'filters': 'library_key:{}'.format(records[0]['library_key'])})
+            libraries_index.delete_by({'filters': 'library_key:{}'.format(records[0]['library_key'])})
 
             # Split long documents into smaller parts.
             for record in records:
@@ -34,5 +34,19 @@ if __name__ == "__main__":
             records = [record for record in records if not (
                 record['content'] == '' and not record['hierarchy']['lvl0'])]
 
-            # TODO instead of using autoGenerateObjectIDIfNotExist we might create a hash out of hierarchy items
-            index.save_objects(records, {'autoGenerateObjectIDIfNotExist': True})
+            libraries_index.save_objects(records, {'autoGenerateObjectIDIfNotExist': True})
+
+    learn_index = client.init_index('learn')
+
+    # No need to set settings for the learn index as it is fixed and preconfigured.
+
+    for path in Path('./algolia_records/learn').glob('*.json'):
+        print('uploading records for {}...'.format(path.stem))
+
+        with open(path, 'r', encoding='utf-8') as f:
+            records = json.load(f)
+
+            # Delete the existing records for this section.
+            learn_index.delete_by({'filters': 'section_key:{}'.format(records[0]['section_key'])})
+
+            learn_index.save_objects(records, {'autoGenerateObjectIDIfNotExist': True})

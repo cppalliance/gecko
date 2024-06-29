@@ -75,7 +75,7 @@ def create_algolia_records(library_key: str, sections: dict, boost_root: str):
                 'lvl6': section['lvls'][6] if len(section['lvls']) > 6 else None
             }})
 
-    with open('./algolia_records/' + library_key.replace('/', '_') + '.json', 'w', encoding='utf-8') as outfile:
+    with open('./algolia_records/libraries/' + library_key.replace('/', '_') + '.json', 'w', encoding='utf-8') as outfile:
         json.dump(records, outfile, indent=4)
 
 
