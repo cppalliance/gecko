@@ -65,9 +65,9 @@ tar -xzf boost_1_85_0.tar.gz -C ../
 The following command utilizes the crawler and library list specified in the config to extract search records and store them in the [algolia_records](./algolia_records) directory.
 
 ```BASH
-python -m gecko.extract_records # Utilizes all available cores
+python -m gecko.extract_libraries_records
 # or
-python -m gecko.extract_records --concurrency=4 # Utilizes 4 cores
+python -m gecko.extract_learn_records
 ```
 
 ### Validating the generated records
