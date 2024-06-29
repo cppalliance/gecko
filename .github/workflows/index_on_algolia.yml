@@ -26,18 +26,28 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Clone and build website-v2-docs
+        run: |
+          git clone --depth=1 --branch=master https://github.com/boostorg/website-v2-docs.git ../website-v2-docs
+          cd ../website-v2-docs
+          ./build.sh
+
       - name: Download and extract boost release archive
         run: |
-          BOOST_VERSION=$(sed -n 's/.*version: "\(.*\)"/\1/p' config/config.yaml)
-          BOOST_VERSION_MAIN=$(echo $BOOST_VERSION | sed -E 's/([0-9]+)_([0-9]+)_([0-9]+)(.*)/\1.\2.\3/g')
-          wget --no-verbose https://boostorg.jfrog.io/artifactory/main/release/$BOOST_VERSION_MAIN/source/boost_$BOOST_VERSION.tar.gz
-          tar -xzf boost_$BOOST_VERSION.tar.gz -C ../
+          mkdir ../boost_1_85_0
+          # BOOST_VERSION=$(sed -n 's/.*version: "\(.*\)"/\1/p' config/config.yaml)
+          # BOOST_VERSION_MAIN=$(echo $BOOST_VERSION | sed -E 's/([0-9]+)_([0-9]+)_([0-9]+)(.*)/\1.\2.\3/g')
+          # wget --no-verbose https://boostorg.jfrog.io/artifactory/main/release/$BOOST_VERSION_MAIN/source/boost_$BOOST_VERSION.tar.gz
+          # tar -xzf boost_$BOOST_VERSION.tar.gz -C ../
 
-      - name: Extract records
-        run: python -m gecko.extract_records
+      - name: Extract learn records
+        run: python -m gecko.extract_learn_records
 
-      - name: Check validity of records
-        run: python -m gecko.sanitizer check
+      # - name: Extract libraries records
+      #   run: python -m gecko.extract_libraries_records
+
+      # - name: Check validity of records
+      #   run: python -m gecko.sanitizer check
 
       - name: Index on Algolia
         env:

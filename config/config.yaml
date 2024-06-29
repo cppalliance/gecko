@@ -1,6 +1,16 @@
 boost:
-  version: "1_85_0"
-  root: "../boost_1_85_0"
+  version: '1_85_0'
+  root: '../boost_1_85_0'
+
+website-v2-docs:
+  root: '../website-v2-docs/build'
+  sections:
+    - key: 'contributor-guide'
+      name: 'Contributor Guide'
+    - key: 'formal-reviews'
+      name: 'Formal Reviews'
+    - key: 'user-guide'
+      name: 'User Guide'
 
 algolia:
   app-id: D7O1MLLTAF

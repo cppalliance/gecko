@@ -7,10 +7,19 @@ config_schema = Schema({
         'version': str,
         'root': os.path.exists
     },
+    'website-v2-docs': {
+        'root': os.path.exists,
+        'sections': [
+            {
+                'key': str,
+                'name': str
+            }
+        ]
+    },
     'algolia': {
         'app-id': str,
         'api-key': str,
-        'settings':dict
+        'settings': dict
     },
     'crawlers': [
         {
