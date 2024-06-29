@@ -14,7 +14,7 @@ if (searchDemo) {
     </React.StrictMode>,
   );
 } else {
-  const { boostVersion, library } = parseURL();
+  const { onLearnPages, boostVersion, library } = parseURL();
 
   const rootElement = document.createElement('div');
   const root = ReactDOM.createRoot(rootElement);
@@ -31,8 +31,11 @@ if (searchDemo) {
           fontFamily={fontFamily}
           versionWarning={!!boostVersion && boostVersion !== currentBoostVersion}
           library={library}
-          urlPrefix={window.location.origin + `/doc/libs/${currentBoostVersion}`}
-          algoliaIndex={currentBoostVersion}
+          onLearnPages={onLearnPages}
+          librariesUrlPrefix={window.location.origin + `/doc/libs/${currentBoostVersion}`}
+          learnUrlPrefix={window.location.origin + '/doc/'}
+          librariesAlgoliaIndex={currentBoostVersion}
+          learnAlgoliaIndex={'learn'}
           alogliaAppId={'D7O1MLLTAF'}
           alogliaApiKey={'44d0c0aac3c738bebb622150d1ec4ebf'}
         />
@@ -48,17 +51,23 @@ if (searchDemo) {
 }
 
 function parseURL() {
+  let onLearnPages = false;
   let library = undefined;
   let boostVersion = undefined;
   let path = window.location.pathname;
 
-  const pathPrefix = '/doc/libs/';
-  if (!path.startsWith(pathPrefix)) return { boostVersion, library };
-  path = path.replace(pathPrefix, '');
+  const librariesPathPrefix = '/doc/libs/';
+  if (!path.startsWith(librariesPathPrefix)) {
+    const learnPathPrefixes = ['/docs/', '/doc/user-guide/', '/doc/formal-reviews/', '/doc/contributor-guide/']
+    if (learnPathPrefixes.some(str => path.startsWith(str)))
+      onLearnPages = true
+    return { onLearnPages, boostVersion, library };
+  }
+  path = path.replace(librariesPathPrefix, '');
 
   {
     const match = path.match(/^(.*?)\//);
-    if (!match || !match[1]) return { boostVersion, library };
+    if (!match || !match[1]) return { onLearnPages, boostVersion, library };
     boostVersion = match[1];
   }
 
@@ -86,5 +95,5 @@ function parseURL() {
 
   boostVersion = boostVersion.replace('boost_', '');
 
-  return { boostVersion, library };
+  return { onLearnPages, boostVersion, library };
 }

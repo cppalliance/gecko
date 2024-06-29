@@ -25,7 +25,19 @@ import CppallianceLogo from './CppallianceLogo';
 import SearchBox from './SearchBox';
 import InfiniteHits from './InfiniteHits';
 
-function SearchDialog({ themeMode, fontFamily, versionWarning, library, urlPrefix, algoliaIndex, alogliaAppId, alogliaApiKey }) {
+function SearchDialog({
+  themeMode,
+  fontFamily,
+  versionWarning,
+  library,
+  onLearnPages,
+  librariesUrlPrefix,
+  learnUrlPrefix,
+  librariesAlgoliaIndex,
+  learnAlgoliaIndex,
+  alogliaAppId,
+  alogliaApiKey
+}) {
   const [searchClient] = React.useState(() => {
     const algoliaClient = algoliasearch(alogliaAppId, alogliaApiKey);
     // Prevents empty search query
@@ -60,10 +72,10 @@ function SearchDialog({ themeMode, fontFamily, versionWarning, library, urlPrefi
     else setRecentSearches(new RecentSearches({ namespace: 'rs-main-page' }));
   }, [library]);
 
-  const [selectedTab, setSelectedTab] = React.useState('1');
+  const [selectedTab, setSelectedTab] = React.useState(onLearnPages ? '2' : '1');
 
-  const [nbHits, setnbHits] = React.useState(0);
-  const [otherLibrariesnbHits, setOtherLibrariesnbHits] = React.useState(0);
+  const [nbHits1, setnbHits1] = React.useState(0);
+  const [nbHits2, setnbHits2] = React.useState(0);
   const kFormatter = (num) => (num > 999 ? (num / 1000).toFixed(1) + 'k' : num);
 
   const handleTabChange = React.useCallback((event, newValue) => setSelectedTab(newValue), []);
@@ -164,16 +176,39 @@ function SearchDialog({ themeMode, fontFamily, versionWarning, library, urlPrefi
                   </Typography>
                 )}
                 {!library ? (
-                  <Typography
-                    variant='caption'
-                    gutterBottom
-                    sx={{ display: 'block', borderBottom: 1, borderColor: 'divider' }}
-                  >
-                    <Box component='span' fontWeight='bolder'>
-                      Tip:
-                    </Box>{' '}
-                    limit the search scope by navigating to a library page.
-                  </Typography>
+                  <>
+                    <Typography variant='caption' sx={{ display: 'block' }}>
+                      <Box component='span' fontWeight='bolder'>
+                        Tip:
+                      </Box>{' '}
+                      limit the search scope by navigating to a library page.
+                    </Typography>
+                    <Tabs
+                      value={selectedTab}
+                      onChange={handleTabChange}
+                      variant='fullWidth'
+                      sx={{ borderBottom: 1, borderColor: 'divider' }}
+                    >
+                      <Tab
+                        value='1'
+                        sx={{ textTransform: 'none', display: 'inline' }}
+                        label={
+                          <>
+                            Libraries <Typography variant='caption'>({kFormatter(nbHits1)})</Typography>
+                          </>
+                        }
+                      />
+                      <Tab
+                        value='2'
+                        sx={{ textTransform: 'none', display: 'inline' }}
+                        label={
+                          <>
+                            Learn <Typography variant='caption'>({kFormatter(nbHits2)})</Typography>
+                          </>
+                        }
+                      />
+                    </Tabs>
+                  </>
                 ) : (
                   <Tabs
                     value={selectedTab}
@@ -186,7 +221,7 @@ function SearchDialog({ themeMode, fontFamily, versionWarning, library, urlPrefi
                       sx={{ textTransform: 'none', display: 'inline' }}
                       label={
                         <>
-                          {library.name} <Typography variant='caption'>({kFormatter(nbHits)})</Typography>
+                          {library.name} <Typography variant='caption'>({kFormatter(nbHits1)})</Typography>
                         </>
                       }
                     />
@@ -195,7 +230,7 @@ function SearchDialog({ themeMode, fontFamily, versionWarning, library, urlPrefi
                       sx={{ textTransform: 'none', display: 'inline' }}
                       label={
                         <>
-                          Other Libraries <Typography variant='caption'>({kFormatter(otherLibrariesnbHits)})</Typography>
+                          Other Libraries <Typography variant='caption'>({kFormatter(nbHits2)})</Typography>
                         </>
                       }
                     />
@@ -206,22 +241,32 @@ function SearchDialog({ themeMode, fontFamily, versionWarning, library, urlPrefi
           </DialogTitle>
           <DialogContent sx={{ p: 1.5 }}>
             {!library ? (
-              <Index indexName={algoliaIndex}>
-                <Configure hitsPerPage={30} />
-                <InfiniteHits urlPrefix={urlPrefix} setnbHits={setnbHits} onClick={setRecentSearch} />
-              </Index>
-            ) : (
               <>
                 <Box hidden={selectedTab !== '1'} sx={{ pt: 1, typography: 'body1' }}>
-                  <Index indexName={algoliaIndex}>
-                    <Configure hitsPerPage={30} filters={'library_key:' + library.key} />
-                    <InfiniteHits urlPrefix={urlPrefix} setnbHits={setnbHits} onClick={setRecentSearch} singleLib />
+                  <Index indexName={librariesAlgoliaIndex}>
+                    <Configure hitsPerPage={30} />
+                    <InfiniteHits urlPrefix={librariesUrlPrefix} setnbHits={setnbHits1} onClick={setRecentSearch} showLibName />
                   </Index>
                 </Box>
                 <Box hidden={selectedTab !== '2'} sx={{ pt: 1, typography: 'body1' }}>
-                  <Index indexName={algoliaIndex}>
+                  <Index indexName={learnAlgoliaIndex}>
+                    <Configure hitsPerPage={30} />
+                    <InfiniteHits urlPrefix={learnUrlPrefix} setnbHits={setnbHits2} onClick={setRecentSearch} />
+                  </Index>
+                </Box>
+              </>
+            ) : (
+              <>
+                <Box hidden={selectedTab !== '1'} sx={{ pt: 1, typography: 'body1' }}>
+                  <Index indexName={librariesAlgoliaIndex}>
+                    <Configure hitsPerPage={30} filters={'library_key:' + library.key} />
+                    <InfiniteHits urlPrefix={librariesUrlPrefix} setnbHits={setnbHits1} onClick={setRecentSearch} />
+                  </Index>
+                </Box>
+                <Box hidden={selectedTab !== '2'} sx={{ pt: 1, typography: 'body1' }}>
+                  <Index indexName={librariesAlgoliaIndex}>
                     <Configure hitsPerPage={30} filters={'NOT library_key:' + library.key} />
-                    <InfiniteHits urlPrefix={urlPrefix} setnbHits={setOtherLibrariesnbHits} onClick={setRecentSearch} />
+                    <InfiniteHits urlPrefix={librariesUrlPrefix} setnbHits={setnbHits2} onClick={setRecentSearch} showLibName />
                   </Index>
                 </Box>
               </>
@@ -258,8 +303,11 @@ SearchDialog.propTypes = {
     key: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
   }),
-  urlPrefix: PropTypes.string.isRequired,
-  algoliaIndex: PropTypes.string.isRequired,
+  onLearnPages: PropTypes.bool.isRequired,
+  librariesUrlPrefix: PropTypes.string.isRequired,
+  learnUrlPrefix: PropTypes.string.isRequired,
+  librariesAlgoliaIndex: PropTypes.string.isRequired,
+  learnAlgoliaIndex: PropTypes.string.isRequired,
   alogliaAppId: PropTypes.string.isRequired,
   alogliaApiKey: PropTypes.string.isRequired,
 };
