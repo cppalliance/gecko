@@ -7,10 +7,21 @@ website-v2-docs:
   sections:
     - key: 'contributor-guide'
       name: 'Contributor Guide'
+      last-records: 388
+      last-words: 40989
+      last-lvls: 1325
+
     - key: 'formal-reviews'
       name: 'Formal Reviews'
+      last-records: 45
+      last-words: 7433
+      last-lvls: 154
+
     - key: 'user-guide'
       name: 'User Guide'
+      last-records: 189
+      last-words: 36070
+      last-lvls: 572
 
 algolia:
   app-id: D7O1MLLTAF
@@ -30,7 +41,7 @@ algolia:
       - unordered(hierarchy.lvl5)
       - unordered(hierarchy.lvl6)
       - content
-    numericAttributesToIndex: null
+    numericAttributesToIndex:
     attributesToRetrieve:
       - hierarchy.lvl0.path
       - hierarchy.lvl1.path
@@ -49,8 +60,8 @@ algolia:
     advancedSyntax: true
     attributeCriteriaComputedByMinProximity: true
     distinct: true
-    unretrievableAttributes: null
-    optionalWords: null
+    unretrievableAttributes:
+    optionalWords:
     attributesForFaceting:
       - library_key
     attributesToSnippet:

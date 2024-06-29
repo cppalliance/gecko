@@ -12,7 +12,10 @@ config_schema = Schema({
         'sections': [
             {
                 'key': str,
-                'name': str
+                'name': str,
+                'last-records': int,
+                'last-words': int,
+                'last-lvls': int
             }
         ]
     },
