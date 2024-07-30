@@ -71,7 +71,7 @@ class BoostGIL(Crawler):
             if up:
                 up = urljoin(file_path, up.get('href'))
 
-            heading = soup.select_one('body > .content > .section > h1:first-child')
+            heading = soup.select_one('body > .content > section > h1:first-child')
 
             if not heading:
                 return releative_links
@@ -81,7 +81,7 @@ class BoostGIL(Crawler):
 
             content = ''
             for sibling in heading.next_siblings:
-                if has_class(sibling, 'section'):
+                if sibling.name == 'section':
                     break
                 content += sibling.get_text().strip() + ' '
 
@@ -90,7 +90,7 @@ class BoostGIL(Crawler):
             lvl0 = [{'title': title, 'path': path}]
             sections[path] = {'lvls': lvl0, 'content': content, 'up': up}
 
-            for section in soup.select('body > .content > .section > .section'):
+            for section in soup.select('body > .content > section > section'):
                 subheading = section.select_one('h2:first-of-type')
                 content = ''
                 for sibling in subheading.next_siblings:
