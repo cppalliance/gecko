@@ -98,7 +98,7 @@ class QuickBook(Crawler):
                 if not link.endswith(".html"):
                     continue
 
-                if library_key not in link.lower() and library_key.replace('_', '') not in link.lower():
+                if library_key not in link.lower() and library_key.replace('_', '') not in link.lower() and library_key.replace('_', '__') not in link.lower():
                     # Workaround for pfr file in wrong path
                     if not (library_key == 'pfr' and 'reference_section.html' in link):
                         continue
@@ -132,9 +132,11 @@ class QuickBook(Crawler):
 
             # remove index sections from pages, like:
             # https://www.boost.org/doc/libs/1_82_0/doc/html/boost_asio/index.html
-            for index in soup.select('.section .index'):
+            for index in soup.select('.section .index, section .index'):
                 if index.find_parent(class_='section'):
                     index.find_parent(class_='section').decompose()
+                if index.find_parent('section'):
+                    index.find_parent('section').decompose()
 
             # collect all releative links to scrape
             releative_links = []
@@ -212,7 +214,7 @@ class QuickBook(Crawler):
                         if sibling.name in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
                             break
 
-                        if has_class(sibling, 'section'):
+                        if has_class(sibling, 'section') or sibling.name == 'section':
                             break
 
                         if has_class(sibling, 'toc'):
@@ -220,9 +222,9 @@ class QuickBook(Crawler):
 
                         content += sibling.get_text().strip() + ' '
 
-                    if anchor.has_attr('href') and header != soup.select_one('.body > .section:first-child > h1'):
+                    if anchor.has_attr('href') and header != soup.select_one('.body > .section:first-child > h1, .body > section:first-child > h1'):
                         path = urljoin(file_path, anchor.get('href'))
-                    elif header != soup.select_one('body > div > .titlepage') and header != soup.select_one('.body > .section:first-child > h1'):
+                    elif header != soup.select_one('body > div > .titlepage') and header != soup.select_one('.body > .section:first-child > h1, .body > section:first-child > h1'):
                         path = file_path + '#' + anchor.get('name')
                     else:
                         path = file_path
@@ -238,14 +240,14 @@ class QuickBook(Crawler):
                                 'path': file_path
                             }
                         ]
-                    elif soup.select_one('.body > .section:first-child > h1'):
+                    elif soup.select_one('.body > .section:first-child > h1, .body > section:first-child > h1'):
                         lvls = [
                             {
                                 'title': sanitize_title(anchor.parent.text),
                                 'path': path
                             },
                             {
-                                'title': sanitize_title(soup.select_one('.body > .section:first-child > h1').text),
+                                'title': sanitize_title(soup.select_one('.body > .section:first-child > h1, .body > section:first-child > h1').text),
                                 'path': file_path
                             }
                         ]
