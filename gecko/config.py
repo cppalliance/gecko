@@ -5,7 +5,8 @@ from schema import Schema
 config_schema = Schema({
     'boost': {
         'version': str,
-        'root': os.path.exists
+        'root': os.path.exists,
+        'link': str,
     },
     'website-v2-docs': {
         'root': os.path.exists,
