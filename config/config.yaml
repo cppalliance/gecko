@@ -1,7 +1,7 @@
 boost:
   version: '1_86_0'
   root: '../boost_1_86_0'
-  link: 'https://archives.boost.io/beta/1.86.0.beta1/source/boost_1_86_0_b1.tar.gz'
+  link: 'https://archives.boost.io/release/1.86.0/source/boost_1_86_0.tar.gz'
 
 website-v2-docs:
   root: '../website-v2-docs/build'
@@ -366,7 +366,7 @@ crawlers:
 
       - key: leaf
         last-records: 127
-        last-words: 23446
+        last-words: 23486
         last-lvls: 275
 
       - key: mp11
@@ -437,9 +437,9 @@ crawlers:
         last-lvls: 59
 
       - key: asio
-        last-records: 10371
-        last-words: 393275
-        last-lvls: 38087
+        last-records: 10372
+        last-words: 393441
+        last-lvls: 38089
 
       - key: atomic
         last-records: 76
@@ -488,7 +488,7 @@ crawlers:
 
       - key: container
         last-records: 521
-        last-words: 95719
+        last-words: 95726
         last-lvls: 1781
 
       - key: context
@@ -512,9 +512,9 @@ crawlers:
         last-lvls: 387
 
       - key: core
-        last-records: 376
-        last-words: 17147
-        last-lvls: 731
+        last-records: 377
+        last-words: 17211
+        last-lvls: 733
 
       - key: coroutine
         last-records: 116
@@ -622,14 +622,14 @@ crawlers:
         last-lvls: 2290
 
       - key: intrusive
-        last-records: 647
-        last-words: 148173
-        last-lvls: 2124
+        last-records: 648
+        last-words: 148183
+        last-lvls: 2126
 
       - key: json
-        last-records: 4357
-        last-words: 79439
-        last-lvls: 18555
+        last-records: 4385
+        last-words: 80176
+        last-lvls: 18663
 
       - key: lambda
         last-records: 63
@@ -657,9 +657,9 @@ crawlers:
         last-lvls: 7471
 
       - key: math
-        last-records: 1942
-        last-words: 349919
-        last-lvls: 6816
+        last-records: 1944
+        last-words: 350023
+        last-lvls: 6822
 
       - key: metaparse
         last-records: 744
