@@ -1,18 +1,18 @@
 import json
 from pathlib import Path
 
-from algoliasearch.search_client import SearchClient
+from algoliasearch.search.client import SearchClientSync
 
 from .config import config
 
 if __name__ == "__main__":
-    client = SearchClient.create(config['algolia']['app-id'], config['algolia']['api-key'])
+    client = SearchClientSync(config['algolia']['app-id'], config['algolia']['api-key'])
 
     print('Initializing {} index ...'.format(config['boost']['version']))
-    libraries_index = client.init_index(config['boost']['version'])
+    libraries_index = config['boost']['version']
 
     print('Setting settings for {} index ...'.format(config['boost']['version']))
-    libraries_index.set_settings(config['algolia']['settings'])
+    client.set_settings(libraries_index, config['algolia']['settings'])
 
     for path in Path('./algolia_records/libraries').glob('*.json'):
         print('uploading records for {}...'.format(path.stem))
@@ -21,7 +21,7 @@ if __name__ == "__main__":
             records = json.load(f)
 
             # Delete the existing records for this library.
-            libraries_index.delete_by({'filters': 'library_key:{}'.format(records[0]['library_key'])})
+            client.delete_by(libraries_index, {'filters': 'library_key:{}'.format(records[0]['library_key'])})
 
             # Split long documents into smaller parts.
             for record in records:
@@ -34,9 +34,7 @@ if __name__ == "__main__":
             records = [record for record in records if not (
                 record['content'] == '' and not record['hierarchy']['lvl0'])]
 
-            libraries_index.save_objects(records, {'autoGenerateObjectIDIfNotExist': True})
-
-    learn_index = client.init_index('learn')
+            client.save_objects(libraries_index, records, {'autoGenerateObjectIDIfNotExist': True})
 
     # No need to set settings for the learn index as it is fixed and preconfigured.
 
@@ -47,6 +45,6 @@ if __name__ == "__main__":
             records = json.load(f)
 
             # Delete the existing records for this section.
-            learn_index.delete_by({'filters': 'section_key:{}'.format(records[0]['section_key'])})
+            client.delete_by('learn', {'filters': 'section_key:{}'.format(records[0]['section_key'])})
 
-            learn_index.save_objects(records, {'autoGenerateObjectIDIfNotExist': True})
+            client.save_objects('learn', records, {'autoGenerateObjectIDIfNotExist': True})

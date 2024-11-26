@@ -1,7 +1,7 @@
 import re
 from bs4 import BeautifulSoup
 
-from lxml.html.clean import Cleaner
+from lxml_html_clean import Cleaner
 
 from .crawler import Crawler
 

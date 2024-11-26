@@ -3,7 +3,7 @@ import re
 from urllib.parse import urljoin, urlparse
 
 from bs4 import BeautifulSoup, Tag
-from lxml.html.clean import Cleaner
+from lxml_html_clean import Cleaner
 
 from .crawler import Crawler
 from .helpers import has_class
