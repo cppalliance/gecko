@@ -1,3 +1,4 @@
+from .antora import Antora
 from .asciidoc import AsciiDoc
 from .boost_exception import BoostException
 from .boost_format import BoostFormat
