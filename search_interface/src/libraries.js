@@ -364,6 +364,10 @@ export const libraries = [
     name: 'Outcome',
   },
   {
+    key: 'parser',
+    name: 'Parser',
+  },
+  {
     key: 'pfr',
     name: 'PFR',
   },

@@ -72,6 +72,7 @@ function parseURL() {
   }
 
   path = path.replace(boostVersion + '/', '');
+  path = path.replace('doc/antora/', '');
   path = path.replace('doc/html/boost_', '');
   path = path.replace('doc/html/boost/', '');
   path = path.replace('doc/html/', '');
