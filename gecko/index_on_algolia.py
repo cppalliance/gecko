@@ -26,7 +26,7 @@ if __name__ == "__main__":
             # Split long documents into smaller parts.
             for record in records:
                 if len(record['content']) > 5000:
-                    new_record = record
+                    new_record = record.copy()
                     new_record['content'] = new_record['content'][4900:]
                     record['content'] = record['content'][:5000]
                     records.append(new_record)
