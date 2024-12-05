@@ -20,7 +20,7 @@ class AsciiDoc(Crawler):
 
         with open(index_path, 'r', encoding='utf-8', errors='ignore') as file:
             soup = BeautifulSoup(file.read(), 'html.parser')
-            for sect1 in soup.select('body > div[id="content"] > .sect1'):
+            for sect1 in soup.select('body div[id="content"] > .sect1'):
                 self._extract_section_n(index_path, sections, sect1)
 
         return sections

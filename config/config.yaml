@@ -1,7 +1,7 @@
 boost:
   version: '1_87_0'
   root: '../boost_1_87_0'
-  link: 'https://archives.boost.io/beta/1.87.0.beta1/source/boost_1_87_0_b1.tar.gz'
+  link: 'https://boostorg.jfrog.io/artifactory/main/release/1.87.0/source/boost_1_87_0_rc1.tar.gz'
 
 website-v2-docs:
   root: '../website-v2-docs/build'
@@ -287,7 +287,7 @@ crawlers:
 
       - key: timer
         last-records: 31
-        last-words: 3368
+        last-words: 3373
         last-lvls: 50
 
       - key: uuid
@@ -320,9 +320,9 @@ crawlers:
   - name: Antora
     libraries:
       - key: url
-        last-records: 6555
-        last-words: 103680
-        last-lvls: 14036
+        last-records: 5737
+        last-words: 108972
+        last-lvls: 11333
 
   - name: AsciiDoc
     libraries:
@@ -331,10 +331,10 @@ crawlers:
         last-words: 1444
         last-lvls: 35
 
-      # - key: charconv
-      #   last-records: 0
-      #   last-words: 0
-      #   last-lvls: 0
+      - key: charconv
+        last-records: 80
+        last-words: 3962
+        last-lvls: 202
 
       - key: cobalt
         last-records: 132
@@ -444,14 +444,14 @@ crawlers:
         last-lvls: 59
 
       - key: asio
-        last-records: 10200
-        last-words: 383756
-        last-lvls: 37375
+        last-records: 10204
+        last-words: 384019
+        last-lvls: 37387
 
       - key: atomic
-        last-records: 76
-        last-words: 13494
-        last-lvls: 140
+        last-records: 77
+        last-words: 13506
+        last-lvls: 142
 
       - key: beast
         last-records: 4860
@@ -484,9 +484,9 @@ crawlers:
         last-lvls: 151
 
       - key: compute
-        last-records: 707
-        last-words: 22952
-        last-lvls: 2232
+        last-records: 711
+        last-words: 23016
+        last-lvls: 2246
 
       - key: config
         last-records: 55
@@ -495,7 +495,7 @@ crawlers:
 
       - key: container
         last-records: 521
-        last-words: 95876
+        last-words: 95897
         last-lvls: 1778
 
       - key: context
@@ -594,9 +594,9 @@ crawlers:
         last-lvls: 7006
 
       - key: geometry
-        last-records: 2543
-        last-words: 86410
-        last-lvls: 10692
+        last-records: 2544
+        last-words: 86535
+        last-lvls: 10694
 
       - key: heap
         last-records: 91
@@ -674,9 +674,9 @@ crawlers:
         last-lvls: 1477
 
       - key: move
-        last-records: 108
-        last-words: 9652
-        last-lvls: 276
+        last-records: 109
+        last-words: 9681
+        last-lvls: 278
 
       - key: mpi
         last-records: 181
@@ -699,9 +699,9 @@ crawlers:
         last-lvls: 609
 
       - key: mysql
-        last-records: 3601
-        last-words: 114405
-        last-lvls: 14155
+        last-records: 3643
+        last-words: 124667
+        last-lvls: 14235
 
       - key: numeric/conversion
         last-records: 57
@@ -715,8 +715,13 @@ crawlers:
 
       - key: optional
         last-records: 86
-        last-words: 15297
+        last-words: 15340
         last-lvls: 185
+
+      - key: parser
+        last-records: 582
+        last-words: 61467
+        last-lvls: 564
 
       - key: pfr
         last-records: 135
