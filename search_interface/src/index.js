@@ -29,10 +29,10 @@ if (searchDemo) {
         <SearchDialog
           themeMode={themeMode}
           fontFamily={fontFamily}
-          versionWarning={!!boostVersion && boostVersion !== currentBoostVersion}
+          versionWarning={!!boostVersion && boostVersion !== currentBoostVersion && boostVersion !== 'latest'}
           library={library}
           onLearnPages={onLearnPages}
-          librariesUrlPrefix={window.location.origin + `/doc/libs/${currentBoostVersion}`}
+          librariesUrlPrefix={window.location.origin + '/doc/libs/latest'}
           learnUrlPrefix={window.location.origin + '/doc/'}
           librariesAlgoliaIndex={currentBoostVersion}
           learnAlgoliaIndex={'learn'}
